@@ -1,3 +1,4 @@
+@defer(on timer(500ms)) {
 <p-table
   [columns]="getColumns()"
   [value]="getUsers()"
@@ -27,7 +28,7 @@
         <p-button
           severity="info"
           size="small"
-          label="Edit"
+          [label]="actionButton.edit"
           (click)="onClickActionBtn('edit', rowData)"
           styleClass="custom-button"
         ></p-button>
@@ -36,7 +37,7 @@
         <p-button
           severity="danger"
           size="small"
-          label="Delete"
+          [label]="actionButton.delete"
           (click)="onClickActionBtn('delete', rowData)"
           styleClass="custom-button"
         ></p-button>
@@ -125,4 +126,4 @@
     </div>
   </div>
 </div>
-}
+} }

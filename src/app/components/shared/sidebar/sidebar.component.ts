@@ -157,9 +157,9 @@ export class SidebarComponent implements OnInit {
           this.commonService.accessToken = localStorage.getItem(
             LocalKeys.accessToken
           );
-          this.router.navigate(['/security']);
+          this.router.navigate(['security']);
           this.spinner.hide();
-        }, 1000);
+        }, 500);
       },
     });
   }

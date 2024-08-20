@@ -90,7 +90,10 @@ export class CoreServiceService {
   }
 
   httpErrorHandler(error: HttpErrorResponse) {
-    if (error.status === 401 || error.status == 403) {
+    if (
+      (error.status === 401 || error.status == 403) &&
+      this.commonService.isLogin()
+    ) {
       this.confirmationService.confirm({
         ...this.commonHelper.commonConfrimation(),
         message: 'Session expired please login again.',

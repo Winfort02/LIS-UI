@@ -15,8 +15,8 @@ export enum ButtonLabel {
   ADD = 'Add',
   EDIT = 'Edit',
   DELETE = 'Delete',
-  LOCK = 'Lock',
-  UNLOCK = 'Unlock',
+  CANCEL = 'Cancel',
+  VIEW = 'View Detail',
 }
 
 export enum Icon {
@@ -25,11 +25,14 @@ export enum Icon {
   LOCK = 'pi pi-lock',
   OPEN_LOCK = 'pi pi-lock-open',
   LOGOUT = 'pi pi-power-off',
+  CANCEL = 'pi pi-times',
+  EDIT = 'pi pi-pencil',
 }
 
 export enum Severity {
   INFO = 'info',
   ERROR = 'error',
+  DANGER = 'danger',
 }
 
 export enum LocalKeys {
@@ -51,4 +54,10 @@ export enum ApplicationUrl {
   USER_LIST = 'application/users',
   PATIENT_LIST = 'application/patients',
   PATIENT_DETAIL = 'application/patient/detail/',
+}
+
+export enum ButtonColor {
+  SUCCESS = 'p-button-success',
+  INFO = 'p-button-info',
+  DANGER = 'p-button-danger',
 }

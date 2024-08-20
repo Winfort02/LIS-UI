@@ -15,6 +15,7 @@ import {
   ButtonLabel,
   Severity,
   Icon,
+  ButtonColor,
 } from '../../../enums/common.enum';
 import { MESSAGES } from '../../../helpers/constant.helper';
 import { CommonHelper } from '../../../helpers/common.helper';
@@ -43,9 +44,10 @@ export class PatientDetailComponent implements OnInit {
   messages: Message[] = [];
   isInvalidForm!: boolean;
   patient = signal<Patient>(new Patient());
-  lockIconBtn = Icon.LOCK;
-  lockBtnLabel = ButtonLabel.LOCK;
-  isLock = signal<boolean>(false);
+  editIconBtn = Icon.EDIT;
+  editBtnLabel = ButtonLabel.EDIT;
+  isEdit = signal<boolean>(false);
+  editBtnSeverity = ButtonColor.INFO;
   paramsId = parseInt(this.route.snapshot.params['id']);
   commonHelper = new CommonHelper<Patient>();
 
@@ -58,13 +60,16 @@ export class PatientDetailComponent implements OnInit {
   }
 
   toggleLock() {
-    this.isLock.set(!this.isLock());
-    this.lockIconBtn = this.isLock() ? Icon.LOCK : Icon.OPEN_LOCK;
-    this.lockBtnLabel = this.isLock() ? ButtonLabel.LOCK : ButtonLabel.UNLOCK;
+    this.isEdit.set(!this.isEdit());
+    this.editIconBtn = this.isEdit() ? Icon.EDIT : Icon.CANCEL;
+    this.editBtnLabel = this.isEdit() ? ButtonLabel.EDIT : ButtonLabel.CANCEL;
+    this.editBtnSeverity = this.isEdit()
+      ? ButtonColor.INFO
+      : ButtonColor.DANGER;
   }
 
   onSave(event: Patient) {
-    if (!this.isLock()) {
+    if (!this.isEdit()) {
       if (this.paramsId === 0) {
         this.patientService.createPatient(event).subscribe({
           next: (response: CommonSuccessResponse<Patient>) => {

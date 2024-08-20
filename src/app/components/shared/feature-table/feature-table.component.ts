@@ -14,6 +14,8 @@ import { ITableColumn } from '../../../interfaces/table-column.interface';
 import { ButtonModule } from 'primeng/button';
 import { Pagination } from '../../../models/pagination.model';
 import { CommonModule } from '@angular/common';
+import { ButtonLabel } from '../../../enums/common.enum';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-feature-table',
@@ -25,9 +27,13 @@ import { CommonModule } from '@angular/common';
 export class FeatureTableComponent implements OnInit {
   @Input() cols = signal<ITableColumn[]>([]);
   @Input() items = signal<any[]>([]);
-  @Input() loading: boolean = true;
+  @Input() loading: boolean = false;
   @Input() pagination = signal<Pagination>(new Pagination());
   @Input() enablePagination: Boolean = false;
+  @Input() actionButton: { edit: string; delete: string } = {
+    edit: ButtonLabel.EDIT,
+    delete: ButtonLabel.DELETE,
+  };
 
   @Output() paginatePage = new EventEmitter<string>();
   @Output() pageChanged = new EventEmitter<number>();
@@ -41,13 +47,17 @@ export class FeatureTableComponent implements OnInit {
   getColumns = computed(() => this.cols());
   getPagination = computed(() => this.pagination());
 
-  constructor() {
+  constructor(private spinner: NgxSpinnerService) {
+    this.spinner.show();
     effect(() => {
       this.updatePageNumbers();
       untracked(() => this.pagination());
       untracked(() => this.cols());
       untracked(() => this.items());
     });
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 500);
   }
 
   onPaginatePage(page: string) {

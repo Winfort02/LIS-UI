@@ -19,12 +19,12 @@
       [items]="patients"
       [cols]="cols"
       tableSize="large"
-      [loading]="isLoading"
       (paginatePage)="onPaginatePage($event)"
       (pageChanged)="onPageChange($event)"
       [enablePagination]="true"
       [pagination]="pagination"
       (actionBtn)="onClickActionBtn($event)"
+      [actionButton]="actionButton"
     />
   </div>
 </div>

@@ -16,12 +16,12 @@
       <button
         type="button"
         pButton
-        class="p-button-success custom-button"
-        [label]="lockBtnLabel"
-        [icon]="lockIconBtn"
+        class="{{ editBtnSeverity }} custom-button"
+        [label]="editBtnLabel"
+        [icon]="editIconBtn"
         (click)="toggleLock()"
       ></button>
-      }
+      } @if (!isEdit()) {
       <button
         type="submit"
         pButton
@@ -31,6 +31,7 @@
         icon="pi pi-save"
         [disabled]="!isInvalidForm"
       ></button>
+      }
     </app-feature-detail-header>
   </div>
   <div class="col-12 h-1rem surface-200 w-full"></div>
@@ -40,7 +41,7 @@
       formId="patient-form"
       (onTrackChanges)="onTrack($event)"
       [patient]="patient"
-      [isLock]="isLock"
+      [isLock]="isEdit"
     >
     </app-form-container>
   </div>

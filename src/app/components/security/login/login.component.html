@@ -18,7 +18,7 @@
       <input
         type="email"
         pInputText
-        class="w-full mt-2"
+        class="w-full mt-2 p-inputtext-lg"
         placeholder="Enter email address"
         formControlName="email"
       />
@@ -35,7 +35,7 @@
       <input
         type="password"
         pInputText
-        class="w-full mt-2"
+        class="w-full mt-2 p-inputtext-lg"
         placeholder="Enter your password"
         formControlName="password"
       />
@@ -55,6 +55,7 @@
         styleClass="w-full mt-2"
         [disabled]="loginForm.invalid"
         (click)="onSubmit()"
+        size="large"
       />
     </div>
   </form>

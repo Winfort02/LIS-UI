@@ -35,7 +35,6 @@ import { SearchComponent } from '../../shared/search/search.component';
   providers: [UserServiceService, DialogService],
 })
 export class UserComponent implements OnInit, OnDestroy {
-  isLoading!: boolean;
   cols = signal<ITableColumn[]>([]);
   users = signal<User[]>([]);
   pagination = signal<Pagination>(new Pagination());
@@ -128,7 +127,6 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   getAllUsers(page: number) {
-    this.isLoading = true;
     this.userSubscription = this.userService
       .getUsers(page, this.size, this.keywords())
       .subscribe({
@@ -139,7 +137,6 @@ export class UserComponent implements OnInit, OnDestroy {
         error: (error) => {
           throw new Error(error);
         },
-        complete: () => (this.isLoading = false),
       });
   }
 
