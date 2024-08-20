@@ -1,0 +1,53 @@
+<div
+  class="col-12 w-full flex flex-column align-items-center justify-content-start gap-2"
+>
+  @if (messages.length) {
+  <div class="col-12">
+    <p-messages
+      [(value)]="messages"
+      [enableService]="false"
+      [closable]="true"
+    />
+  </div>
+  }
+  <div class="col-12">
+    <app-feature-detail-header title="Patient Information" (onBack)="onBack()">
+      @if (paramsId) {
+      <button
+        type="button"
+        pButton
+        class="p-button-success custom-button"
+        [label]="lockBtnLabel"
+        [icon]="lockIconBtn"
+        (click)="toggleLock()"
+      ></button>
+      }
+      <button
+        type="submit"
+        pButton
+        form="patient-form"
+        class="p-button-primary custom-button"
+        label="Save"
+        icon="pi pi-save"
+        [disabled]="!isInvalidForm"
+      ></button>
+    </app-feature-detail-header>
+  </div>
+  <div class="col-12 h-1rem surface-200 w-full"></div>
+  <div class="col-12">
+    <app-form-container
+      (onFormSubmit)="onSave($event)"
+      formId="patient-form"
+      (onTrackChanges)="onTrack($event)"
+      [patient]="patient"
+      [isLock]="isLock"
+    >
+    </app-form-container>
+  </div>
+  <div class="col-12 h-1rem surface-200 w-full"></div>
+  <div
+    class="col-12 flex flex-column align-items-center justify-content-center"
+  >
+    <div class="col-12"></div>
+  </div>
+</div>

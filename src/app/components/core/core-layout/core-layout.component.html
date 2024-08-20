@@ -1,0 +1,17 @@
+<app-toolbar (menuButtonClick)="onMenuButtonClick()" />
+<div class="col-12 w-full">
+  <div class="layout-wrapper">
+    <app-sidebar [active]="menuActive"></app-sidebar>
+    <div
+      class="layout-mask"
+      [ngClass]="{ 'layout-mask-active': menuActive }"
+      (click)="onMaskClick()"
+    ></div>
+    <div class="layout-content" style="padding-bottom: 6rem">
+      <div class="col-12 w-full" *ngIf="items.length > 0 ? true : false">
+        <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+      </div>
+      <router-outlet />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,115 @@
+<div class="col-12">
+  @if (response.message.length) {
+  <div class="col-12">
+    <p-messages
+      [(value)]="response.message"
+      [enableService]="false"
+      [closable]="true"
+      [hideTransitionOptions]="'500ms'"
+    />
+  </div>
+  }
+  <form
+    [formGroup]="userForm"
+    class="col-12 flex flex-column justify-content-start align-items-center w-full"
+  >
+    <div class="col-12 hidden">
+      <input formControlName="id" type="text" hidden />
+    </div>
+    <div class="col-12">
+      <label for="name"> Name</label>
+      <input
+        type="text"
+        pInputText
+        placeholder="Enter your name"
+        class="w-full mt-2"
+        id="name"
+        formControlName="name"
+      />
+      @if (userForm.controls["name"].errors?.["required"] &&
+      userForm.controls["name"].dirty) {
+      <small class="text-red-500">Name field is required</small>
+      }@else if (userForm.controls["name"].errors?.["pattern"]) {
+      <small class="text-red-500">Invalid name format</small>
+      }
+    </div>
+    <div class="col-12">
+      <label for="email"> Email</label>
+      <input
+        type="email"
+        pInputText
+        placeholder="Enter your email"
+        class="w-full mt-2"
+        id="email"
+        formControlName="email"
+      />
+      @if (userForm.controls["email"].errors?.["required"] &&
+      userForm.controls["email"].dirty) {
+      <small class="text-red-500">Email field is required</small>
+      }@else if (userForm.controls["email"].errors?.["pattern"]) {
+      <small class="text-red-500"
+        >Invalid name field format (eg. test&#64;gmail.com)</small
+      >
+      }
+    </div>
+    @if (!isEditMode) {
+    <div class="col-12">
+      <label for="password"> Password</label>
+      <input
+        type="password"
+        autocomplete="new-password"
+        pInputText
+        placeholder="Enter a password"
+        class="w-full mt-2"
+        id="password"
+        formControlName="password"
+      />
+      @if (userForm.controls["password"].errors?.["required"] &&
+      userForm.controls["password"].dirty) {
+      <small class="text-red-500">Password is required</small>
+      }@else if (userForm.controls["password"].errors?.["minlength"] &&
+      userForm.controls["password"].dirty) {
+      <small class="text-red-500"
+        >Password must be at least 8 characters long.</small
+      >
+      } @else if (userForm.controls["password"].errors?.["pattern"]) {
+      <small class="text-red-500"
+        >Password must contain at least one uppercase and one numeric character.
+        (eg. Example123)
+      </small>
+
+      }
+    </div>
+    <div class="col-12">
+      <label for="confirmPassword"> Confirm Password</label>
+      <input
+        type="password"
+        autocomplete="new-password"
+        pInputText
+        placeholder="Enter confirm password"
+        class="w-full mt-2"
+        id="confirmPassword"
+        formControlName="confirmPassword"
+      />
+      @if (userForm.controls["confirmPassword"].errors?.["required"] &&
+      userForm.controls["confirmPassword"].dirty) {
+      <small class="text-red-500">Confirm password field is required</small>
+      }@else if (
+      userForm.controls["confirmPassword"].errors?.['passwordMismatch'] &&
+      userForm.controls["confirmPassword"].dirty) {
+      <small class="text-red-500">Invalid confrim password</small>
+      }
+    </div>
+    }
+    <br />
+    <div class="col-12">
+      <p-button
+        severity="info"
+        label="Save"
+        styleClass="w-full text-center"
+        (click)="onSubmit()"
+        [disabled]="userForm.invalid"
+      />
+    </div>
+  </form>
+</div>

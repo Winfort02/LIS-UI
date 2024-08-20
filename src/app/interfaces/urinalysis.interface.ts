@@ -1,0 +1,41 @@
+import { IPatient } from './patient.interface';
+import { ITestOrder } from './test-order.interface';
+
+export interface IResultTypeUrinalysis {
+  id?: number;
+  test_order: ITestOrder;
+  test_order_id: number;
+  patient: IPatient;
+  patient_id: number;
+  physical_property_color?: string;
+  physical_property_transparency?: string;
+  physical_property_ph?: number;
+  physical_property_specific_gravity?: number;
+  chemical_test_reducing_sugar?: number;
+  chemical_test_protein?: number;
+  me_wbc?: number;
+  me_rbc?: number;
+  me_ec_squamous?: string;
+  me_ec_renal_tubolar?: string;
+  me_ec_transitional?: string;
+  me_ec_bacteria?: string;
+  me_ec_yeast?: string;
+  me_ec_mucos_threads?: string;
+  me_crytals_amorphous_urates?: string;
+  me_crytals_amorphous_phosphates?: string;
+  me_crytals_uric_acid?: string;
+  me_crytals_calcium_oxalate?: string;
+  me_crytals_tripple_phosphate?: string;
+  me_crytals_calcium_carbonate?: string;
+  me_crytals_phosphate?: string;
+  me_crytals_ammonium_biurate?: string;
+  me_cast_hyline?: string;
+  me_cast_fine_granular?: string;
+  me_cast_coarse_granular?: string;
+  me_cast_rbc?: string;
+  me_cast_wbc?: string;
+  me_cast_waxy?: string;
+  me_cast_board?: string;
+  date_of_result: Date;
+  remarks: string;
+}

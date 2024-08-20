@@ -1,0 +1,145 @@
+<form
+  class="col-12 flex flex-column justify-content-center align-items-center gap-2"
+  [formGroup]="patientForm"
+  (ngSubmit)="onSubmit()"
+  [id]="formId"
+>
+  <div class="col-12 flex justify-content-start align-items-stretch flex-wrap">
+    <input type="text" formControlName="id" hidden />
+    <div class="col-12 sm:col-12 md:col-4 lg:col-3 xl:col-3">
+      <p class="px-2 text-500 uppercase">First Name</p>
+      <input
+        type="text"
+        pInputText
+        placeholder="Enter first name ..."
+        class="w-full"
+        formControlName="first_name"
+      />
+      @if (patientForm.controls["first_name"].errors?.["required"] &&
+      patientForm.controls["first_name"].dirty) {
+      <small class="text-red-500">First name field is required </small>
+      } @else if (patientForm.controls["first_name"].errors?.["pattern"]) {
+      <small class="text-red-500">Invalid format (eg. First Name) </small>
+      }
+    </div>
+    <div class="col-12 sm:col-12 md:col-4 lg:col-3 xl:col-3">
+      <p class="px-2 text-500 uppercase">Middle Name</p>
+      <input
+        type="text"
+        pInputText
+        placeholder="Enter middle name ..."
+        class="w-full"
+        formControlName="middle_name"
+      />
+      @if (patientForm.controls["middle_name"].errors?.["required"] &&
+      patientForm.controls["middle_name"].dirty) {
+      <small class="text-red-500">First name field is required </small>
+      } @else if (patientForm.controls["middle_name"].errors?.["pattern"]) {
+      <small class="text-red-500">Invalid format (eg. First Name) </small>
+      }
+    </div>
+    <div class="col-12 sm:col-12 md:col-4 lg:col-3 xl:col-3">
+      <p class="px-2 text-500 uppercase">Last Name</p>
+      <input
+        type="text"
+        pInputText
+        placeholder="Enter last name ..."
+        class="w-full"
+        formControlName="last_name"
+      />
+      @if (patientForm.controls["last_name"].errors?.["required"] &&
+      patientForm.controls["last_name"].dirty) {
+      <small class="text-red-500">First name field is required </small>
+      } @else if (patientForm.controls["last_name"].errors?.["pattern"]) {
+      <small class="text-red-500">Invalid format (eg. First Name) </small>
+      }
+    </div>
+    <div class="col-12 sm:col-12 md:col-4 lg:col-3 xl:col-3">
+      <p class="px-2 text-500 uppercase">Contact Number</p>
+      <input
+        type="text"
+        pInputText
+        placeholder="Enter contact number ..."
+        class="w-full"
+        formControlName="contact_number"
+      />
+      @if (patientForm.controls["contact_number"].errors?.["required"] &&
+      patientForm.controls["contact_number"].dirty) {
+      <small class="text-red-500">First name field is required </small>
+      } @else if (patientForm.controls["contact_number"].errors?.["pattern"]) {
+      <small class="text-red-500"
+        >Invalid format (eg. +639123456722 | 09123456721)
+      </small>
+      }
+    </div>
+    <div class="col-12 sm:col-12 md:col-4 lg:col-3 xl:col-3">
+      <p class="px-2 text-500 uppercase">Birthday</p>
+      <p-calendar
+        formControlName="date_of_birth"
+        styleClass="w-full"
+        dateFormat="dd-mm-yy"
+        [maxDate]="maxDate"
+        placeholder="MM-DD-YYYY"
+      />
+      @if (patientForm.controls["date_of_birth"].errors?.["required"] &&
+      patientForm.controls["date_of_birth"].dirty) {
+      <small class="text-red-500">Birthday field is required </small>
+      }
+    </div>
+    <div class="col-12 sm:col-12 md:col-4 lg:col-3 xl:col-3">
+      <p class="px-2 text-500 uppercase">Civil Status</p>
+      <p-dropdown
+        [options]="statusOptions"
+        optionLabel="label"
+        optionValue="value"
+        placeholder="Select a status"
+        formControlName="civil_status"
+        styleClass="w-full"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-4 lg:col-3 xl:col-3">
+      <p class="px-2 text-500 uppercase">Address</p>
+      <input
+        type="text"
+        pInputText
+        placeholder="Enter patient address"
+        class="w-full"
+        formControlName="address"
+      />
+    </div>
+
+    <div class="col-12 sm:col-12 md:col-4 lg:col-3 xl:col-3">
+      <p class="px-2 text-500 uppercase">Gender</p>
+      <div class="col-12 flex justify-content-start align-items-center">
+        <div class="flex flex-wrap gap-3 justify-content-start">
+          <div class="flex align-items-center">
+            <p-radioButton
+              value="Male"
+              formControlName="sex"
+              inputId="gender1"
+            />
+            <label for="gender11" class="ml-2"> Male </label>
+          </div>
+
+          <div class="flex align-items-center">
+            <p-radioButton
+              value="Female"
+              formControlName="sex"
+              inputId="gender2"
+            />
+            <label for="gender2" class="ml-2"> Female </label>
+          </div>
+
+          <div class="flex align-items-center">
+            <p-radioButton
+              value="Other"
+              formControlName="sex"
+              inputId="gender3"
+            />
+            <label for="gender3" class="ml-2"> Other </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

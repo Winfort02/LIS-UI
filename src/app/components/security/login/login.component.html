@@ -1,0 +1,61 @@
+<div
+  class="col-12 w-full h-full flex flex-column justify-content-center align-items-center gap-2"
+>
+  <div
+    class="col-12 flex flex-column align-items-center justify-content-center"
+  >
+    <h2>SIGN IN</h2>
+    <small class="font-semibold text-center text-md"
+      >Enter your account to sign in. If you don't have account please contact
+      your administrator</small
+    >
+  </div>
+  <form
+    [formGroup]="loginForm"
+    class="col-12 flex flex-column align-items-center justify-content-center"
+  >
+    <div class="col-12">
+      <input
+        type="email"
+        pInputText
+        class="w-full mt-2"
+        placeholder="Enter email address"
+        formControlName="email"
+      />
+      @if (loginForm.controls['email'].errors?.['required'] &&
+      loginForm.controls['email'].dirty) {
+      <small class="px-2 text-red-500">Email field is required</small>
+      } @else if (incorrectInfo) {
+      <small class="px-2 text-red-500"
+        >Incorrect credentials please try again !</small
+      >
+      }
+    </div>
+    <div class="col-12">
+      <input
+        type="password"
+        pInputText
+        class="w-full mt-2"
+        placeholder="Enter your password"
+        formControlName="password"
+      />
+      @if (loginForm.controls['password'].errors?.['password'] &&
+      loginForm.controls['password'].dirty) {
+      <small class="px-2 text-red-500">Password field is required</small>
+      } @else if (incorrectInfo) {
+      <small class="px-2 text-red-500"
+        >Incorrect credentials please try again !</small
+      >
+      }
+    </div>
+    <div class="col-12">
+      <p-button
+        severity="info"
+        label="Login"
+        styleClass="w-full mt-2"
+        [disabled]="loginForm.invalid"
+        (click)="onSubmit()"
+      />
+    </div>
+  </form>
+</div>

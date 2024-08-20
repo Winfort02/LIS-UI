@@ -1,0 +1,30 @@
+<div
+  class="col-12 flex flex-column justify-content-start align-items-center w-full"
+>
+  <div class="col-12">
+    <app-feature-header
+      title="Patient Table"
+      buttonSize="large"
+      (onClickActionButton)="add($event)"
+    />
+  </div>
+  <div class="col-12">
+    <app-search
+      (search)="onSearch($event)"
+      [placeholder]="'Search by last name ...'"
+    />
+  </div>
+  <div class="col-12">
+    <app-feature-table
+      [items]="patients"
+      [cols]="cols"
+      tableSize="large"
+      [loading]="isLoading"
+      (paginatePage)="onPaginatePage($event)"
+      (pageChanged)="onPageChange($event)"
+      [enablePagination]="true"
+      [pagination]="pagination"
+      (actionBtn)="onClickActionBtn($event)"
+    />
+  </div>
+</div>

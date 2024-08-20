@@ -1,0 +1,39 @@
+<div
+  class="col-12 flex flex-column justify-content-start align-items-center w-full"
+>
+  @if (messages.length) {
+  <div class="col-12">
+    <p-messages
+      [(value)]="messages"
+      [enableService]="false"
+      [closable]="true"
+    />
+  </div>
+  }
+  <div class="col-12">
+    <app-feature-header
+      title="user table"
+      buttonSize="large"
+      (onClickActionButton)="add($event)"
+    />
+  </div>
+  <div class="col-12">
+    <app-search
+      (search)="onSearch($event)"
+      [placeholder]="'Search by name ...'"
+    />
+  </div>
+  <div class="col-12">
+    <app-feature-table
+      [items]="users"
+      [cols]="cols"
+      tableSize="large"
+      [loading]="isLoading"
+      (paginatePage)="onPaginatePage($event)"
+      (pageChanged)="onPageChange($event)"
+      [enablePagination]="true"
+      [pagination]="pagination"
+      (actionBtn)="onClickActionBtn($event)"
+    />
+  </div>
+</div>

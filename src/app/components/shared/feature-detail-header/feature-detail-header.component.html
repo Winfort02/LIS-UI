@@ -1,0 +1,24 @@
+<ng-container>
+  <div
+    class="col-12 px-2 mt-2 flex flex-column sm:flex-column md:flex-row lg:flex-row xl:flex-row justify-content-between align-items-start"
+  >
+    <div class="col-12 sm:col-12 md:col-8 lg:col-6 xl:col-6">
+      <p class="text-xl text-500 uppercase font-semibold m-0">
+        {{ title }}
+      </p>
+    </div>
+    <div
+      class="col-12 sm:col-12 md:col-4 lg:col-6 xl:col-6 flex gap-2 justify-content-end align-items-center"
+    >
+      <ng-content> </ng-content>
+
+      <p-button
+        severity="secondary"
+        label="Back"
+        icon="pi pi-arrow-left"
+        (click)="back()"
+        styleClass="custom-button"
+      />
+    </div>
+  </div>
+</ng-container>
