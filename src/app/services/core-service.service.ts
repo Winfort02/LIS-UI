@@ -9,8 +9,6 @@ import { CommonService } from './common.service';
 import { LocalKeys } from '../enums/common.enum';
 import { CommonHelper } from '../helpers/common.helper';
 import { ConfirmationService } from 'primeng/api';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { Router } from '@angular/router';
 import { throwError } from 'rxjs';
 
 const API_URL = 'http://127.0.0.1:3000/api';
@@ -22,16 +20,10 @@ export class CoreServiceService {
   constructor(
     private http: HttpClient,
     private commonService: CommonService,
-    private confirmationService: ConfirmationService,
-    private spinner: NgxSpinnerService,
-    private router: Router
+    private confirmationService: ConfirmationService
   ) {}
 
   commonHelper = new CommonHelper<any>();
-
-  generateQueryParams(page: number, size: number, keywords: string) {
-    return `page=${page}&size=${size}&keywords=${keywords}`;
-  }
 
   generateHttpOptions(token: string | null) {
     return {

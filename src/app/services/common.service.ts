@@ -44,4 +44,8 @@ export class CommonService {
     if (typeof date == 'string') d = this.dateParser(date);
     return this.datePipe.transform(d.toUTCString(), 'yyyy-MM-dd') || '';
   }
+
+  generateQueryParams(page: number, size: number, keywords: string) {
+    return `page=${page}&size=${size}&keywords=${keywords}`;
+  }
 }

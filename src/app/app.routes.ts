@@ -3,15 +3,16 @@ import { CoreLayoutComponent } from './components/core/core-layout/core-layout.c
 import { LoginLayoutComponent } from './components/security/login-layout/login-layout.component';
 import { loginGuardGuard } from './guards/login-guard.guard';
 import { applicationGuardGuard } from './guards/application-guard.guard';
+import { ApplicationUrl } from './enums/common.enum';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'application',
+    redirectTo: ApplicationUrl.APPLICATION,
     pathMatch: 'full',
   },
   {
-    path: 'security',
+    path: ApplicationUrl.SECURITY,
     component: LoginLayoutComponent,
     canActivate: [loginGuardGuard],
     children: [
@@ -30,19 +31,19 @@ export const routes: Routes = [
     ],
   },
   {
-    path: 'application',
+    path: ApplicationUrl.APPLICATION,
     component: CoreLayoutComponent,
     canActivate: [applicationGuardGuard],
     children: [
       {
-        path: 'users',
+        path: ApplicationUrl.USERS,
         loadComponent: () =>
           import('./components/core/user/user.component').then(
             (c) => c.UserComponent
           ),
       },
       {
-        path: 'patients',
+        path: ApplicationUrl.PATIENTS,
         loadComponent: () =>
           import('./components/core/patient/patient.component').then(
             (c) => c.PatientComponent
@@ -54,6 +55,13 @@ export const routes: Routes = [
           import(
             './components/core/patient-detail/patient-detail.component'
           ).then((c) => c.PatientDetailComponent),
+      },
+      {
+        path: ApplicationUrl.HEMATOLOGY,
+        loadComponent: () =>
+          import('./components/core/hematology/hematology.component').then(
+            (c) => c.HematologyComponent
+          ),
       },
     ],
   },

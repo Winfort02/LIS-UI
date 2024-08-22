@@ -1,11 +1,10 @@
-import { Component, effect, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SidebarComponent } from '../../shared/sidebar/sidebar.component';
 import { Router, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ToolbarComponent } from '../../shared/toolbar/toolbar.component';
 import { MenuItem } from 'primeng/api';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { CommonService } from '../../../services/common.service';
 
 @Component({
   selector: 'app-core-layout',

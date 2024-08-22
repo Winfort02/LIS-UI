@@ -91,8 +91,9 @@ export class PatientDetailComponent implements OnInit {
         });
       } else {
         this.patientService.updatePatient(event).subscribe({
-          next: (response: Patient) => {
-            this.patient.set(response);
+          next: (response: CommonSuccessResponse<Patient>) => {
+            this.patient.set(response.data as Patient);
+            this.toggleLock();
           },
           error: (error) => {
             this.messages = this.commonHelper.commonMessages(
@@ -115,8 +116,8 @@ export class PatientDetailComponent implements OnInit {
     if (this.paramsId) {
       this.toggleLock();
       this.patientService.getPatientById(this.paramsId).subscribe({
-        next: (response: Patient) => {
-          this.patient.set(response);
+        next: (response: CommonSuccessResponse<Patient>) => {
+          this.patient.set(response.data as Patient);
         },
         error: (errors) => {
           if (errors.error.errors.statusCode === 404) {

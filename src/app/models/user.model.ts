@@ -5,6 +5,6 @@ export class User implements IUser {
   name!: string;
   email!: string;
   role!: string;
-  createdAt?: Date | undefined;
+  createdAt?: Date | undefined | string;
   updatedAt?: Date | undefined;
 }

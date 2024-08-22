@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { CoreServiceService } from './core-service.service';
-import { delay, finalize, map, shareReplay, take } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { User } from '../models/user.model';
 import { CommonService } from './common.service';
 import { Pagination } from '../models/pagination.model';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { Endpoints } from '../enums/common.enum';
+import { GenericService } from './generic.service';
 
 interface Login {
   email: string;
@@ -17,32 +16,19 @@ interface Login {
 })
 export class UserServiceService {
   constructor(
-    private coreService: CoreServiceService,
     private commonService: CommonService,
-    private spinner: NgxSpinnerService
+    private genericService: GenericService<User>
   ) {}
 
   login(data: Login) {
-    this.spinner.show();
-    return this.coreService.httpLogin(`${Endpoints.LOGIN}`, data).pipe(
-      take(1),
-      delay(1000),
-      finalize(() => this.spinner.hide())
-    );
+    return this.genericService.authenticate(`${Endpoints.LOGIN}`, data);
   }
 
-  getUsers(page: number, size: number, keywords: string) {
-    const QUERY = this.coreService.generateQueryParams(page, size, keywords);
-    return this.coreService.httpGet(`${Endpoints.USERS}?${QUERY}`).pipe(
-      take(1),
-      shareReplay(),
-      map((item: any) => {
-        const response = item.data;
-        const users: User[] = response.meta as User[];
-        const meta = users.map((user: User) => ({
-          ...user,
-          createdAt: this.commonService.dateFormmater(user.createdAt as Date),
-        }));
+  getUserRecords(page: number, size: number, keywords: string) {
+    const QUERY = this.commonService.generateQueryParams(page, size, keywords);
+    const URL = `${Endpoints.USERS}?${QUERY}`;
+    return this.genericService.getRecords(URL).pipe(
+      map(({ response, meta }) => {
         return {
           currentPage: response.currentPage,
           nextPage: response.nextPage,
@@ -58,24 +44,14 @@ export class UserServiceService {
   }
 
   createUser(data: User) {
-    this.spinner.show();
-    return this.coreService.httpPost(`${Endpoints.CREATE_USER}`, data).pipe(
-      take(1),
-      delay(1000),
-      finalize(() => this.spinner.hide())
-    );
+    return this.genericService.createRecord(`${Endpoints.CREATE_USER}`, data);
   }
 
   updateUser(data: User) {
-    this.spinner.show();
-    return this.coreService.httpPut(`${Endpoints.USERS}`, data).pipe(
-      take(1),
-      delay(1000),
-      finalize(() => this.spinner.hide())
-    );
+    return this.genericService.updateRecord(`${Endpoints.USERS}`, data);
   }
 
   deleteUser(id: number) {
-    return this.coreService.httpDelete(`${Endpoints.USERS}`, id).pipe(take(1));
+    return this.genericService.deleteRecord(`${Endpoints.USERS}`, id);
   }
 }

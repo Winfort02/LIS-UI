@@ -1,27 +1,24 @@
-import { IResultTypeHematology } from '../interfaces/hematology.interface';
-import { Patient } from './patient.model';
-import { TestOrder } from './test-order.model';
+import { IHematology } from '../interfaces/hematology.interface';
+import { IPatient } from '../interfaces/patient.interface';
 
-export class ResultTypeHematology implements IResultTypeHematology {
+export class Hematology implements IHematology {
   id?: number | undefined;
-  test_order!: TestOrder;
-  test_order_id!: number;
-  patient!: Patient;
   patient_id!: number;
-  test_requested_hemoglobin!: number | null;
-  test_requested_hematocrit!: number | null;
-  test_requested_rbc_count!: number | null;
-  test_requested_wbc_count!: number | null;
-  test_requested_platelet_count!: number | null;
-  test_requested_dc_neutrophil!: number | null;
-  test_requested_segmented!: number | null;
-  test_requested_dc_stab!: number | null;
-  test_requested_dc_lymhocytes!: number | null;
-  test_requested_monocytes!: number | null;
-  test_requested_dc_eosinophils!: number | null;
-  test_requested_dc_basophils!: number | null;
-  test_requested_blood_typing_abo!: number | null;
-  test_requested_blood_typing_rh!: number | null;
-  date_of_result!: Date;
+  patient?: IPatient | undefined;
+  physician!: string;
+  lab_no!: number;
+  hemoglobin!: number;
+  hematocrit!: number;
+  rbc_count!: number;
+  wbc_count!: number;
+  platelet_count!: number;
+  neutrophil!: number;
+  segmented!: number;
+  stab!: number;
+  lymphocyties!: number;
+  monocyties!: number;
+  eosinophils!: number;
+  basophils!: number;
+  createdAt?: Date | undefined;
   remarks!: string;
 }

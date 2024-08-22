@@ -44,6 +44,7 @@ export enum Endpoints {
   LOGIN = 'auth/login',
   USERS = 'users',
   PATIENTS = 'patients',
+  HEMATOLOGY = 'hematology',
 }
 
 export enum ApplicationUrl {
@@ -54,6 +55,7 @@ export enum ApplicationUrl {
   USER_LIST = 'application/users',
   PATIENT_LIST = 'application/patients',
   PATIENT_DETAIL = 'application/patient/detail/',
+  HEMATOLOGY = 'hematology',
 }
 
 export enum ButtonColor {

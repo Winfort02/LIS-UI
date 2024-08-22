@@ -1,42 +1,9 @@
-import { IPatient } from '../interfaces/patient.interface';
-import { ITestOrder } from '../interfaces/test-order.interface';
 import { IResultTypeUrinalysis } from '../interfaces/urinalysis.interface';
+import { Patient } from './patient.model';
 
 export class ResultTypeUrinalysis implements IResultTypeUrinalysis {
   id?: number | undefined;
-  test_order!: ITestOrder;
-  test_order_id!: number;
-  patient!: IPatient;
+  patient!: Patient;
   patient_id!: number;
-  physical_property_color?: string | undefined;
-  physical_property_transparency?: string | undefined;
-  physical_property_ph?: number | undefined;
-  physical_property_specific_gravity?: number | undefined;
-  chemical_test_reducing_sugar?: number | undefined;
-  chemical_test_protein?: number | undefined;
-  me_wbc?: number | undefined;
-  me_rbc?: number | undefined;
-  me_ec_squamous?: string | undefined;
-  me_ec_renal_tubolar?: string | undefined;
-  me_ec_transitional?: string | undefined;
-  me_ec_bacteria?: string | undefined;
-  me_ec_yeast?: string | undefined;
-  me_ec_mucos_threads?: string | undefined;
-  me_crytals_amorphous_urates?: string | undefined;
-  me_crytals_amorphous_phosphates?: string | undefined;
-  me_crytals_uric_acid?: string | undefined;
-  me_crytals_calcium_oxalate?: string | undefined;
-  me_crytals_tripple_phosphate?: string | undefined;
-  me_crytals_calcium_carbonate?: string | undefined;
-  me_crytals_phosphate?: string | undefined;
-  me_crytals_ammonium_biurate?: string | undefined;
-  me_cast_hyline?: string | undefined;
-  me_cast_fine_granular?: string | undefined;
-  me_cast_coarse_granular?: string | undefined;
-  me_cast_rbc?: string | undefined;
-  me_cast_wbc?: string | undefined;
-  me_cast_waxy?: string | undefined;
-  me_cast_board?: string | undefined;
-  date_of_result!: Date;
   remarks!: string;
 }

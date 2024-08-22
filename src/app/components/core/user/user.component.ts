@@ -128,7 +128,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   getAllUsers(page: number) {
     this.userSubscription = this.userService
-      .getUsers(page, this.size, this.keywords())
+      .getUserRecords(page, this.size, this.keywords())
       .subscribe({
         next: (response: Pagination) => {
           this.pagination.set(response);

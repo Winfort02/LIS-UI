@@ -64,9 +64,6 @@ export class PatientComponent implements OnInit, OnDestroy {
       { field: 'middle_name', header: 'Middle Name' },
       { field: 'contact_number', header: 'Contact #' },
       { field: 'date_of_birth', header: 'Birthday' },
-      { field: 'sex', header: 'Gender' },
-      { field: 'address', header: 'Address' },
-      { field: 'civil_status', header: 'Civil Status' },
       { field: 'createdAt', header: 'Created Date' },
     ]);
   }
