@@ -1,0 +1,503 @@
+<div
+  class="col-12 flex flex-column justify-content-center align-items-center gap-2"
+>
+  <div class="w-full">
+    <form [formGroup]="urinalysisForm">
+      <input type="text" hidden formControlName="id" />
+      <p-stepper [linear]="true">
+        <p-stepperPanel header="Patient Detail" formGroupName="stepOne">
+          <ng-template
+            pTemplate="content"
+            let-nextCallback="nextCallback"
+            let-index="index"
+          >
+            <div
+              class="col-12 flex flex-column justify-content-start align-content-center"
+            >
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Patient Name</p>
+                <p-dropdown
+                  [options]="options"
+                  optionLabel="label"
+                  optionValue="value"
+                  placeholder="Select Patient"
+                  formControlName="patient_id"
+                  styleClass="w-full"
+                  (onChange)="onSelectPatient($event)"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Address</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  disabled
+                  [value]="patient.address || null"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Physician Name</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="physician"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Laboratory Number</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="lab_no"
+                />
+              </div>
+              <div
+                class="w-full flex justify-content-center align-content-center flex-column sm:flex-column md:flex-column lg:flex-row xl:flex-row"
+              >
+                <div class="col-12 sm:col-12 md:col-12 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">Sex</p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    disabled
+                    [value]="patient.sex || null"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-12 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">Date</p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    formControlName="currentDate"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="flex justify-content-end px-3 pt-4">
+              <p-button
+                label="Next"
+                icon="pi pi-arrow-right"
+                iconPos="right"
+                [disabled]="StepOne.invalid"
+                (onClick)="nextCallback.emit()"
+              />
+            </div>
+          </ng-template>
+        </p-stepperPanel>
+        <p-stepperPanel header="Physical Properties" formGroupName="stepTwo">
+          <ng-template
+            pTemplate="content"
+            let-prevCallback="prevCallback"
+            let-nextCallback="nextCallback"
+            let-index="index"
+          >
+            <div
+              class="col-12 flex flex-column justify-content-start align-content-center"
+            >
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Color</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="color"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Transpararency</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="transparancy"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">PH</p>
+                <p-inputNumber
+                  formControlName="ph"
+                  mode="decimal"
+                  [minFractionDigits]="1"
+                  [maxFractionDigits]="2"
+                  [max]="10.0"
+                  [min]="0.0"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Specific Gravity</p>
+                <p-inputNumber
+                  formControlName="spec_gravity"
+                  mode="decimal"
+                  [minFractionDigits]="1"
+                  [maxFractionDigits]="3"
+                  [max]="10.0"
+                  [min]="0.0"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Reducing Sugar</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="reduce_sugar"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Protein</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="protein"
+                />
+              </div>
+            </div>
+            <div
+              class="flex justify-content-between align-content-center px-3 pt-4"
+            >
+              <p-button
+                label="Back"
+                icon="pi pi-arrow-left"
+                (onClick)="prevCallback.emit()"
+              />
+              <p-button
+                label="Next"
+                icon="pi pi-arrow-right"
+                iconPos="right"
+                [disabled]="StepTwo.invalid"
+                (onClick)="nextCallback.emit()"
+              />
+            </div>
+          </ng-template>
+        </p-stepperPanel>
+        <p-stepperPanel header="Epithelial Cell" formGroupName="stepThree">
+          <ng-template
+            pTemplate="content"
+            let-nextCallback="nextCallback"
+            let-prevCallback="prevCallback"
+            let-index="index"
+          >
+            <div
+              class="col-12 flex flex-column justify-content-start align-content-center"
+            >
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">WBC Count</p>
+                <p-inputNumber
+                  formControlName="wbc_count"
+                  mode="decimal"
+                  [minFractionDigits]="1"
+                  [maxFractionDigits]="2"
+                  [max]="10.0"
+                  [min]="0.0"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">RBC Count</p>
+                <p-inputNumber
+                  formControlName="rbc_count"
+                  mode="decimal"
+                  [minFractionDigits]="1"
+                  [maxFractionDigits]="2"
+                  [max]="10.0"
+                  [min]="0.0"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Squamous (optional)</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="squamous"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Rental Tubular (optional)</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="rental_tubular"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Transitional (optional)</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="transitional"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Bacteria (optional)</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="bacteria"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Yeast (optional)</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="yeast"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Mucus Threads (optional)</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="mucus_thread"
+                />
+              </div>
+            </div>
+            <div
+              class="flex justify-content-between align-content-center px-3 pt-4"
+            >
+              <p-button
+                label="Back"
+                icon="pi pi-arrow-left"
+                (onClick)="prevCallback.emit()"
+              />
+              <p-button
+                label="Next"
+                icon="pi pi-arrow-right"
+                iconPos="right"
+                [disabled]="StepThree.invalid"
+                (onClick)="nextCallback.emit()"
+              />
+            </div>
+          </ng-template>
+        </p-stepperPanel>
+        <p-stepperPanel header="Crystals" formGroupName="stepFour">
+          <ng-template
+            pTemplate="content"
+            let-nextCallback="nextCallback"
+            let-prevCallback="prevCallback"
+            let-index="index"
+          >
+            <div
+              class="col-12 flex flex-column justify-content-start align-content-center"
+            >
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">
+                  Amorphous Urates (optional)
+                </p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="amorphous_urates"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">
+                  Amorphous Phosphates (optional)
+                </p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="amorphous_phosphates"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Uric Acid (optional)</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="uric_acid"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">
+                  Calcium Oxalate (optional)
+                </p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="calcium_oxalate"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">
+                  Triple Phosphate (optional)
+                </p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="triple_phosphate"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">
+                  Calcium Carbonate (optional)
+                </p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="calcium_carbonate"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">
+                  Calcium Phosphate (optional)
+                </p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="calcium_phosphate"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">
+                  Ammonium Biurate (optional)
+                </p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="ammonium_biurate"
+                />
+              </div>
+            </div>
+            <div
+              class="flex justify-content-between align-content-center px-3 pt-4"
+            >
+              <p-button
+                label="Back"
+                icon="pi pi-arrow-left"
+                (onClick)="prevCallback.emit()"
+              />
+              <p-button
+                label="Next"
+                icon="pi pi-arrow-right"
+                iconPos="right"
+                [disabled]="StepFour.invalid"
+                (onClick)="nextCallback.emit()"
+              />
+            </div>
+          </ng-template>
+        </p-stepperPanel>
+        <p-stepperPanel header="Cast" formGroupName="stepFive">
+          <ng-template
+            pTemplate="content"
+            let-prevCallback="prevCallback"
+            let-index="index"
+          >
+            <div
+              class="col-12 flex flex-column justify-content-start align-content-center"
+            >
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Hyaline (optional)</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="hyaline"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Fine Granular (optional)</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="fine_granular"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">
+                  Coarse Granular (optional)
+                </p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="coarse_granular"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">RBC (optional)</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="cast_rbc"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">WBC (optional)</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="cast_wbc"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">WAXY (optional)</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="cast_waxy"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Broad (optional)</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="cast_broad"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Remarks (optional)</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  placeholder="Please correlate clinically for appropriate interpretation result"
+                  formControlName="remarks"
+                />
+              </div>
+            </div>
+            <div
+              class="flex justify-content-between align-content-center px-3 pt-4"
+            >
+              <p-button
+                label="Back"
+                icon="pi pi-arrow-left"
+                (onClick)="prevCallback.emit()"
+              />
+              <p-button
+                label="Submit"
+                (onClick)="submit()"
+                [disabled]="StepFive.invalid"
+              />
+            </div>
+          </ng-template>
+        </p-stepperPanel>
+      </p-stepper>
+    </form>
+  </div>
+</div>

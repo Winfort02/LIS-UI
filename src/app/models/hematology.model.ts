@@ -6,7 +6,7 @@ export class Hematology implements IHematology {
   patient_id!: number;
   patient?: IPatient | undefined;
   physician!: string;
-  lab_no!: number;
+  lab_no!: string;
   hemoglobin!: number;
   hematocrit!: number;
   rbc_count!: number;

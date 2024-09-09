@@ -1,0 +1,271 @@
+<div
+  class="col-12 flex flex-column justify-content-center align-items-center gap-2"
+>
+  <div class="w-full">
+    <form [formGroup]="hematologyForm">
+      <input type="text" hidden formControlName="id" />
+      <p-stepper [linear]="true">
+        <p-stepperPanel header="Patient Detail" formGroupName="stepOne">
+          <ng-template
+            pTemplate="content"
+            let-nextCallback="nextCallback"
+            let-index="index"
+          >
+            <div
+              class="col-12 flex flex-column justify-content-start align-content-center"
+            >
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Patient Name</p>
+                <p-dropdown
+                  [options]="options"
+                  optionLabel="label"
+                  optionValue="value"
+                  placeholder="Select Patient"
+                  formControlName="patient_id"
+                  styleClass="w-full"
+                  (onChange)="onSelectPatient($event)"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Address</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  disabled
+                  [value]="patient.address || null"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Physician Name</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="physician"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Laboratory Number</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="lab_no"
+                />
+              </div>
+              <div
+                class="w-full flex justify-content-center align-content-center flex-column sm:flex-column md:flex-column lg:flex-row xl:flex-row"
+              >
+                <div class="col-12 sm:col-12 md:col-12 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">Sex</p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    disabled
+                    [value]="patient.sex || null"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-12 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">Date</p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    formControlName="currentDate"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="flex justify-content-end px-3 pt-4">
+              <p-button
+                label="Next"
+                icon="pi pi-arrow-right"
+                iconPos="right"
+                [disabled]="StepOne.invalid"
+                (onClick)="nextCallback.emit()"
+              />
+            </div>
+          </ng-template>
+        </p-stepperPanel>
+        <p-stepperPanel header="Test Requested" formGroupName="stepTwo">
+          <ng-template
+            pTemplate="content"
+            let-prevCallback="prevCallback"
+            let-nextCallback="nextCallback"
+            let-index="index"
+          >
+            <div
+              class="col-12 flex flex-column justify-content-start align-content-center"
+            >
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Hemoglobin</p>
+                <p-inputNumber
+                  formControlName="hemoglobin"
+                  [min]="getMax(130, 120)"
+                  [max]="getMax(180, 160)"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Hematocrit</p>
+                <p-inputNumber
+                  formControlName="hematocrit"
+                  mode="decimal"
+                  [minFractionDigits]="1"
+                  [maxFractionDigits]="2"
+                  [min]="getMax(0.4, 0.37)"
+                  [max]="getMax(0.54, 0.47)"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">RBC Count</p>
+                <p-inputNumber
+                  formControlName="rbc_count"
+                  mode="decimal"
+                  [minFractionDigits]="1"
+                  [maxFractionDigits]="2"
+                  [min]="getMax(4.5, 4.2)"
+                  [max]="getMax(6.2, 5.5)"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">WBC Count</p>
+                <p-inputNumber
+                  formControlName="wbc_count"
+                  mode="decimal"
+                  [minFractionDigits]="1"
+                  [maxFractionDigits]="2"
+                  [min]="4.5"
+                  [max]="10.0"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Pletelet Count</p>
+                <p-inputNumber
+                  formControlName="platelet_count"
+                  [min]="150"
+                  [max]="450"
+                />
+              </div>
+            </div>
+            <div
+              class="flex justify-content-between align-content-center px-3 pt-4"
+            >
+              <p-button
+                label="Back"
+                icon="pi pi-arrow-left"
+                (onClick)="prevCallback.emit()"
+              />
+              <p-button
+                label="Next"
+                icon="pi pi-arrow-right"
+                iconPos="right"
+                [disabled]="StepTwo.invalid"
+                (onClick)="nextCallback.emit()"
+              />
+            </div>
+          </ng-template>
+        </p-stepperPanel>
+        <p-stepperPanel header="Differential Count" formGroupName="stepThree">
+          <ng-template
+            pTemplate="content"
+            let-prevCallback="prevCallback"
+            let-index="index"
+          >
+            <div
+              class="col-12 flex flex-column justify-content-start align-content-center"
+            >
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Neutrophil</p>
+                <p-inputNumber
+                  formControlName="neutrophil"
+                  suffix=" %"
+                  [min]="55"
+                  [max]="65"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Segmented</p>
+                <p-inputNumber
+                  formControlName="segmented"
+                  suffix=" %"
+                  [min]="50"
+                  [max]="60"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Stab</p>
+                <p-inputNumber
+                  formControlName="stab"
+                  suffix=" %"
+                  [min]="0"
+                  [max]="5"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Lymphocyties</p>
+                <p-inputNumber
+                  formControlName="lymphocyties"
+                  suffix=" %"
+                  [min]="25"
+                  [max]="35"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Monocyties</p>
+                <p-inputNumber
+                  formControlName="monocyties"
+                  suffix=" %"
+                  [min]="4"
+                  [max]="8"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Eosinophils</p>
+                <p-inputNumber
+                  formControlName="eosinophils"
+                  suffix=" %"
+                  [min]="1"
+                  [max]="3"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Sasophils</p>
+                <p-inputNumber
+                  formControlName="basophils"
+                  suffix=" %"
+                  [min]="0"
+                  [max]="1"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Remarks</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="remarks"
+                />
+              </div>
+            </div>
+            <div
+              class="flex justify-content-between align-content-center px-3 pt-4"
+            >
+              <p-button
+                label="Back"
+                icon="pi pi-arrow-left"
+                (onClick)="prevCallback.emit()"
+              />
+              <p-button
+                label="Submit"
+                (onClick)="submit()"
+                [disabled]="StepThree.invalid"
+              />
+            </div>
+          </ng-template>
+        </p-stepperPanel>
+      </p-stepper>
+    </form>
+  </div>
+</div>

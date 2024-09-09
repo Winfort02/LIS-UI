@@ -92,7 +92,9 @@ export class PatientDetailComponent implements OnInit {
       } else {
         this.patientService.updatePatient(event).subscribe({
           next: (response: CommonSuccessResponse<Patient>) => {
-            this.patient.set(response.data as Patient);
+            const patient = response.data as Patient;
+            patient.date_of_birth = new Date(patient.date_of_birth);
+            this.patient.set(patient);
             this.toggleLock();
           },
           error: (error) => {

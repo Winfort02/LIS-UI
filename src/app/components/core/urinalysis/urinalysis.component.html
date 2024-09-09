@@ -10,13 +10,15 @@
     />
   </div>
   }
+
   <div class="col-12">
     <app-feature-header
-      title="Hematology Table"
+      title="Urinalysis Table"
       buttonSize="large"
       (onClickActionButton)="add($event)"
     />
   </div>
+
   <div class="col-12">
     <app-search
       (search)="onSearch($event)"
@@ -25,7 +27,7 @@
   </div>
   <div class="col-12">
     <app-feature-table
-      [items]="hematologies"
+      [items]="urinalysis"
       [cols]="cols"
       tableSize="large"
       (paginatePage)="onPaginatePage($event)"

@@ -9,7 +9,7 @@ export class CommonHelper<T> {
       style: { minWidth: '455px', maxWidth: '970px' },
       position: 'top',
       focusOnShow: false,
-      data: data,
+      data,
     };
   }
 
@@ -29,4 +29,26 @@ export class CommonHelper<T> {
   commonMessages = (severity: Severity, summary: string): Message[] => {
     return [{ severity, summary }];
   };
+
+  hemotologyDialog(data?: T) {
+    return {
+      header: 'Hemotology Details',
+      width: '35%',
+      style: { minWidth: '455px', maxWidth: '970px' },
+      position: 'top',
+      focusOnShow: false,
+      data,
+    };
+  }
+
+  urinalysisDialog(data?: T) {
+    return {
+      header: 'Urinalysis Details',
+      width: '35%',
+      style: { minWidth: '455px', maxWidth: '970px' },
+      position: 'top',
+      focusOnShow: false,
+      data,
+    };
+  }
 }

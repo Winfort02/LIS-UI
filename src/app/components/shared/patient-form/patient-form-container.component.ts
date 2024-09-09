@@ -6,7 +6,6 @@ import {
   OnInit,
   Output,
   signal,
-  untracked,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -17,6 +16,7 @@ import {
 import { InputTextModule } from 'primeng/inputtext';
 import {
   FIELD_VALIDATIONS,
+  Gender,
   STATUS_OPTON,
 } from '../../../helpers/constant.helper';
 
@@ -27,7 +27,7 @@ import { Patient } from '../../../models/patient.model';
 import { CommonService } from '../../../services/common.service';
 
 @Component({
-  selector: 'app-form-container',
+  selector: 'app-patient-form-container',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -56,6 +56,8 @@ export class PatientFormContainerComponent implements OnInit {
   patientForm!: FormGroup;
   statusOptions = STATUS_OPTON;
   maxDate = new Date();
+
+  gender = Gender;
 
   onEffect() {
     effect(

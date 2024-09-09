@@ -16,7 +16,8 @@ export enum ButtonLabel {
   EDIT = 'Edit',
   DELETE = 'Delete',
   CANCEL = 'Cancel',
-  VIEW = 'View Detail',
+  VIEW = 'View',
+  PRINT = 'Print',
 }
 
 export enum Icon {
@@ -45,6 +46,8 @@ export enum Endpoints {
   USERS = 'users',
   PATIENTS = 'patients',
   HEMATOLOGY = 'hematology',
+  URINALYSIS = 'urinalysis',
+  REPORTS = 'report',
 }
 
 export enum ApplicationUrl {
@@ -56,6 +59,9 @@ export enum ApplicationUrl {
   PATIENT_LIST = 'application/patients',
   PATIENT_DETAIL = 'application/patient/detail/',
   HEMATOLOGY = 'hematology',
+  HEMATOLOGY_LIST = 'application/hematology',
+  HEMATOLOGY_DETAIL = 'hematology/detail',
+  URINALYSIS = 'urinalysis',
 }
 
 export enum ButtonColor {

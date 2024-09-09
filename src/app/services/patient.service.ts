@@ -4,7 +4,6 @@ import { map } from 'rxjs/operators';
 import { Pagination } from '../models/pagination.model';
 import { Patient } from '../models/patient.model';
 import { CommonService } from './common.service';
-import { CommonSuccessResponse } from '../models/response.model';
 import { GenericService } from './generic.service';
 
 @Injectable({
@@ -52,5 +51,9 @@ export class PatientService {
 
   deletePatient(id: number) {
     return this.genericService.deleteRecord(`${Endpoints.PATIENTS}`, id);
+  }
+
+  getAllPatients() {
+    return this.genericService.getAll(`${Endpoints.PATIENTS}/all/patients`);
   }
 }

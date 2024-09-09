@@ -14,8 +14,12 @@
         {{ col.header }}
       </th>
       }
-      <th [width]="'5%'" class="text-center text-md uppercase">Edit</th>
-      <th [width]="'5%'" class="text-center text-md uppercase">Delete</th>
+      <th [width]="'5%'" class="text-center text-md capitalize">
+        {{ actionButton.edit }}
+      </th>
+      <th [width]="'5%'" class="text-center text-md capitalize">
+        {{ actionButton.delete }}
+      </th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-rowData let-columns="columns">

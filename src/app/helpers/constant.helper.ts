@@ -17,3 +17,9 @@ export const MESSAGES = {
   CREATED_PATIENT: 'New Patient added successfully',
   UPDATED_PATIENT: 'Patient details updated successfully',
 };
+
+export const Gender = {
+  MALE: 'Male',
+  FEMALE: 'Female',
+  Other: 'Other',
+};

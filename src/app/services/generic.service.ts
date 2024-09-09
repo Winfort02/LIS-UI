@@ -5,7 +5,7 @@ import { Pagination } from '../models/pagination.model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonSuccessResponse } from '../models/response.model';
 import { Login } from '../models/login.model';
-import { UserMapping } from '../strategy/strategy-mapping.model';
+import { StrategyMapping } from '../strategy/strategy-mapping.model';
 import { CommonPropertyMapping } from '../interfaces/CommonMapping';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class GenericService<T extends CommonPropertyMapping> {
     private spinner: NgxSpinnerService
   ) {}
 
-  mapping = new UserMapping<T>();
+  mapping = new StrategyMapping<T>();
 
   authenticate(url: string, data: Login) {
     this.spinner.show();
@@ -121,5 +121,30 @@ export class GenericService<T extends CommonPropertyMapping> {
       delay(1000),
       finalize(() => this.spinner.hide())
     );
+  }
+
+  getAll(url: string) {
+    this.spinner.show();
+    return this.coreService.httpGet(url).pipe(
+      take(1),
+      map((item: any) => {
+        const response = item.data as T[];
+        const data = this.mapping.createdAtMapping(response);
+        return {
+          data,
+          statusCode: item.statusCode,
+          success: item.success,
+        } as CommonSuccessResponse<T>;
+      }),
+      delay(1000),
+      finalize(() => this.spinner.hide())
+    );
+  }
+
+  generatePDF(url: string) {
+    this.spinner.show();
+    return this.coreService
+      .httpGetReport(url)
+      .pipe(finalize(() => this.spinner.hide()));
   }
 }

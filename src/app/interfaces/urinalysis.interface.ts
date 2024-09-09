@@ -1,8 +1,40 @@
 import { IPatient } from './patient.interface';
 
-export interface IResultTypeUrinalysis {
+export interface IUrinalysis {
   id?: number;
-  patient: IPatient;
+  patient?: IPatient;
   patient_id: number;
+  physician: string;
+  lab_no: string;
+  color: string;
+  transparancy: string;
+  ph: number;
+  spec_gravity: number;
+  reduce_sugar: string;
+  protein: string;
+  wbc_count: number;
+  rbc_count: number;
+  squamous: string;
+  rental_tubular: string;
+  transitional: string;
+  bacteria: string;
+  yeast: string;
+  mucus_thread: string;
+  amorphous_urates: string;
+  amorphous_phosphates: string;
+  uric_acid: string;
+  calcium_oxalate: string;
+  triple_phosphate: string;
+  calcium_carbonate: string;
+  calcium_phosphate: string;
+  ammonium_biurate: string;
+  hyaline: string;
+  fine_granular: string;
+  coarse_granular: string;
+  cast_rbc: number;
+  cast_wbc: number;
+  cast_waxy: string;
+  cast_broad: string;
+  createdAt?: Date;
   remarks: string;
 }

@@ -33,6 +33,15 @@ export class CoreServiceService {
       }),
     };
   }
+  generatePDFOption(token: string | null): any {
+    return {
+      headers: new HttpHeaders({
+        'content-type': ['application/json'],
+        authorization: `Bearer ${token}`,
+      }),
+      responseType: 'blob',
+    };
+  }
 
   httpLogin(endpoint: string, data: any) {
     return this.http.post(`${API_URL}/${endpoint}`, data).pipe(
@@ -46,6 +55,13 @@ export class CoreServiceService {
           LocalKeys.accessToken
         );
       })
+    );
+  }
+
+  httpGetReport(endpoint: string) {
+    return this.http.get(
+      `${API_URL}/${endpoint}`,
+      this.generatePDFOption(this.commonService.accessToken())
     );
   }
 

@@ -3,7 +3,7 @@ import { IStrategyMapping } from './strategy-mapping.interface';
 import { CommonService } from '../services/common.service';
 import { CommonPropertyMapping } from '../interfaces/CommonMapping';
 
-export class UserMapping<T extends CommonPropertyMapping>
+export class StrategyMapping<T extends CommonPropertyMapping>
   implements IStrategyMapping<T>
 {
   commonService = inject(CommonService);
@@ -19,7 +19,7 @@ export class UserMapping<T extends CommonPropertyMapping>
     return data.map((data: T) => ({
       ...data,
       createdAt: this.commonService.dateFormmater(data.createdAt as Date),
-      date_of_birth: this.commonService.dateFormmater(
+      date_of_birth: this.commonService.dobFormat(
         data.date_of_birth as Date
       ),
     }));
@@ -29,7 +29,7 @@ export class UserMapping<T extends CommonPropertyMapping>
     return {
       ...data,
       createdAt: this.commonService.dateFormmater(data.createdAt as Date),
-      date_of_birth: this.commonService.dateFormmater(
+      date_of_birth: this.commonService.dobFormat(
         data.date_of_birth as Date
       ),
     };

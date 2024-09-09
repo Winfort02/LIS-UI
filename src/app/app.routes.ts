@@ -63,6 +63,27 @@ export const routes: Routes = [
             (c) => c.HematologyComponent
           ),
       },
+      {
+        path: `${ApplicationUrl.HEMATOLOGY_DETAIL}/:id`,
+        loadComponent: () =>
+          import(
+            './components/core/hematology-detail/hematology-detail.component'
+          ).then((c) => c.HematologyDetailComponent),
+      },
+      {
+        path: `${ApplicationUrl.HEMATOLOGY}/pdf/:id`,
+        loadComponent: () =>
+          import('./components/shared/pdf-viewer/pdf-viewer.component').then(
+            (c) => c.PdfViewerComponent
+          ),
+      },
+      {
+        path: ApplicationUrl.URINALYSIS,
+        loadComponent: () =>
+          import('./components/core/urinalysis/urinalysis.component').then(
+            (c) => c.UrinalysisComponent
+          ),
+      },
     ],
   },
   {

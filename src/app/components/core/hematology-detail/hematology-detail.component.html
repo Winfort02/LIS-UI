@@ -1,0 +1,223 @@
+<div
+  class="col-12 flex flex-column justify-content-start align-items-center w-full"
+>
+  @if (messages.length) {
+  <div class="col-12">
+    <p-messages
+      [(value)]="messages"
+      [enableService]="false"
+      [closable]="true"
+    />
+  </div>
+  }
+  <div class="col-12">
+    <app-feature-detail-header title="Hematology Detail" (onBack)="onBack()">
+      @if (paramsId) {
+      <button
+        type="button"
+        pButton
+        class="{{ editBtnSeverity }} custom-button"
+        [label]="editBtnLabel"
+        (click)="print()"
+      ></button>
+      }
+    </app-feature-detail-header>
+  </div>
+  <div class="col-12 h-1rem surface-200 w-full"></div>
+  <div class="col-12 flex justify-content-start align-items-center flex-wrap">
+    <div class="col-12 sm:col-12 md:col-6 lg:col-4 xl:col-4">
+      <p class="px-2">Patient Name</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ hematology.patient?.last_name }}, {{
+          hematology.patient?.first_name
+        }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-6 lg:col-3 xl:col-3">
+      <p class="px-2">Sex</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ hematology.patient?.sex }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-12 lg:col-5 xl:col-5">
+      <p class="px-2">Address</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ hematology.patient?.address }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4">
+      <p class="px-2">Physician</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ hematology.physician }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-12 lg:col-3 xl:col-3">
+      <p class="px-2">Laboratory Number</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ hematology.lab_no }}"
+      />
+    </div>
+  </div>
+  <div class="col-12 h-1rem surface-200 w-full"></div>
+  <div class="col-12 flex justify-content-start align-items-center flex-wrap">
+    <div class="col-12">
+      <p class="text-xl font-semibold">TEST REQUESTED</p>
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">HEMOGLOBIN</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ hematology.hemoglobin }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">HEMATOCRIT</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ hematology.hematocrit }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">RBC COUNT</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ hematology.rbc_count }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">WBC COUNT</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ hematology.wbc_count }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">PLATELET COUNT</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ hematology.platelet_count }}"
+      />
+    </div>
+  </div>
+  <div class="col-12 h-1rem surface-200 w-full"></div>
+  <div class="col-12 flex justify-content-start align-items-center flex-wrap">
+    <div class="col-12">
+      <p class="text-xl font-semibold">DIFFERENTIAL COUNT</p>
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">NEUTROPHIL</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ hematology.neutrophil }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">SEGMENTED</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ hematology.segmented }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">STAB</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ hematology.stab }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">LYMPHOCYTIES</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ hematology.lymphocyties }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">MONOCYTIES</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ hematology.monocyties }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">EOSINOPHILS</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ hematology.eosinophils }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">BASOPHILS</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ hematology.basophils }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-4 xl:col-4">
+      <p class="px-2">Remarks</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ hematology.remarks }}"
+      />
+    </div>
+  </div>
+</div>
