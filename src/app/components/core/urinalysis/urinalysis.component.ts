@@ -4,6 +4,7 @@ import { MessagesModule } from 'primeng/messages';
 import { FeatureHeaderComponent } from '../../shared/feature-header/feature-header.component';
 import {
   ActionButtonType,
+  ApplicationUrl,
   ButtonLabel,
   EPagination,
 } from '../../../enums/common.enum';
@@ -18,6 +19,7 @@ import { UrinalysisService } from '../../../services/urinalysis.service';
 import { Subscription } from 'rxjs';
 import { UrinalysisFormComponent } from '../../shared/urinalysis-form/urinalysis-form.component';
 import { CustomResponse } from '../../../models/response.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-urinalysis',
@@ -51,7 +53,8 @@ export class UrinalysisComponent implements OnInit {
   private dialogRef!: DynamicDialogRef;
   constructor(
     private dialogService: DialogService,
-    private urinalysisService: UrinalysisService
+    private urinalysisService: UrinalysisService,
+    private router: Router
   ) {
     effect(() => {
       if (this.urinalysisSubscription)
@@ -148,6 +151,9 @@ export class UrinalysisComponent implements OnInit {
         );
         break;
       case ActionButtonType.delete:
+        this.router.navigate([
+          `${ApplicationUrl.URINALYSIS_DETAIL}/detail/${event.data.id}`,
+        ]);
         break;
     }
   }

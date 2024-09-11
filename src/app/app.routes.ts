@@ -84,6 +84,13 @@ export const routes: Routes = [
             (c) => c.UrinalysisComponent
           ),
       },
+      {
+        path: `${ApplicationUrl.URINALYSIS}/detail/:id`,
+        loadComponent: () =>
+          import(
+            './components/core/urinalysis-detail/urinalysis-detail.component'
+          ).then((c) => c.UrinalysisDetailComponent),
+      },
     ],
   },
   {

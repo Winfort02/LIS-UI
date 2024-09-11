@@ -1,15 +1,7 @@
+@if (isLoaded) {
 <div
   class="col-12 flex flex-column justify-content-start align-items-center w-full"
 >
-  @if (messages.length) {
-  <div class="col-12">
-    <p-messages
-      [(value)]="messages"
-      [enableService]="false"
-      [closable]="true"
-    />
-  </div>
-  }
   <div class="col-12">
     <app-feature-detail-header title="Hematology Detail" (onBack)="onBack()">
       @if (paramsId) {
@@ -221,3 +213,4 @@
     </div>
   </div>
 </div>
+}

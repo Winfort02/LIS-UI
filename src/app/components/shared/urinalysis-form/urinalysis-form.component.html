@@ -24,6 +24,8 @@
                   formControlName="patient_id"
                   styleClass="w-full"
                   (onChange)="onSelectPatient($event)"
+                  [filter]="true"
+                  filterBy="label"
                 />
               </div>
               <div class="col-12">

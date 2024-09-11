@@ -62,6 +62,7 @@ export enum ApplicationUrl {
   HEMATOLOGY_LIST = 'application/hematology',
   HEMATOLOGY_DETAIL = 'hematology/detail',
   URINALYSIS = 'urinalysis',
+  URINALYSIS_DETAIL = 'application/urinalysis',
 }
 
 export enum ButtonColor {

@@ -54,4 +54,10 @@ export class UrinalysisService {
   getUrinalysisById(id: number) {
     return this.genericService.getRecordById(`${Endpoints.URINALYSIS}/${id}`);
   }
+
+  generateUrinalysis(id: number) {
+    return this.genericService.generatePDF(
+      `${Endpoints.REPORTS}/urinalysis/${id}`
+    );
+  }
 }

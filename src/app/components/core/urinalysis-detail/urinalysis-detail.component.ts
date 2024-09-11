@@ -1,58 +1,63 @@
-import { Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FeatureDetailHeaderComponent } from '../../shared/feature-detail-header/feature-detail-header.component';
+import { ButtonModule } from 'primeng/button';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   ApplicationUrl,
   ButtonColor,
   ButtonLabel,
 } from '../../../enums/common.enum';
-import { ButtonModule } from 'primeng/button';
-import { Hematology } from '../../../models/hematology.model';
-import { HematologyService } from '../../../services/hematology.service';
 import { Subscription } from 'rxjs';
+import { UrinalysisService } from '../../../services/urinalysis.service';
 import { CommonSuccessResponse } from '../../../models/response.model';
+import { Urinalysis } from '../../../models/urinalysis.model';
+import { InputTextModule } from 'primeng/inputtext';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PdfViewerComponent } from '../../shared/pdf-viewer/pdf-viewer.component';
-import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-  selector: 'app-hematology-detail',
+  selector: 'app-urinalysis-detail',
   standalone: true,
   imports: [FeatureDetailHeaderComponent, ButtonModule, InputTextModule],
-  templateUrl: './hematology-detail.component.html',
-  styleUrl: './hematology-detail.component.scss',
-  providers: [HematologyService, DialogService],
+  templateUrl: './urinalysis-detail.component.html',
+  styleUrl: './urinalysis-detail.component.scss',
+  providers: [UrinalysisService, DialogService],
 })
-export class HematologyDetailComponent implements OnInit, OnDestroy {
+export class UrinalysisDetailComponent implements OnInit, OnDestroy {
   paramsId: number = 0;
-  editBtnLabel = ButtonLabel.PRINT;
-  isEdit = signal<boolean>(false);
   editBtnSeverity = ButtonColor.INFO;
-  hematology = new Hematology();
-  hematologySubsc!: Subscription;
+  editBtnLabel = ButtonLabel.PRINT;
+  urinalysisSubscription!: Subscription;
+  urinalysis = new Urinalysis();
   isLoaded = false;
   private dialogRef!: DynamicDialogRef;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private hematologyService: HematologyService,
+    private urinalysisService: UrinalysisService,
     private dialogService: DialogService
   ) {}
 
   ngOnInit(): void {
     this.paramsId = parseInt(this.route.snapshot.params['id'], 10);
-    this.onLoadHematology();
+    this.onLoadUrinalysis();
   }
 
   ngOnDestroy(): void {
-    if (this.hematologySubsc) this.hematologySubsc.unsubscribe();
+    if (this.urinalysisSubscription) this.urinalysisSubscription.unsubscribe();
+  }
+
+  onBack() {
+    this.router.navigate([
+      `${ApplicationUrl.APPLICATION}/${ApplicationUrl.URINALYSIS}`,
+    ]);
   }
 
   print() {
-    this.hematologyService.generateHemotology(this.paramsId).subscribe({
+    this.urinalysisService.generateUrinalysis(this.paramsId).subscribe({
       next: (response) => {
         this.dialogRef = this.dialogService.open(PdfViewerComponent, {
-          header: 'HEMATOLOGY PDF',
+          header: 'URINALYSIS PDF',
           width: '80%',
           style: { minWidth: '455px', maxWidth: '970px' },
           position: 'top',
@@ -64,25 +69,21 @@ export class HematologyDetailComponent implements OnInit, OnDestroy {
           return;
         });
       },
-      error: (error) => {
-        throw new Error(error);
+      error: (err) => {
+        throw new Error(err);
       },
     });
   }
 
-  onBack() {
-    this.router.navigate([ApplicationUrl.HEMATOLOGY_LIST]);
-  }
-
-  onLoadHematology() {
-    this.hematologySubsc = this.hematologyService
-      .getHematologyById(this.paramsId)
+  onLoadUrinalysis() {
+    this.urinalysisSubscription = this.urinalysisService
+      .getUrinalysisById(this.paramsId)
       .subscribe({
-        next: (response: CommonSuccessResponse<Hematology>) => {
-          this.hematology = response.data as Hematology;
+        next: (response: CommonSuccessResponse<Urinalysis>) => {
+          this.urinalysis = response.data as Urinalysis;
         },
-        error: (errors) => {
-          throw new Error(errors);
+        error: (err) => {
+          throw new Error(err);
         },
         complete: () => {
           this.isLoaded = true;

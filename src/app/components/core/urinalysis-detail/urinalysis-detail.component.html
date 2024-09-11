@@ -1,0 +1,392 @@
+@if (isLoaded) {
+<div
+  class="col-12 flex flex-column justify-content-start align-items-center w-full"
+>
+  <div class="col-12">
+    <app-feature-detail-header title="Urinalysis Detail" (onBack)="onBack()">
+      @if (paramsId) {
+      <button
+        type="button"
+        pButton
+        class="{{ editBtnSeverity }} custom-button"
+        [label]="editBtnLabel"
+        (click)="print()"
+      ></button>
+      }
+    </app-feature-detail-header>
+  </div>
+  <div class="col-12 h-1rem surface-200 w-full"></div>
+  <div class="col-12 flex justify-content-start align-items-center flex-wrap">
+    <div class="col-12 sm:col-12 md:col-6 lg:col-4 xl:col-4">
+      <p class="px-2">Patient Name</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.patient?.last_name }}, {{
+          urinalysis.patient?.first_name
+        }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-6 lg:col-3 xl:col-3">
+      <p class="px-2">Sex</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.patient?.sex }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-12 lg:col-5 xl:col-5">
+      <p class="px-2">Address</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.patient?.address }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4">
+      <p class="px-2">Physician</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.physician }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-12 lg:col-3 xl:col-3">
+      <p class="px-2">Laboratory Number</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.lab_no }}"
+      />
+    </div>
+  </div>
+  <div class="col-12 h-1rem surface-200 w-full"></div>
+  <div class="col-12 flex justify-content-start align-items-center flex-wrap">
+    <div class="col-12">
+      <p class="text-xl font-semibold">PHYSICAL PROPERTIES</p>
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Color</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.color }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Transparency</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.transparancy }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">PH</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.ph }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Specific Gravity</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.spec_gravity }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Reducing Sugar</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.reduce_sugar }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Protein</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.protein }}"
+      />
+    </div>
+  </div>
+  <div class="col-12 h-1rem surface-200 w-full"></div>
+  <div class="col-12 flex justify-content-start align-items-center flex-wrap">
+    <div class="col-12">
+      <p class="text-xl font-semibold">MICROSCOPIC EXAMINATION</p>
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">WBC</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.wbc_count }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">RBC</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.rbc_count }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Squamous</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.squamous }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Rental Tubular</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.rental_tubular }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Transitional</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.transitional }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Bacteria</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.bacteria }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Yeast</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.yeast }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Mucus Threads</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.mucus_thread }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Amorphous Urates</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.amorphous_urates }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Amorphouse Phosphates</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.amorphous_phosphates }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Uric Acid</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.uric_acid }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Calcium Oxalate</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.calcium_oxalate }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Triple Phospate</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.triple_phosphate }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Calcium Carbonate</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.calcium_carbonate }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Calcium Phospate</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.calcium_phosphate }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Ammonium Biurate</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.ammonium_biurate }}"
+      />
+    </div>
+  </div>
+  <div class="col-12 h-1rem surface-200 w-full"></div>
+  <div class="col-12 flex justify-content-start align-items-center flex-wrap">
+    <div class="col-12">
+      <p class="text-xl font-semibold">CAST</p>
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Hyaline</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.hyaline }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Fine Granular</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.fine_granular }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Coarse Granular</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.coarse_granular }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">RBC</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.cast_rbc }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">WBC</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.cast_wbc }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">WAXY</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.cast_waxy }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Broad</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.cast_broad }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Remarks</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ urinalysis.remarks }}"
+      />
+    </div>
+  </div>
+</div>
+}

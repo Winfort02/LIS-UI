@@ -228,6 +228,8 @@ export class UrinalysisFormComponent implements OnInit, OnDestroy {
 
       if (!this.config) {
         this.onCreateUrinalysis(data);
+      } else {
+        this.onUpdateUrinalysis(data);
       }
     }
   }
@@ -238,6 +240,30 @@ export class UrinalysisFormComponent implements OnInit, OnDestroy {
         this.response = new CustomResponse<Urinalysis>(
           response.data as Urinalysis,
           [{ severity: 'info', summary: 'New Urinalysis added successfully.' }]
+        );
+      },
+      error: (err) => {
+        this.response = new CustomResponse<Urinalysis>(err, [
+          { severity: 'error', summary: err.error.message },
+        ]);
+      },
+      complete: () => {
+        this.dialogRef.close(this.response);
+      },
+    });
+  }
+
+  onUpdateUrinalysis(data: Urinalysis) {
+    this.urinalysisService.updateUrinalysis(data).subscribe({
+      next: (response: CommonSuccessResponse<Urinalysis>) => {
+        this.response = new CustomResponse<Urinalysis>(
+          response.data as Urinalysis,
+          [
+            {
+              severity: 'info',
+              summary: 'Urinalysis detail updated successfully.',
+            },
+          ]
         );
       },
       error: (err) => {
