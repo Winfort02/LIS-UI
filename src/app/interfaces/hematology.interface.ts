@@ -11,6 +11,12 @@ export interface IHematology {
   rbc_count: number;
   wbc_count: number;
   platelet_count: number;
+  mcv: number;
+  mch: number;
+  mchc: number;
+  rdw_cv: number;
+  mpv: number;
+  pdw: number;
   neutrophil: number;
   segmented: number;
   stab: number;

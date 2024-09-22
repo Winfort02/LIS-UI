@@ -120,6 +120,42 @@
                 />
               </div>
               <div class="col-12">
+                <p class="px-2 text-500 uppercase">Leukocyte Esterase</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="leukocyte_esterase"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Nitrite</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="nitrite"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Urobilinogen</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="urobilinogen"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Protein</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="protein"
+                />
+              </div>
+              <div class="col-12">
                 <p class="px-2 text-500 uppercase">PH</p>
                 <p-inputNumber
                   formControlName="ph"
@@ -128,6 +164,15 @@
                   [maxFractionDigits]="2"
                   [max]="10.0"
                   [min]="0.0"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Blood</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="blood"
                 />
               </div>
               <div class="col-12">
@@ -142,21 +187,30 @@
                 />
               </div>
               <div class="col-12">
-                <p class="px-2 text-500 uppercase">Reducing Sugar</p>
+                <p class="px-2 text-500 uppercase">Ketones</p>
                 <input
                   type="text"
                   pInputText
                   class="w-full"
-                  formControlName="reduce_sugar"
+                  formControlName="ketones"
                 />
               </div>
               <div class="col-12">
-                <p class="px-2 text-500 uppercase">Protein</p>
+                <p class="px-2 text-500 uppercase">Bilirubin</p>
                 <input
                   type="text"
                   pInputText
                   class="w-full"
-                  formControlName="protein"
+                  formControlName="bilirubin"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">Glucose</p>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full"
+                  formControlName="glucose"
                 />
               </div>
             </div>
@@ -178,7 +232,7 @@
             </div>
           </ng-template>
         </p-stepperPanel>
-        <p-stepperPanel header="Epithelial Cell" formGroupName="stepThree">
+        <p-stepperPanel header="Medical Test" formGroupName="stepThree">
           <ng-template
             pTemplate="content"
             let-nextCallback="nextCallback"

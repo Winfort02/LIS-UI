@@ -103,11 +103,7 @@
             >
               <div class="col-12">
                 <p class="px-2 text-500 uppercase">Hemoglobin</p>
-                <p-inputNumber
-                  formControlName="hemoglobin"
-                  [min]="getMax(130, 120)"
-                  [max]="getMax(180, 160)"
-                />
+                <p-inputNumber formControlName="hemoglobin" />
               </div>
               <div class="col-12">
                 <p class="px-2 text-500 uppercase">Hematocrit</p>
@@ -116,8 +112,6 @@
                   mode="decimal"
                   [minFractionDigits]="1"
                   [maxFractionDigits]="2"
-                  [min]="getMax(0.4, 0.37)"
-                  [max]="getMax(0.54, 0.47)"
                 />
               </div>
               <div class="col-12">
@@ -127,8 +121,6 @@
                   mode="decimal"
                   [minFractionDigits]="1"
                   [maxFractionDigits]="2"
-                  [min]="getMax(4.5, 4.2)"
-                  [max]="getMax(6.2, 5.5)"
                 />
               </div>
               <div class="col-12">
@@ -138,16 +130,64 @@
                   mode="decimal"
                   [minFractionDigits]="1"
                   [maxFractionDigits]="2"
-                  [min]="4.5"
-                  [max]="10.0"
                 />
               </div>
               <div class="col-12">
                 <p class="px-2 text-500 uppercase">Pletelet Count</p>
+                <p-inputNumber formControlName="platelet_count" />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">MCV</p>
                 <p-inputNumber
-                  formControlName="platelet_count"
-                  [min]="150"
-                  [max]="450"
+                  formControlName="mcv"
+                  mode="decimal"
+                  [minFractionDigits]="1"
+                  [maxFractionDigits]="2"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">MCH</p>
+                <p-inputNumber
+                  formControlName="mch"
+                  mode="decimal"
+                  [minFractionDigits]="1"
+                  [maxFractionDigits]="2"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">MCHC</p>
+                <p-inputNumber
+                  formControlName="mchc"
+                  mode="decimal"
+                  [minFractionDigits]="1"
+                  [maxFractionDigits]="2"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">RDW-CV</p>
+                <p-inputNumber
+                  formControlName="rdw_cv"
+                  mode="decimal"
+                  [minFractionDigits]="1"
+                  [maxFractionDigits]="2"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">MPV</p>
+                <p-inputNumber
+                  formControlName="mpv"
+                  mode="decimal"
+                  [minFractionDigits]="1"
+                  [maxFractionDigits]="2"
+                />
+              </div>
+              <div class="col-12">
+                <p class="px-2 text-500 uppercase">PDW</p>
+                <p-inputNumber
+                  formControlName="pdw"
+                  mode="decimal"
+                  [minFractionDigits]="1"
+                  [maxFractionDigits]="2"
                 />
               </div>
             </div>
@@ -180,66 +220,31 @@
             >
               <div class="col-12">
                 <p class="px-2 text-500 uppercase">Neutrophil</p>
-                <p-inputNumber
-                  formControlName="neutrophil"
-                  suffix=" %"
-                  [min]="55"
-                  [max]="65"
-                />
+                <p-inputNumber formControlName="neutrophil" suffix=" %" />
               </div>
               <div class="col-12">
                 <p class="px-2 text-500 uppercase">Segmented</p>
-                <p-inputNumber
-                  formControlName="segmented"
-                  suffix=" %"
-                  [min]="50"
-                  [max]="60"
-                />
+                <p-inputNumber formControlName="segmented" suffix=" %" />
               </div>
               <div class="col-12">
                 <p class="px-2 text-500 uppercase">Stab</p>
-                <p-inputNumber
-                  formControlName="stab"
-                  suffix=" %"
-                  [min]="0"
-                  [max]="5"
-                />
+                <p-inputNumber formControlName="stab" suffix=" %" />
               </div>
               <div class="col-12">
                 <p class="px-2 text-500 uppercase">Lymphocyties</p>
-                <p-inputNumber
-                  formControlName="lymphocyties"
-                  suffix=" %"
-                  [min]="25"
-                  [max]="35"
-                />
+                <p-inputNumber formControlName="lymphocyties" suffix=" %" />
               </div>
               <div class="col-12">
                 <p class="px-2 text-500 uppercase">Monocyties</p>
-                <p-inputNumber
-                  formControlName="monocyties"
-                  suffix=" %"
-                  [min]="4"
-                  [max]="8"
-                />
+                <p-inputNumber formControlName="monocyties" suffix=" %" />
               </div>
               <div class="col-12">
                 <p class="px-2 text-500 uppercase">Eosinophils</p>
-                <p-inputNumber
-                  formControlName="eosinophils"
-                  suffix=" %"
-                  [min]="1"
-                  [max]="3"
-                />
+                <p-inputNumber formControlName="eosinophils" suffix=" %" />
               </div>
               <div class="col-12">
                 <p class="px-2 text-500 uppercase">Sasophils</p>
-                <p-inputNumber
-                  formControlName="basophils"
-                  suffix=" %"
-                  [min]="0"
-                  [max]="1"
-                />
+                <p-inputNumber formControlName="basophils" suffix=" %" />
               </div>
               <div class="col-12">
                 <p class="px-2 text-500 uppercase">Remarks</p>

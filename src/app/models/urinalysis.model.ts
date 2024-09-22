@@ -11,7 +11,13 @@ export class Urinalysis implements IUrinalysis {
   transparancy!: string;
   ph!: number;
   spec_gravity!: number;
-  reduce_sugar!: string;
+  leukocyte_esterase!: string;
+  nitrite!: string;
+  urobilinogen!: string;
+  blood!: string;
+  ketones!: string;
+  bilirubin!: string;
+  glucose!: string;
   protein!: string;
   wbc_count!: number;
   rbc_count!: number;
