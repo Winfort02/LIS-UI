@@ -70,3 +70,21 @@ export enum ButtonColor {
   INFO = 'p-button-info',
   DANGER = 'p-button-danger',
 }
+
+export enum ChemicalTestDropdown {
+  NEGATIVE = 'NEGATIVE',
+  ONE_PLUS = '1+',
+  TWO_PLUS = '2+',
+  THREE_PLUS = '3+',
+  FOUR_PLUS = '4+',
+  TRACE = 'TRACE',
+  POSITIVE = 'POSITIVE',
+  SIX = 6.0,
+  SIX_POINT_FIVE = 6.5,
+  SEVEN = 7,
+  ONE_POINT_ZERO_ONE = 1.01,
+  ONE_POINT_ZERO_FIFTEEN = 1.15,
+  ONE_POINT_ZERO_TWO = 1.02,
+  ONE_POINT_ZERO_TWOFIVE = 1.025,
+  ONE_POINT_ZERO_THREE = 1.03,
+}

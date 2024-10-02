@@ -1,4 +1,6 @@
+import { ChemicalTestDropdown } from '../enums/common.enum';
+
 export interface IDropdownOption {
-  label: string;
-  value: string | number;
+  label: string | ChemicalTestDropdown;
+  value: string | number | ChemicalTestDropdown;
 }

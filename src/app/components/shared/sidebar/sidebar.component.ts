@@ -108,11 +108,6 @@ export class SidebarComponent implements OnInit {
         routerLink: ApplicationUrl.URINALYSIS,
       },
       {
-        label: 'Reports',
-        icon: Icon.FOLDER,
-        routerLink: '',
-      },
-      {
         label: 'Sign Out',
         icon: Icon.LOGOUT,
         command: () => this.logout(),
@@ -123,6 +118,7 @@ export class SidebarComponent implements OnInit {
   logout() {
     this.confirmationService.confirm({
       ...this.commonHelper.commonConfrimation(),
+      header: 'Session Confirmation',
       message: 'Are you sure you want to end your current session?',
       acceptLabel: 'Yes',
       accept: () => {

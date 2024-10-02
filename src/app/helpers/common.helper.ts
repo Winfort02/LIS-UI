@@ -44,8 +44,8 @@ export class CommonHelper<T> {
   urinalysisDialog(data?: T) {
     return {
       header: 'Urinalysis Details',
-      width: '35%',
-      style: { minWidth: '455px', maxWidth: '970px' },
+      width: '40%',
+      style: { minWidth: '467px', maxWidth: '970px' },
       position: 'top',
       focusOnShow: false,
       data,

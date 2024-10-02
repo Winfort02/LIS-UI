@@ -23,6 +23,14 @@ import { Urinalysis } from '../../../models/urinalysis.model';
 import { UrinalysisService } from '../../../services/urinalysis.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CommonService } from '../../../services/common.service';
+import {
+  CHEMICAL_TEST_DROPDOWN_COMMON,
+  CHEMICAL_TEST_DROPDOWN_MAX_3PLUS,
+  CHEMICAL_TEST_DROPDOWN_NITRE,
+  CHEMICAL_TEST_DROPDOWN_PH,
+  CHEMICAL_TEST_DROPDOWN_SPEC_GRAV,
+  CHEMICAL_TEST_DROPDOWN_WITH_TRACE,
+} from '../../../helpers/constant.helper';
 
 @Component({
   selector: 'app-urinalysis-form',
@@ -54,6 +62,13 @@ export class UrinalysisFormComponent implements OnInit, OnDestroy {
     []
   );
   config = null || new Urinalysis();
+
+  commonOptions: IDropdownOption[] = CHEMICAL_TEST_DROPDOWN_COMMON;
+  nitriteOptions: IDropdownOption[] = CHEMICAL_TEST_DROPDOWN_NITRE;
+  phOptions: IDropdownOption[] = CHEMICAL_TEST_DROPDOWN_PH;
+  specGravOptions: IDropdownOption[] = CHEMICAL_TEST_DROPDOWN_SPEC_GRAV;
+  commonWithTraceOptions: IDropdownOption[] = CHEMICAL_TEST_DROPDOWN_WITH_TRACE;
+  commonMaxThree: IDropdownOption[] = CHEMICAL_TEST_DROPDOWN_MAX_3PLUS;
 
   constructor(
     private formBuilder: FormBuilder,

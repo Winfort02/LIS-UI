@@ -5,7 +5,7 @@
     <form [formGroup]="urinalysisForm">
       <input type="text" hidden formControlName="id" />
       <p-stepper [linear]="true">
-        <p-stepperPanel header="Patient Detail" formGroupName="stepOne">
+        <p-stepperPanel header="Patient" formGroupName="stepOne">
           <ng-template
             pTemplate="content"
             let-nextCallback="nextCallback"
@@ -91,7 +91,7 @@
             </div>
           </ng-template>
         </p-stepperPanel>
-        <p-stepperPanel header="Physical Properties" formGroupName="stepTwo">
+        <p-stepperPanel header="Physical" formGroupName="stepTwo">
           <ng-template
             pTemplate="content"
             let-prevCallback="prevCallback"
@@ -121,101 +121,117 @@
               </div>
               <div class="col-12">
                 <p class="px-2 text-500 uppercase">Leukocyte Esterase</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
+                <p-dropdown
+                  [options]="commonOptions"
+                  optionLabel="label"
+                  optionValue="value"
+                  placeholder="Select"
                   formControlName="leukocyte_esterase"
+                  styleClass="w-full"
                 />
               </div>
               <div class="col-12">
                 <p class="px-2 text-500 uppercase">Nitrite</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
+                <p-dropdown
+                  [options]="nitriteOptions"
+                  optionLabel="label"
+                  optionValue="value"
+                  placeholder="Select"
                   formControlName="nitrite"
+                  styleClass="w-full"
                 />
               </div>
               <div class="col-12">
                 <p class="px-2 text-500 uppercase">Urobilinogen</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
+                <p-dropdown
+                  [options]="commonOptions"
+                  optionLabel="label"
+                  optionValue="value"
+                  placeholder="Select"
                   formControlName="urobilinogen"
+                  styleClass="w-full"
                 />
               </div>
               <div class="col-12">
                 <p class="px-2 text-500 uppercase">Protein</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
+                <p-dropdown
+                  [options]="commonWithTraceOptions"
+                  optionLabel="label"
+                  optionValue="value"
+                  placeholder="Select"
                   formControlName="protein"
+                  styleClass="w-full"
                 />
               </div>
               <div class="col-12">
                 <p class="px-2 text-500 uppercase">PH</p>
-                <p-inputNumber
+                <p-dropdown
+                  [options]="phOptions"
+                  optionLabel="label"
+                  optionValue="value"
+                  placeholder="Select"
                   formControlName="ph"
-                  mode="decimal"
-                  [minFractionDigits]="1"
-                  [maxFractionDigits]="2"
-                  [max]="10.0"
-                  [min]="0.0"
+                  styleClass="w-full"
                 />
               </div>
               <div class="col-12">
                 <p class="px-2 text-500 uppercase">Blood</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
+                <p-dropdown
+                  [options]="commonWithTraceOptions"
+                  optionLabel="label"
+                  optionValue="value"
+                  placeholder="Select"
                   formControlName="blood"
+                  styleClass="w-full"
                 />
               </div>
               <div class="col-12">
                 <p class="px-2 text-500 uppercase">Specific Gravity</p>
-                <p-inputNumber
+                <p-dropdown
+                  [options]="specGravOptions"
+                  optionLabel="label"
+                  optionValue="value"
+                  placeholder="Select"
                   formControlName="spec_gravity"
-                  mode="decimal"
-                  [minFractionDigits]="1"
-                  [maxFractionDigits]="3"
-                  [max]="10.0"
-                  [min]="0.0"
+                  styleClass="w-full"
                 />
               </div>
               <div class="col-12">
                 <p class="px-2 text-500 uppercase">Ketones</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
+                <p-dropdown
+                  [options]="commonWithTraceOptions"
+                  optionLabel="label"
+                  optionValue="value"
+                  placeholder="Select"
                   formControlName="ketones"
+                  styleClass="w-full"
                 />
               </div>
               <div class="col-12">
                 <p class="px-2 text-500 uppercase">Bilirubin</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
+                <p-dropdown
+                  [options]="commonMaxThree"
+                  optionLabel="label"
+                  optionValue="value"
+                  placeholder="Select"
                   formControlName="bilirubin"
+                  styleClass="w-full"
                 />
               </div>
               <div class="col-12">
                 <p class="px-2 text-500 uppercase">Glucose</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
+                <p-dropdown
+                  [options]="commonMaxThree"
+                  optionLabel="label"
+                  optionValue="value"
+                  placeholder="Select"
                   formControlName="glucose"
+                  styleClass="w-full"
                 />
               </div>
             </div>
             <div
-              class="flex justify-content-between align-content-center px-3 pt-4"
+              class="flex justify-content-between align-content-center px-3 mt-2"
             >
               <p-button
                 label="Back"
@@ -232,7 +248,7 @@
             </div>
           </ng-template>
         </p-stepperPanel>
-        <p-stepperPanel header="Medical Test" formGroupName="stepThree">
+        <p-stepperPanel header="Medical" formGroupName="stepThree">
           <ng-template
             pTemplate="content"
             let-nextCallback="nextCallback"

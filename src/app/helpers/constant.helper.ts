@@ -1,3 +1,6 @@
+import { ChemicalTestDropdown } from '../enums/common.enum';
+import { IDropdownOption } from '../interfaces/dropdown-option.interface';
+
 export const FIELD_VALIDATIONS = {
   NAME: /^[A-Za-z]+( [A-Za-z]+)*$/,
   EMAIL: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
@@ -23,3 +26,141 @@ export const Gender = {
   FEMALE: 'Female',
   Other: 'Other',
 };
+
+export const CHEMICAL_TEST_DROPDOWN_COMMON: IDropdownOption[] = [
+  {
+    label: 'Select',
+    value: '',
+  },
+  {
+    label: ChemicalTestDropdown.NEGATIVE,
+    value: ChemicalTestDropdown.NEGATIVE,
+  },
+  {
+    label: ChemicalTestDropdown.ONE_PLUS,
+    value: ChemicalTestDropdown.ONE_PLUS,
+  },
+  {
+    label: ChemicalTestDropdown.TWO_PLUS,
+    value: ChemicalTestDropdown.TWO_PLUS,
+  },
+  {
+    label: ChemicalTestDropdown.THREE_PLUS,
+    value: ChemicalTestDropdown.THREE_PLUS,
+  },
+  {
+    label: ChemicalTestDropdown.FOUR_PLUS,
+    value: ChemicalTestDropdown.FOUR_PLUS,
+  },
+];
+
+export const CHEMICAL_TEST_DROPDOWN_NITRE: IDropdownOption[] = [
+  {
+    label: 'Select',
+    value: '',
+  },
+  {
+    label: ChemicalTestDropdown.NEGATIVE,
+    value: ChemicalTestDropdown.NEGATIVE,
+  },
+  {
+    label: ChemicalTestDropdown.POSITIVE,
+    value: ChemicalTestDropdown.POSITIVE,
+  },
+];
+
+export const CHEMICAL_TEST_DROPDOWN_WITH_TRACE: IDropdownOption[] = [
+  {
+    label: 'Select',
+    value: '',
+  },
+  {
+    label: ChemicalTestDropdown.NEGATIVE,
+    value: ChemicalTestDropdown.NEGATIVE,
+  },
+  {
+    label: ChemicalTestDropdown.TRACE,
+    value: ChemicalTestDropdown.TRACE,
+  },
+  {
+    label: ChemicalTestDropdown.ONE_PLUS,
+    value: ChemicalTestDropdown.ONE_PLUS,
+  },
+  {
+    label: ChemicalTestDropdown.TWO_PLUS,
+    value: ChemicalTestDropdown.TWO_PLUS,
+  },
+  {
+    label: ChemicalTestDropdown.THREE_PLUS,
+    value: ChemicalTestDropdown.THREE_PLUS,
+  },
+];
+
+export const CHEMICAL_TEST_DROPDOWN_MAX_3PLUS: IDropdownOption[] = [
+  {
+    label: 'Select',
+    value: '',
+  },
+  {
+    label: ChemicalTestDropdown.NEGATIVE,
+    value: ChemicalTestDropdown.NEGATIVE,
+  },
+  {
+    label: ChemicalTestDropdown.ONE_PLUS,
+    value: ChemicalTestDropdown.ONE_PLUS,
+  },
+  {
+    label: ChemicalTestDropdown.TWO_PLUS,
+    value: ChemicalTestDropdown.TWO_PLUS,
+  },
+  {
+    label: ChemicalTestDropdown.THREE_PLUS,
+    value: ChemicalTestDropdown.THREE_PLUS,
+  },
+];
+
+export const CHEMICAL_TEST_DROPDOWN_PH: IDropdownOption[] = [
+  {
+    label: 'Select',
+    value: 0.0,
+  },
+  {
+    label: ChemicalTestDropdown.SIX,
+    value: ChemicalTestDropdown.SIX,
+  },
+  {
+    label: ChemicalTestDropdown.SIX_POINT_FIVE,
+    value: ChemicalTestDropdown.SIX_POINT_FIVE,
+  },
+  {
+    label: ChemicalTestDropdown.SEVEN,
+    value: ChemicalTestDropdown.SEVEN,
+  },
+];
+
+export const CHEMICAL_TEST_DROPDOWN_SPEC_GRAV: IDropdownOption[] = [
+  {
+    label: 'Select',
+    value: 0.0,
+  },
+  {
+    label: ChemicalTestDropdown.ONE_POINT_ZERO_ONE,
+    value: ChemicalTestDropdown.ONE_POINT_ZERO_ONE,
+  },
+  {
+    label: ChemicalTestDropdown.ONE_POINT_ZERO_FIFTEEN,
+    value: ChemicalTestDropdown.ONE_POINT_ZERO_FIFTEEN,
+  },
+  {
+    label: ChemicalTestDropdown.ONE_POINT_ZERO_TWO,
+    value: ChemicalTestDropdown.ONE_POINT_ZERO_TWO,
+  },
+  {
+    label: ChemicalTestDropdown.ONE_POINT_ZERO_TWOFIVE,
+    value: ChemicalTestDropdown.ONE_POINT_ZERO_TWOFIVE,
+  },
+  {
+    label: ChemicalTestDropdown.ONE_POINT_ZERO_THREE,
+    value: ChemicalTestDropdown.ONE_POINT_ZERO_THREE,
+  },
+];
