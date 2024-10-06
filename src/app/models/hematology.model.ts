@@ -1,10 +1,10 @@
 import { IHematology } from '../interfaces/hematology.interface';
-import { IPatient } from '../interfaces/patient.interface';
+import { ITest } from '../interfaces/test.interface';
 
 export class Hematology implements IHematology {
   id?: number | undefined;
-  patient_id!: number;
-  patient?: IPatient | undefined;
+  test_id!: number;
+  test?: ITest | undefined;
   physician!: string;
   lab_no!: string;
   hemoglobin!: number;

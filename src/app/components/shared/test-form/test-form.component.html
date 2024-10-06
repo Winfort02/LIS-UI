@@ -1,0 +1,43 @@
+<div class="col-12 flex flex-column justify-content-center align-items-center">
+  <form class="w-full" [formGroup]="testForm">
+    <div
+      class="col-12 flex flex-column justify-content-start align-content-center gap-3"
+    >
+      <input type="text" hidden formControlName="id" />
+      <div class="col-12">
+        <p class="px-2 text-500 uppercase">Patient Name</p>
+        <p-dropdown
+          [options]="options"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select Patient"
+          styleClass="w-full"
+          (onChange)="onSelectPatient($event)"
+          [filter]="true"
+          filterBy="label"
+          formControlName="patient_id"
+        />
+      </div>
+      <div class="col-12">
+        <p class="px-2 text-500 uppercase">Test Type</p>
+        <p-dropdown
+          [options]="testTypeOptions"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select Test Type"
+          styleClass="w-full"
+          formControlName="type"
+        />
+      </div>
+      <div class="col-12 mt-3">
+        <p-button
+          severity="info"
+          label="Save"
+          styleClass="w-full text-center"
+          [disabled]="testForm.invalid"
+          (onClick)="onSaveTest()"
+        />
+      </div>
+    </div>
+  </form>
+</div>

@@ -12,6 +12,7 @@ export class FeatureHeaderComponent implements OnInit {
   @Input() title!: string;
   @Input() buttonSize: string = 'small';
   @Output() onClickActionButton = new EventEmitter<string>();
+  @Input() showButton: boolean = true;
 
   onClick() {
     this.onClickActionButton.emit('add');

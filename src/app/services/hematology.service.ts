@@ -35,7 +35,7 @@ export class HematologyService {
         map(({ response, meta }) => {
           const data = meta.map((hematology: Hematology) => ({
             ...hematology,
-            fullName: `${hematology.patient?.first_name} ${hematology.patient?.last_name}`,
+            transaction_number: hematology.test?.transaction_number,
           }));
           return {
             currentPage: response.currentPage,

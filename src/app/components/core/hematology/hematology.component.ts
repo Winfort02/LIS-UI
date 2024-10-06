@@ -24,16 +24,13 @@ import {
   EPagination,
 } from '../../../enums/common.enum';
 import { Router } from '@angular/router';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CommonHelper } from '../../../helpers/common.helper';
 import { HematologyFormComponent } from '../../shared/hematology-form/hematology-form.component';
-import { CustomResponse } from '../../../models/response.model';
 
 @Component({
   selector: 'app-test-order',
   standalone: true,
   imports: [
-    MessagesModule,
     FeatureHeaderComponent,
     SearchComponent,
     FeatureTableComponent,
@@ -41,10 +38,8 @@ import { CustomResponse } from '../../../models/response.model';
   ],
   templateUrl: './hematology.component.html',
   styleUrl: './hematology.component.scss',
-  providers: [DialogService],
 })
 export class HematologyComponent implements OnInit, OnDestroy {
-  messages: Message[] = [];
   hematologies = signal<Hematology[]>([]);
   cols = signal<ITableColumn[]>([]);
   pagination = signal<Pagination>(new Pagination());
@@ -54,15 +49,16 @@ export class HematologyComponent implements OnInit, OnDestroy {
   selectedPage = signal<number>(1);
   commonHelper = new CommonHelper<Hematology>();
   actionButton = {
-    edit: ButtonLabel.EDIT,
+    edit: ButtonLabel.VIEW,
     delete: ButtonLabel.VIEW,
   };
-
-  private dialogRef!: DynamicDialogRef;
+  showActionBtn = {
+    edit: true,
+    delete: false,
+  };
 
   constructor(
     private hemotologyService: HematologyService,
-    private dialogService: DialogService,
     private router: Router
   ) {
     effect(() => {
@@ -75,29 +71,11 @@ export class HematologyComponent implements OnInit, OnDestroy {
 
   onLoadColums() {
     this.cols.set([
-      { field: 'fullName', header: 'Patient' },
+      { field: 'transaction_number', header: 'Transaction No' },
       { field: 'physician', header: 'Physician' },
       { field: 'lab_no', header: 'Lab Number' },
       { field: 'createdAt', header: 'Date' },
     ]);
-  }
-
-  add(event: string) {
-    if (event === ActionButtonType.add) {
-      this.dialogRef = this.dialogService.open(
-        HematologyFormComponent,
-        this.commonHelper.hemotologyDialog()
-      );
-
-      this.dialogRef.onClose.subscribe(
-        (response: CustomResponse<Hematology>) => {
-          if (response) {
-            this.messages = response.message;
-            this.onLoadHematologies(this.pagination().currentPage);
-          }
-        }
-      );
-    }
   }
 
   getAllHematologies(page: number) {
@@ -139,22 +117,6 @@ export class HematologyComponent implements OnInit, OnDestroy {
 
   onClickActionBtn(event: any) {
     if (event.type === ActionButtonType.edit) {
-      this.dialogRef = this.dialogService.open(
-        HematologyFormComponent,
-        this.commonHelper.hemotologyDialog(event.data as Hematology)
-      );
-
-      this.dialogRef.onClose.subscribe(
-        (response: CustomResponse<Hematology>) => {
-          if (response) {
-            this.messages = response.message;
-            this.onLoadHematologies(this.pagination().currentPage);
-          }
-        }
-      );
-    }
-
-    if (event.type === ActionButtonType.delete) {
       this.router.navigate([
         `${ApplicationUrl.HEMATOLOGY_LIST}/detail/${event.data.id}`,
       ]);

@@ -13,13 +13,15 @@
       <th class="text-md uppercase" pResizableColumn>
         {{ col.header }}
       </th>
-      }
+      } @if (showActionBtn.edit) {
       <th [width]="'5%'" class="text-center text-md capitalize">
         {{ actionButton.edit }}
       </th>
+      } @if(showActionBtn.delete) {
       <th [width]="'5%'" class="text-center text-md capitalize">
         {{ actionButton.delete }}
       </th>
+      }
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-rowData let-columns="columns">
@@ -27,7 +29,7 @@
     <tr>
       @for(col of columns; track $index) {
       <td>{{ rowData[col.field] || "-" }}</td>
-      }
+      } @if(showActionBtn.edit) {
       <td>
         <p-button
           severity="info"
@@ -37,6 +39,7 @@
           styleClass="custom-button"
         ></p-button>
       </td>
+      } @if(showActionBtn.delete) {
       <td>
         <p-button
           severity="danger"
@@ -46,6 +49,7 @@
           styleClass="custom-button"
         ></p-button>
       </td>
+      }
     </tr>
     }
   </ng-template>

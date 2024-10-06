@@ -6,7 +6,7 @@ export class CommonHelper<T> {
     return {
       header: 'Update Details',
       width: '35%',
-      style: { minWidth: '455px', maxWidth: '970px' },
+      style: { minWidth: '467px', maxWidth: '970px' },
       position: 'top',
       focusOnShow: false,
       data,

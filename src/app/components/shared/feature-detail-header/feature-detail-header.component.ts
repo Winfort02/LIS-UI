@@ -13,6 +13,7 @@ export class FeatureDetailHeaderComponent {
   @Output() onSave = new EventEmitter<string>();
   @Input() title = '';
   @Input() formId = '';
+  @Input() showBackBtn = true;
 
   back() {
     this.onBack.emit('back');

@@ -57,11 +57,25 @@ export const routes: Routes = [
           ).then((c) => c.PatientDetailComponent),
       },
       {
+        path: ApplicationUrl.TEST,
+        loadComponent: () =>
+          import('./components/core/test/test.component').then(
+            (c) => c.TestComponent
+          ),
+      },
+      {
         path: ApplicationUrl.HEMATOLOGY,
         loadComponent: () =>
           import('./components/core/hematology/hematology.component').then(
             (c) => c.HematologyComponent
           ),
+      },
+      {
+        path: `test/transaction/:transaction_no/${ApplicationUrl.HEMATOLOGY}`,
+        loadComponent: () =>
+          import(
+            './components/shared/hematology-form/hematology-form.component'
+          ).then((c) => c.HematologyFormComponent),
       },
       {
         path: `${ApplicationUrl.HEMATOLOGY_DETAIL}/:id`,

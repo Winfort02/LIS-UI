@@ -1,9 +1,9 @@
-import { IPatient } from './patient.interface';
+import { ITest } from './test.interface';
 
 export interface IHematology {
   id?: number;
-  patient_id: number;
-  patient?: IPatient;
+  test_id: number;
+  test?: ITest;
   physician: string;
   lab_no: string;
   hemoglobin: number;

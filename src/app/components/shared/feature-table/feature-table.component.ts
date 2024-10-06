@@ -34,6 +34,10 @@ export class FeatureTableComponent implements OnInit {
     edit: ButtonLabel.EDIT,
     delete: ButtonLabel.DELETE,
   };
+  @Input() showActionBtn: { edit: boolean; delete: boolean } = {
+    edit: true,
+    delete: true,
+  };
 
   @Output() paginatePage = new EventEmitter<string>();
   @Output() pageChanged = new EventEmitter<number>();

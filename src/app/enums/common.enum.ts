@@ -48,6 +48,7 @@ export enum Endpoints {
   HEMATOLOGY = 'hematology',
   URINALYSIS = 'urinalysis',
   REPORTS = 'report',
+  TEST = 'tests',
 }
 
 export enum ApplicationUrl {
@@ -63,6 +64,7 @@ export enum ApplicationUrl {
   HEMATOLOGY_DETAIL = 'hematology/detail',
   URINALYSIS = 'urinalysis',
   URINALYSIS_DETAIL = 'application/urinalysis',
+  TEST = 'test',
 }
 
 export enum ButtonColor {
@@ -87,4 +89,10 @@ export enum ChemicalTestDropdown {
   ONE_POINT_ZERO_TWO = 1.02,
   ONE_POINT_ZERO_TWOFIVE = 1.025,
   ONE_POINT_ZERO_THREE = 1.03,
+}
+
+export enum TestType {
+  hematology = 'Hematology',
+  urinalysis = 'Urinalysis',
+  chemistry = 'Chemistry',
 }

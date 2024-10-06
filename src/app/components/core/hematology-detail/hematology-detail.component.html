@@ -17,36 +17,14 @@
   </div>
   <div class="col-12 h-1rem surface-200 w-full"></div>
   <div class="col-12 flex justify-content-start align-items-center flex-wrap">
-    <div class="col-12 sm:col-12 md:col-6 lg:col-4 xl:col-4">
-      <p class="px-2">Patient Name</p>
+    <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4">
+      <p class="px-2">Transaction No</p>
       <input
         type="text"
         pInputText
         class="w-full"
         disabled
-        value="{{ hematology.patient?.last_name }}, {{
-          hematology.patient?.first_name
-        }}"
-      />
-    </div>
-    <div class="col-12 sm:col-12 md:col-6 lg:col-3 xl:col-3">
-      <p class="px-2">Sex</p>
-      <input
-        type="text"
-        pInputText
-        class="w-full"
-        disabled
-        value="{{ hematology.patient?.sex }}"
-      />
-    </div>
-    <div class="col-12 sm:col-12 md:col-12 lg:col-5 xl:col-5">
-      <p class="px-2">Address</p>
-      <input
-        type="text"
-        pInputText
-        class="w-full"
-        disabled
-        value="{{ hematology.patient?.address }}"
+        value="{{ hematology.test?.transaction_number }}"
       />
     </div>
     <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4">

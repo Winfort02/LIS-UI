@@ -98,6 +98,11 @@ export class SidebarComponent implements OnInit {
         routerLink: ApplicationUrl.PATIENTS,
       },
       {
+        label: 'Test',
+        icon: Icon.FOLDER,
+        routerLink: ApplicationUrl.TEST,
+      },
+      {
         label: 'Hematology',
         icon: Icon.FOLDER,
         routerLink: ApplicationUrl.HEMATOLOGY,

@@ -1,4 +1,4 @@
-import { ChemicalTestDropdown } from '../enums/common.enum';
+import { ChemicalTestDropdown, TestType } from '../enums/common.enum';
 import { IDropdownOption } from '../interfaces/dropdown-option.interface';
 
 export const FIELD_VALIDATIONS = {
@@ -162,5 +162,19 @@ export const CHEMICAL_TEST_DROPDOWN_SPEC_GRAV: IDropdownOption[] = [
   {
     label: ChemicalTestDropdown.ONE_POINT_ZERO_THREE,
     value: ChemicalTestDropdown.ONE_POINT_ZERO_THREE,
+  },
+];
+export const TEST_TYPE_DROPDOWN: IDropdownOption[] = [
+  {
+    label: TestType.hematology,
+    value: TestType.hematology,
+  },
+  {
+    label: TestType.urinalysis,
+    value: TestType.urinalysis,
+  },
+  {
+    label: TestType.chemistry,
+    value: TestType.chemistry,
   },
 ];

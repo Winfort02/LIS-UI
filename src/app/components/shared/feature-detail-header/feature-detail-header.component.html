@@ -12,6 +12,7 @@
     >
       <ng-content> </ng-content>
 
+      @if (showBackBtn) {
       <p-button
         severity="secondary"
         label="Back"
@@ -19,6 +20,7 @@
         (click)="back()"
         styleClass="custom-button"
       />
+      }
     </div>
   </div>
 </ng-container>
