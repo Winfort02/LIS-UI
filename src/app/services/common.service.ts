@@ -1,15 +1,27 @@
 import { DatePipe } from '@angular/common';
 import { computed, Injectable, Signal, signal } from '@angular/core';
 import { LocalKeys } from '../enums/common.enum';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CommonService {
+  previousUrl: string = '';
+  currentUrl: string = '';
   private _accessToken = signal<string | null>(
     localStorage.getItem(LocalKeys.accessToken)
   );
-  constructor(private datePipe: DatePipe) {}
+  constructor(private datePipe: DatePipe, private router: Router) {
+    this.currentUrl = this.router.url;
+    router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.previousUrl = this.currentUrl;
+        this.currentUrl = event.url;
+      }
+    });
+  }
 
   set accessToken(token: string | null) {
     this._accessToken.set(token);

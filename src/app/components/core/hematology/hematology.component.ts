@@ -74,6 +74,7 @@ export class HematologyComponent implements OnInit, OnDestroy {
       { field: 'transaction_number', header: 'Transaction No' },
       { field: 'physician', header: 'Physician' },
       { field: 'lab_no', header: 'Lab Number' },
+      { field: 'remarks', header: 'Remarks' },
       { field: 'createdAt', header: 'Date' },
     ]);
   }

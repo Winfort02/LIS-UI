@@ -11,7 +11,7 @@
   </div>
   }
   <div class="col-12">
-    <app-feature-detail-header title="Patient Information" (onBack)="onBack()">
+    <app-feature-detail-header title="Patient Information">
       @if (paramsId) {
       <button
         type="button"
@@ -42,13 +42,36 @@
       (onTrackChanges)="onTrack($event)"
       [patient]="patient"
       [isLock]="isEdit"
-    >
-    </app-patient-form-container>
+    />
   </div>
   <div class="col-12 h-1rem surface-200 w-full"></div>
+  @defer (when showTestHistory) {
   <div
     class="col-12 flex flex-column align-items-center justify-content-center"
   >
-    <div class="col-12"></div>
+    <div class="col-12">
+      <app-feature-detail-header title="Test History" [showBackBtn]="false" />
+    </div>
+    <div class="col-12">
+      <app-search
+        (search)="onSearch($event)"
+        [placeholder]="'Search by transaction no ...'"
+      />
+    </div>
+    <div class="col-12">
+      <app-feature-table
+        [items]="tests"
+        [cols]="cols"
+        tableSize="large"
+        (paginatePage)="onPaginatePage($event)"
+        (pageChanged)="onPageChange($event)"
+        [enablePagination]="true"
+        [pagination]="pagination"
+        (actionBtn)="onClickActionBtn($event)"
+        [actionButton]="actionButton"
+        [showActionBtn]="showActionBtn"
+      />
+    </div>
   </div>
+  }
 </div>

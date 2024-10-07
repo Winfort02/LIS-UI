@@ -110,6 +110,7 @@ export class TestComponent implements OnInit, OnDestroy {
       { field: 'transaction_number', header: 'Transaction No' },
       { field: 'patientName', header: 'Patient' },
       { field: 'type', header: 'Test Type' },
+      { field: 'isCompleted', header: 'Status' },
       { field: 'createdAt', header: 'Created Date' },
     ]);
   }
@@ -139,7 +140,9 @@ export class TestComponent implements OnInit, OnDestroy {
       this.getTestRecords(this.pagination().lastPage);
   }
 
-  onPageChange(event: number) {}
+  onPageChange(event: number) {
+    this.getTestRecords(event);
+  }
 
   onClickActionBtn(event: { type: string; data: any }) {
     switch (event.type) {

@@ -1,11 +1,7 @@
 import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { FeatureDetailHeaderComponent } from '../../shared/feature-detail-header/feature-detail-header.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import {
-  ApplicationUrl,
-  ButtonColor,
-  ButtonLabel,
-} from '../../../enums/common.enum';
+import { ActivatedRoute } from '@angular/router';
+import { ButtonColor, ButtonLabel } from '../../../enums/common.enum';
 import { ButtonModule } from 'primeng/button';
 import { Hematology } from '../../../models/hematology.model';
 import { HematologyService } from '../../../services/hematology.service';
@@ -34,7 +30,6 @@ export class HematologyDetailComponent implements OnInit, OnDestroy {
   private dialogRef!: DynamicDialogRef;
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private hematologyService: HematologyService,
     private dialogService: DialogService
   ) {}
@@ -68,10 +63,6 @@ export class HematologyDetailComponent implements OnInit, OnDestroy {
         throw new Error(error);
       },
     });
-  }
-
-  onBack() {
-    this.router.navigate([ApplicationUrl.HEMATOLOGY_LIST]);
   }
 
   onLoadHematology() {

@@ -84,12 +84,6 @@ export class HematologyFormComponent implements OnInit, OnDestroy {
     this.testSubscription && this.testSubscription.unsubscribe();
   }
 
-  onBack() {
-    this.router.navigate([
-      `${ApplicationUrl.APPLICATION}/${ApplicationUrl.TEST}`,
-    ]);
-  }
-
   print() {
     this.hematologyService
       .generateHemotology(this.hematology.id as number)

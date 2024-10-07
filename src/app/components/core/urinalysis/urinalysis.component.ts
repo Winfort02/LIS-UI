@@ -46,8 +46,12 @@ export class UrinalysisComponent implements OnInit {
   selectedPage = signal<number>(1);
 
   actionButton = {
-    edit: ButtonLabel.EDIT,
+    edit: ButtonLabel.VIEW,
     delete: ButtonLabel.VIEW,
+  };
+  showActionBtn = {
+    edit: true,
+    delete: false,
   };
 
   private dialogRef!: DynamicDialogRef;
@@ -70,9 +74,10 @@ export class UrinalysisComponent implements OnInit {
 
   onLoadColums() {
     this.cols.set([
-      { field: 'fullName', header: 'Patient' },
+      { field: 'transaction_number', header: 'Transaction No' },
       { field: 'physician', header: 'Physician' },
       { field: 'lab_no', header: 'Lab Number' },
+      { field: 'remarks', header: 'Remarks' },
       { field: 'createdAt', header: 'Date' },
     ]);
   }
@@ -137,20 +142,6 @@ export class UrinalysisComponent implements OnInit {
   onClickActionBtn(event: any) {
     switch (event.type) {
       case ActionButtonType.edit:
-        this.dialogRef = this.dialogService.open(
-          UrinalysisFormComponent,
-          this.commonHelper.urinalysisDialog(event.data as Urinalysis)
-        );
-        this.dialogRef.onClose.subscribe(
-          (response: CustomResponse<Urinalysis>) => {
-            if (response) {
-              this.messages = response.message;
-              this.loadUrinalysis(this.pagination().currentPage);
-            }
-          }
-        );
-        break;
-      case ActionButtonType.delete:
         this.router.navigate([
           `${ApplicationUrl.URINALYSIS_DETAIL}/detail/${event.data.id}`,
         ]);

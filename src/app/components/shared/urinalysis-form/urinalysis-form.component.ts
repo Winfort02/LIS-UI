@@ -9,20 +9,14 @@ import {
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { StepperModule } from 'primeng/stepper';
-import { PatientService } from '../../../services/patient.service';
 import { Subscription } from 'rxjs';
 import { Patient } from '../../../models/patient.model';
-import {
-  CommonSuccessResponse,
-  CustomResponse,
-} from '../../../models/response.model';
+import { CommonSuccessResponse } from '../../../models/response.model';
 import { IDropdownOption } from '../../../interfaces/dropdown-option.interface';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { Urinalysis } from '../../../models/urinalysis.model';
 import { UrinalysisService } from '../../../services/urinalysis.service';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { CommonService } from '../../../services/common.service';
 import {
   CHEMICAL_TEST_DROPDOWN_COMMON,
   CHEMICAL_TEST_DROPDOWN_MAX_3PLUS,
@@ -31,6 +25,16 @@ import {
   CHEMICAL_TEST_DROPDOWN_SPEC_GRAV,
   CHEMICAL_TEST_DROPDOWN_WITH_TRACE,
 } from '../../../helpers/constant.helper';
+import { TestService } from '../../../services/test.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Test } from '../../../models/test.model';
+import { MessagesModule } from 'primeng/messages';
+import { Message } from 'primeng/api';
+import { FeatureDetailHeaderComponent } from '../feature-detail-header/feature-detail-header.component';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { PdfViewerComponent } from '../pdf-viewer/pdf-viewer.component';
+import { ApplicationUrl } from '../../../enums/common.enum';
+import { CommonService } from '../../../services/common.service';
 
 @Component({
   selector: 'app-urinalysis-form',
@@ -43,25 +47,22 @@ import {
     DropdownModule,
     InputNumberModule,
     FormsModule,
+    MessagesModule,
+    FeatureDetailHeaderComponent,
   ],
   templateUrl: './urinalysis-form.component.html',
   styleUrl: './urinalysis-form.component.scss',
-  providers: [PatientService, UrinalysisService],
+  providers: [UrinalysisService, TestService, DialogService],
 })
 export class UrinalysisFormComponent implements OnInit, OnDestroy {
+  messages: Message[] = [];
+  isComponentShow: boolean = false;
   urinalysisForm!: FormGroup;
-  patient: Patient = new Patient();
-  patients: Patient[] = [];
   options: IDropdownOption[] = [];
-  patientSubscription!: Subscription;
   urinalysis = new Urinalysis();
-
-  currentDate = new Date();
-  response: CustomResponse<Urinalysis> = new CustomResponse(
-    new Urinalysis(),
-    []
-  );
-  config = null || new Urinalysis();
+  testSubscription!: Subscription;
+  patient = new Patient();
+  test = new Test();
 
   commonOptions: IDropdownOption[] = CHEMICAL_TEST_DROPDOWN_COMMON;
   nitriteOptions: IDropdownOption[] = CHEMICAL_TEST_DROPDOWN_NITRE;
@@ -69,25 +70,76 @@ export class UrinalysisFormComponent implements OnInit, OnDestroy {
   specGravOptions: IDropdownOption[] = CHEMICAL_TEST_DROPDOWN_SPEC_GRAV;
   commonWithTraceOptions: IDropdownOption[] = CHEMICAL_TEST_DROPDOWN_WITH_TRACE;
   commonMaxThree: IDropdownOption[] = CHEMICAL_TEST_DROPDOWN_MAX_3PLUS;
+  dialogRef!: DynamicDialogRef;
 
   constructor(
     private formBuilder: FormBuilder,
-    private patientService: PatientService,
     private urinalysisService: UrinalysisService,
-    private dialogRef: DynamicDialogRef,
-    private dialogConfig: DynamicDialogConfig,
-    private commonService: CommonService
+    private testService: TestService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private dialogService: DialogService
   ) {}
 
+  print() {
+    this.urinalysisService
+      .generateUrinalysis(this.urinalysis.id as number)
+      .subscribe({
+        next: (response) => {
+          this.dialogRef = this.dialogService.open(PdfViewerComponent, {
+            header: 'URINALYSIS PDF',
+            width: '80%',
+            style: { minWidth: '455px', maxWidth: '970px' },
+            position: 'top',
+            focusOnShow: false,
+            data: response,
+          });
+
+          this.dialogRef.onClose.subscribe(() => {
+            return;
+          });
+        },
+        error: (err) => {
+          throw new Error(err);
+        },
+      });
+  }
+
+  onLoadTransactionNumber() {
+    const transactionNo = this.route.snapshot.params['transaction_no'];
+    if (transactionNo) {
+      this.testSubscription = this.testService
+        .getTestRecordByTransactionNo(transactionNo)
+        .subscribe({
+          next: (response: CommonSuccessResponse<Test>) => {
+            if (response.success) this.test = response.data as Test;
+            this.patient = this.test.patient as Patient;
+            this.urinalysis = this.test.urinalysis as Urinalysis;
+          },
+          error: (err) => {
+            this.router.navigate([
+              `${ApplicationUrl.APPLICATION}/${ApplicationUrl.TEST}`,
+            ]);
+            throw new Error(err);
+          },
+          complete: () => {
+            this.onLoadForm();
+            this.isComponentShow = true;
+            if (this.urinalysis) {
+              this.onLoadUrinalysis();
+              this.urinalysisForm.disable();
+            }
+          },
+        });
+    }
+  }
+
   onLoadForm() {
-    this.config = (this.dialogConfig.data as Urinalysis) || null;
     this.urinalysisForm = this.formBuilder.group({
       id: [null],
       stepOne: this.formBuilder.group({
-        patient_id: [null, Validators.required],
         physician: [null, Validators.required],
         lab_no: [null, Validators.required],
-        currentDate: [this.commonService.dateFormmater(this.currentDate)],
       }),
       stepTwo: this.formBuilder.group({
         color: [null, Validators.required],
@@ -134,68 +186,61 @@ export class UrinalysisFormComponent implements OnInit, OnDestroy {
         remarks: [null, Validators.required],
       }),
     });
-    this.onLoadUrinalysis();
-    this.StepOne.controls['currentDate'].disable();
+    // this.onLoadUrinalysis();
   }
 
   onLoadUrinalysis() {
-    if (this.config) {
-      this.urinalysis = this.config as Urinalysis;
-      this.patient = this.config.patient as Patient;
-      this.urinalysisForm.setValue({
-        id: this.urinalysis.id,
-        stepOne: {
-          patient_id: this.patient.id,
-          physician: this.urinalysis.physician,
-          lab_no: this.urinalysis.lab_no,
-          currentDate: this.urinalysis.createdAt,
-        },
-        stepTwo: {
-          color: this.urinalysis.color,
-          transparancy: this.urinalysis.transparancy,
-          ph: this.urinalysis.ph,
-          spec_gravity: this.urinalysis.spec_gravity,
-          protein: this.urinalysis.protein,
-          leukocyte_esterase: this.urinalysis.leukocyte_esterase,
-          nitrite: this.urinalysis.nitrite,
-          urobilinogen: this.urinalysis.urobilinogen,
-          blood: this.urinalysis.blood,
-          ketones: this.urinalysis.ketones,
-          bilirubin: this.urinalysis.bilirubin,
-          glucose: this.urinalysis.glucose,
-        },
-        stepThree: {
-          wbc_count: this.urinalysis.wbc_count,
-          rbc_count: this.urinalysis.rbc_count,
-          squamous: this.urinalysis.squamous,
-          rental_tubular: this.urinalysis.rental_tubular,
-          transitional: this.urinalysis.transitional,
-          bacteria: this.urinalysis.bacteria,
-          yeast: this.urinalysis.yeast,
-          mucus_thread: this.urinalysis.mucus_thread,
-        },
-        stepFour: {
-          amorphous_urates: this.urinalysis.amorphous_urates,
-          amorphous_phosphates: this.urinalysis.amorphous_phosphates,
-          uric_acid: this.urinalysis.uric_acid,
-          calcium_oxalate: this.urinalysis.calcium_oxalate,
-          triple_phosphate: this.urinalysis.triple_phosphate,
-          calcium_carbonate: this.urinalysis.calcium_carbonate,
-          calcium_phosphate: this.urinalysis.calcium_phosphate,
-          ammonium_biurate: this.urinalysis.ammonium_biurate,
-        },
-        stepFive: {
-          hyaline: this.urinalysis.hyaline,
-          fine_granular: this.urinalysis.fine_granular,
-          coarse_granular: this.urinalysis.coarse_granular,
-          cast_rbc: this.urinalysis.cast_rbc,
-          cast_wbc: this.urinalysis.cast_wbc,
-          cast_waxy: this.urinalysis.cast_waxy,
-          cast_broad: this.urinalysis.cast_broad,
-          remarks: this.urinalysis.remarks,
-        },
-      });
-    }
+    this.urinalysisForm.setValue({
+      id: this.urinalysis.id,
+      stepOne: {
+        physician: this.urinalysis.physician,
+        lab_no: this.urinalysis.lab_no,
+      },
+      stepTwo: {
+        color: this.urinalysis.color,
+        transparancy: this.urinalysis.transparancy,
+        ph: this.urinalysis.ph,
+        spec_gravity: this.urinalysis.spec_gravity,
+        protein: this.urinalysis.protein,
+        leukocyte_esterase: this.urinalysis.leukocyte_esterase,
+        nitrite: this.urinalysis.nitrite,
+        urobilinogen: this.urinalysis.urobilinogen,
+        blood: this.urinalysis.blood,
+        ketones: this.urinalysis.ketones,
+        bilirubin: this.urinalysis.bilirubin,
+        glucose: this.urinalysis.glucose,
+      },
+      stepThree: {
+        wbc_count: this.urinalysis.wbc_count,
+        rbc_count: this.urinalysis.rbc_count,
+        squamous: this.urinalysis.squamous,
+        rental_tubular: this.urinalysis.rental_tubular,
+        transitional: this.urinalysis.transitional,
+        bacteria: this.urinalysis.bacteria,
+        yeast: this.urinalysis.yeast,
+        mucus_thread: this.urinalysis.mucus_thread,
+      },
+      stepFour: {
+        amorphous_urates: this.urinalysis.amorphous_urates,
+        amorphous_phosphates: this.urinalysis.amorphous_phosphates,
+        uric_acid: this.urinalysis.uric_acid,
+        calcium_oxalate: this.urinalysis.calcium_oxalate,
+        triple_phosphate: this.urinalysis.triple_phosphate,
+        calcium_carbonate: this.urinalysis.calcium_carbonate,
+        calcium_phosphate: this.urinalysis.calcium_phosphate,
+        ammonium_biurate: this.urinalysis.ammonium_biurate,
+      },
+      stepFive: {
+        hyaline: this.urinalysis.hyaline,
+        fine_granular: this.urinalysis.fine_granular,
+        coarse_granular: this.urinalysis.coarse_granular,
+        cast_rbc: this.urinalysis.cast_rbc,
+        cast_wbc: this.urinalysis.cast_wbc,
+        cast_waxy: this.urinalysis.cast_waxy,
+        cast_broad: this.urinalysis.cast_broad,
+        remarks: this.urinalysis.remarks,
+      },
+    });
   }
 
   get StepOne() {
@@ -218,34 +263,11 @@ export class UrinalysisFormComponent implements OnInit, OnDestroy {
     return this.urinalysisForm.get('stepFive') as FormGroup;
   }
 
-  onLoadPatient() {
-    this.patientSubscription = this.patientService.getAllPatients().subscribe({
-      next: (response: CommonSuccessResponse<Patient>) => {
-        this.patients = response.data as Patient[];
-      },
-      error: (err) => {
-        throw new Error(err);
-      },
-      complete: () => {
-        this.options = this.patients.map((patient: Patient) => ({
-          label: `${patient.first_name} ${patient.middle_name} ${patient.last_name}`,
-          value: (patient.id as number) || 0,
-        }));
-      },
-    });
-  }
-
-  onSelectPatient(event: any) {
-    const patient = this.patients.find((patient: Patient) => {
-      return patient.id === event.value;
-    });
-    if (patient) this.patient = patient;
-  }
-
   submit() {
     if (this.urinalysisForm.valid) {
       const data = {
         id: this.urinalysisForm.value.id,
+        test_id: this.test.id,
         ...this.urinalysisForm.value.stepOne,
         ...this.urinalysisForm.value.stepTwo,
         ...this.urinalysisForm.value.stepThree,
@@ -253,7 +275,7 @@ export class UrinalysisFormComponent implements OnInit, OnDestroy {
         ...this.urinalysisForm.value.stepFive,
       } as Urinalysis;
 
-      if (!this.config) {
+      if (!this.urinalysis) {
         this.onCreateUrinalysis(data);
       } else {
         this.onUpdateUrinalysis(data);
@@ -264,18 +286,16 @@ export class UrinalysisFormComponent implements OnInit, OnDestroy {
   onCreateUrinalysis(data: Urinalysis) {
     this.urinalysisService.createUrinalysis(data).subscribe({
       next: (response: CommonSuccessResponse<Urinalysis>) => {
-        this.response = new CustomResponse<Urinalysis>(
-          response.data as Urinalysis,
-          [{ severity: 'info', summary: 'New Urinalysis added successfully.' }]
-        );
+        this.urinalysis = response.data as Urinalysis;
+        this.messages = [
+          { severity: 'info', summary: 'New Urinalysis added successfully.' },
+        ];
       },
       error: (err) => {
-        this.response = new CustomResponse<Urinalysis>(err, [
-          { severity: 'error', summary: err.error.message },
-        ]);
+        this.messages = [{ severity: 'error', summary: err.error.message }];
       },
       complete: () => {
-        this.dialogRef.close(this.response);
+        this.urinalysisForm.disable();
       },
     });
   }
@@ -283,33 +303,28 @@ export class UrinalysisFormComponent implements OnInit, OnDestroy {
   onUpdateUrinalysis(data: Urinalysis) {
     this.urinalysisService.updateUrinalysis(data).subscribe({
       next: (response: CommonSuccessResponse<Urinalysis>) => {
-        this.response = new CustomResponse<Urinalysis>(
-          response.data as Urinalysis,
-          [
-            {
-              severity: 'info',
-              summary: 'Urinalysis detail updated successfully.',
-            },
-          ]
-        );
+        this.urinalysis = response.data as Urinalysis;
+        this.messages = [
+          {
+            severity: 'info',
+            summary: 'Urinalysis detail updated successfully.',
+          },
+        ];
       },
       error: (err) => {
-        this.response = new CustomResponse<Urinalysis>(err, [
-          { severity: 'error', summary: err.error.message },
-        ]);
+        this.messages = [{ severity: 'error', summary: err.error.message }];
       },
       complete: () => {
-        this.dialogRef.close(this.response);
+        this.urinalysisForm.disable();
       },
     });
   }
 
   ngOnInit(): void {
-    this.onLoadPatient();
-    this.onLoadForm();
+    this.onLoadTransactionNumber();
   }
 
   ngOnDestroy(): void {
-    if (this.patientSubscription) this.patientSubscription.unsubscribe();
+    this.testSubscription && this.testSubscription.unsubscribe();
   }
 }

@@ -99,6 +99,13 @@ export const routes: Routes = [
           ),
       },
       {
+        path: `test/transaction/:transaction_no/${ApplicationUrl.URINALYSIS}`,
+        loadComponent: () =>
+          import(
+            './components/shared/urinalysis-form/urinalysis-form.component'
+          ).then((c) => c.UrinalysisFormComponent),
+      },
+      {
         path: `${ApplicationUrl.URINALYSIS}/detail/:id`,
         loadComponent: () =>
           import(

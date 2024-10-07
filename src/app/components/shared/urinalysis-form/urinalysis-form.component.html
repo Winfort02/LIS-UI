@@ -1,11 +1,106 @@
+@defer (when isComponentShow) {
+<div class="col-12 w-full">
+  @if (messages.length) {
+  <div class="col-12">
+    <p-messages
+      [(value)]="messages"
+      [enableService]="false"
+      [closable]="true"
+    />
+  </div>
+  }
+  <app-feature-detail-header title="Urinalysis Form">
+    @if (urinalysis) { @if(urinalysisForm.disabled) {
+    <button
+      type="button"
+      pButton
+      class="p-button-info custom-button"
+      label="Edit"
+      (click)="urinalysisForm.enable()"
+    ></button>
+    } @if (urinalysisForm.enabled) {
+    <button
+      type="button"
+      pButton
+      class="p-button-danger custom-button"
+      label="Cancel"
+      (click)="urinalysisForm.disable()"
+    ></button>
+    } @if (urinalysisForm.disabled) {
+    <button
+      type="submit"
+      pButton
+      class="p-button-success custom-button"
+      label="Print"
+      (click)="print()"
+    ></button>
+    } }
+  </app-feature-detail-header>
+</div>
+<div class="col-12 h-1rem surface-200 w-full"></div>
+
+<div class="col-12 flex justify-content-start align-items-center flex-wrap">
+  <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4">
+    <p class="px-2">PATIENT NAME</p>
+    <input
+      type="text"
+      pInputText
+      class="w-full"
+      disabled
+      value="{{ patient.first_name }}, {{ patient.last_name }}"
+    />
+  </div>
+  <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4">
+    <p class="px-2">ADDRESS</p>
+    <input
+      type="text"
+      pInputText
+      class="w-full"
+      disabled
+      value="{{ patient.address }}"
+    />
+  </div>
+  <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4">
+    <p class="px-2">SEX</p>
+    <input
+      type="text"
+      pInputText
+      class="w-full"
+      disabled
+      value="{{ patient.sex }}"
+    />
+  </div>
+  <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4">
+    <p class="px-2">TRANSACTION NO</p>
+    <input
+      type="text"
+      pInputText
+      class="w-full"
+      disabled
+      value="{{ test.transaction_number }}"
+    />
+  </div>
+  <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4">
+    <p class="px-2">TEST TYPE</p>
+    <input
+      type="text"
+      pInputText
+      class="w-full"
+      disabled
+      value="{{ test.type }}"
+    />
+  </div>
+</div>
+<div class="col-12 h-1rem surface-200 w-full my-3"></div>
+
 <div
   class="col-12 flex flex-column justify-content-center align-items-center gap-2"
 >
-  <div class="w-full">
+  <div class="col-12 sm:col-12 md:col-12 lg:col-10 xl:col-9">
     <form [formGroup]="urinalysisForm">
       <input type="text" hidden formControlName="id" />
       <p-stepper [linear]="true">
-        <p-stepperPanel header="Patient" formGroupName="stepOne">
+        <p-stepperPanel header="Basic Information" formGroupName="stepOne">
           <ng-template
             pTemplate="content"
             let-nextCallback="nextCallback"
@@ -14,68 +109,27 @@
             <div
               class="col-12 flex flex-column justify-content-start align-content-center"
             >
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Patient Name</p>
-                <p-dropdown
-                  [options]="options"
-                  optionLabel="label"
-                  optionValue="value"
-                  placeholder="Select Patient"
-                  formControlName="patient_id"
-                  styleClass="w-full"
-                  (onChange)="onSelectPatient($event)"
-                  [filter]="true"
-                  filterBy="label"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Address</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  disabled
-                  [value]="patient.address || null"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Physician Name</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  formControlName="physician"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Laboratory Number</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  formControlName="lab_no"
-                />
-              </div>
               <div
-                class="w-full flex justify-content-center align-content-center flex-column sm:flex-column md:flex-column lg:flex-row xl:flex-row"
+                class="col-12 flex justify-content-start align-items-center flex-wrap"
               >
-                <div class="col-12 sm:col-12 md:col-12 lg:col-6 xl:col-6">
-                  <p class="px-2 text-500 uppercase">Sex</p>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">Physician Name</p>
                   <input
                     type="text"
                     pInputText
                     class="w-full"
-                    disabled
-                    [value]="patient.sex || null"
+                    formControlName="physician"
+                    placeholder="Enter Physician Name"
                   />
                 </div>
-                <div class="col-12 sm:col-12 md:col-12 lg:col-6 xl:col-6">
-                  <p class="px-2 text-500 uppercase">Date</p>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">Laboratory Number</p>
                   <input
                     type="text"
                     pInputText
                     class="w-full"
-                    formControlName="currentDate"
+                    formControlName="lab_no"
+                    placeholder="Enter Laboratory Number"
                   />
                 </div>
               </div>
@@ -91,7 +145,7 @@
             </div>
           </ng-template>
         </p-stepperPanel>
-        <p-stepperPanel header="Physical" formGroupName="stepTwo">
+        <p-stepperPanel header="Physical Test" formGroupName="stepTwo">
           <ng-template
             pTemplate="content"
             let-prevCallback="prevCallback"
@@ -101,133 +155,139 @@
             <div
               class="col-12 flex flex-column justify-content-start align-content-center"
             >
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Color</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  formControlName="color"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Transpararency</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  formControlName="transparancy"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Leukocyte Esterase</p>
-                <p-dropdown
-                  [options]="commonOptions"
-                  optionLabel="label"
-                  optionValue="value"
-                  placeholder="Select"
-                  formControlName="leukocyte_esterase"
-                  styleClass="w-full"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Nitrite</p>
-                <p-dropdown
-                  [options]="nitriteOptions"
-                  optionLabel="label"
-                  optionValue="value"
-                  placeholder="Select"
-                  formControlName="nitrite"
-                  styleClass="w-full"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Urobilinogen</p>
-                <p-dropdown
-                  [options]="commonOptions"
-                  optionLabel="label"
-                  optionValue="value"
-                  placeholder="Select"
-                  formControlName="urobilinogen"
-                  styleClass="w-full"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Protein</p>
-                <p-dropdown
-                  [options]="commonWithTraceOptions"
-                  optionLabel="label"
-                  optionValue="value"
-                  placeholder="Select"
-                  formControlName="protein"
-                  styleClass="w-full"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">PH</p>
-                <p-dropdown
-                  [options]="phOptions"
-                  optionLabel="label"
-                  optionValue="value"
-                  placeholder="Select"
-                  formControlName="ph"
-                  styleClass="w-full"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Blood</p>
-                <p-dropdown
-                  [options]="commonWithTraceOptions"
-                  optionLabel="label"
-                  optionValue="value"
-                  placeholder="Select"
-                  formControlName="blood"
-                  styleClass="w-full"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Specific Gravity</p>
-                <p-dropdown
-                  [options]="specGravOptions"
-                  optionLabel="label"
-                  optionValue="value"
-                  placeholder="Select"
-                  formControlName="spec_gravity"
-                  styleClass="w-full"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Ketones</p>
-                <p-dropdown
-                  [options]="commonWithTraceOptions"
-                  optionLabel="label"
-                  optionValue="value"
-                  placeholder="Select"
-                  formControlName="ketones"
-                  styleClass="w-full"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Bilirubin</p>
-                <p-dropdown
-                  [options]="commonMaxThree"
-                  optionLabel="label"
-                  optionValue="value"
-                  placeholder="Select"
-                  formControlName="bilirubin"
-                  styleClass="w-full"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Glucose</p>
-                <p-dropdown
-                  [options]="commonMaxThree"
-                  optionLabel="label"
-                  optionValue="value"
-                  placeholder="Select"
-                  formControlName="glucose"
-                  styleClass="w-full"
-                />
+              <div
+                class="col-12 flex justify-content-start align-items-center flex-wrap"
+              >
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">Color</p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    formControlName="color"
+                    placeholder="Enter Color"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">Transpararency</p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    formControlName="transparancy"
+                    placeholder="Enter Transpararency"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">Leukocyte Esterase</p>
+                  <p-dropdown
+                    [options]="commonOptions"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="Select"
+                    formControlName="leukocyte_esterase"
+                    styleClass="w-full"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">Nitrite</p>
+                  <p-dropdown
+                    [options]="nitriteOptions"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="Select"
+                    formControlName="nitrite"
+                    styleClass="w-full"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">Urobilinogen</p>
+                  <p-dropdown
+                    [options]="commonOptions"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="Select"
+                    formControlName="urobilinogen"
+                    styleClass="w-full"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">Protein</p>
+                  <p-dropdown
+                    [options]="commonWithTraceOptions"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="Select"
+                    formControlName="protein"
+                    styleClass="w-full"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">PH</p>
+                  <p-dropdown
+                    [options]="phOptions"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="Select"
+                    formControlName="ph"
+                    styleClass="w-full"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">Blood</p>
+                  <p-dropdown
+                    [options]="commonWithTraceOptions"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="Select"
+                    formControlName="blood"
+                    styleClass="w-full"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">Specific Gravity</p>
+                  <p-dropdown
+                    [options]="specGravOptions"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="Select"
+                    formControlName="spec_gravity"
+                    styleClass="w-full"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">Ketones</p>
+                  <p-dropdown
+                    [options]="commonWithTraceOptions"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="Select"
+                    formControlName="ketones"
+                    styleClass="w-full"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">Bilirubin</p>
+                  <p-dropdown
+                    [options]="commonMaxThree"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="Select"
+                    formControlName="bilirubin"
+                    styleClass="w-full"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">Glucose</p>
+                  <p-dropdown
+                    [options]="commonMaxThree"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="Select"
+                    formControlName="glucose"
+                    styleClass="w-full"
+                  />
+                </div>
               </div>
             </div>
             <div
@@ -248,7 +308,7 @@
             </div>
           </ng-template>
         </p-stepperPanel>
-        <p-stepperPanel header="Medical" formGroupName="stepThree">
+        <p-stepperPanel header="Medical Test" formGroupName="stepThree">
           <ng-template
             pTemplate="content"
             let-nextCallback="nextCallback"
@@ -258,81 +318,97 @@
             <div
               class="col-12 flex flex-column justify-content-start align-content-center"
             >
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">WBC Count</p>
-                <p-inputNumber
-                  formControlName="wbc_count"
-                  mode="decimal"
-                  [minFractionDigits]="1"
-                  [maxFractionDigits]="2"
-                  [max]="10.0"
-                  [min]="0.0"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">RBC Count</p>
-                <p-inputNumber
-                  formControlName="rbc_count"
-                  mode="decimal"
-                  [minFractionDigits]="1"
-                  [maxFractionDigits]="2"
-                  [max]="10.0"
-                  [min]="0.0"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Squamous (optional)</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  formControlName="squamous"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Rental Tubular (optional)</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  formControlName="rental_tubular"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Transitional (optional)</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  formControlName="transitional"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Bacteria (optional)</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  formControlName="bacteria"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Yeast (optional)</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  formControlName="yeast"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Mucus Threads (optional)</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  formControlName="mucus_thread"
-                />
+              <div
+                class="col-12 flex justify-content-start align-items-center flex-wrap"
+              >
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">WBC Count</p>
+                  <p-inputNumber
+                    formControlName="wbc_count"
+                    mode="decimal"
+                    [minFractionDigits]="1"
+                    [maxFractionDigits]="2"
+                    [max]="10.0"
+                    [min]="0.0"
+                    placeholder="Enter WBC Count"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">RBC Count</p>
+                  <p-inputNumber
+                    formControlName="rbc_count"
+                    mode="decimal"
+                    [minFractionDigits]="1"
+                    [maxFractionDigits]="2"
+                    [max]="10.0"
+                    [min]="0.0"
+                    placeholder="Enter RBC Count"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">Squamous (optional)</p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    formControlName="squamous"
+                    placeholder="Enter Squamous"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">
+                    Rental Tubular (optional)
+                  </p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    formControlName="rental_tubular"
+                    placeholder="Enter Rental Tubular"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">Transitional (optional)</p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    formControlName="transitional"
+                    placeholder="Enter Transitional"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">Bacteria (optional)</p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    formControlName="bacteria"
+                    placeholder="Enter Bacteria"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">Yeast (optional)</p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    formControlName="yeast"
+                    placeholder="Enter Yeast"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">
+                    Mucus Threads (optional)
+                  </p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    formControlName="mucus_thread"
+                    placeholder="Enter Mucus Threads"
+                  />
+                </div>
               </div>
             </div>
             <div
@@ -353,7 +429,7 @@
             </div>
           </ng-template>
         </p-stepperPanel>
-        <p-stepperPanel header="Crystals" formGroupName="stepFour">
+        <p-stepperPanel header="Crystals Test" formGroupName="stepFour">
           <ng-template
             pTemplate="content"
             let-nextCallback="nextCallback"
@@ -363,91 +439,103 @@
             <div
               class="col-12 flex flex-column justify-content-start align-content-center"
             >
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">
-                  Amorphous Urates (optional)
-                </p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  formControlName="amorphous_urates"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">
-                  Amorphous Phosphates (optional)
-                </p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  formControlName="amorphous_phosphates"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Uric Acid (optional)</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  formControlName="uric_acid"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">
-                  Calcium Oxalate (optional)
-                </p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  formControlName="calcium_oxalate"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">
-                  Triple Phosphate (optional)
-                </p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  formControlName="triple_phosphate"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">
-                  Calcium Carbonate (optional)
-                </p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  formControlName="calcium_carbonate"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">
-                  Calcium Phosphate (optional)
-                </p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  formControlName="calcium_phosphate"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">
-                  Ammonium Biurate (optional)
-                </p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  formControlName="ammonium_biurate"
-                />
+              <div
+                class="col-12 flex justify-content-start align-items-center flex-wrap"
+              >
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">
+                    Amorphous Urates (optional)
+                  </p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    formControlName="amorphous_urates"
+                    placeholder="Enter Amorphous Urates"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">
+                    Amorphous Phosphates (optional)
+                  </p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    formControlName="amorphous_phosphates"
+                    placeholder="Enter Amorphous Phosphates"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">Uric Acid (optional)</p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    formControlName="uric_acid"
+                    placeholder="Enter Uric Acid"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">
+                    Calcium Oxalate (optional)
+                  </p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    formControlName="calcium_oxalate"
+                    placeholder="Enter Calcium Oxalate"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">
+                    Triple Phosphate (optional)
+                  </p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    formControlName="triple_phosphate"
+                    placeholder="Enter Triple Phosphate"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">
+                    Calcium Carbonate (optional)
+                  </p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    formControlName="calcium_carbonate"
+                    placeholder="Enter Calcium Carbonate"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">
+                    Calcium Phosphate (optional)
+                  </p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    formControlName="calcium_phosphate"
+                    placeholder="Enter Calcium Phosphate"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">
+                    Ammonium Biurate (optional)
+                  </p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    formControlName="ammonium_biurate"
+                    placeholder="Enter Ammonium Biurate"
+                  />
+                </div>
               </div>
             </div>
             <div
@@ -468,7 +556,7 @@
             </div>
           </ng-template>
         </p-stepperPanel>
-        <p-stepperPanel header="Cast" formGroupName="stepFive">
+        <p-stepperPanel header="Cast Test" formGroupName="stepFive">
           <ng-template
             pTemplate="content"
             let-prevCallback="prevCallback"
@@ -477,80 +565,93 @@
             <div
               class="col-12 flex flex-column justify-content-start align-content-center"
             >
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Hyaline (optional)</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  formControlName="hyaline"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Fine Granular (optional)</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  formControlName="fine_granular"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">
-                  Coarse Granular (optional)
-                </p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  formControlName="coarse_granular"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">RBC (optional)</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  formControlName="cast_rbc"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">WBC (optional)</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  formControlName="cast_wbc"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">WAXY (optional)</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  formControlName="cast_waxy"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Broad (optional)</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  formControlName="cast_broad"
-                />
-              </div>
-              <div class="col-12">
-                <p class="px-2 text-500 uppercase">Remarks (optional)</p>
-                <input
-                  type="text"
-                  pInputText
-                  class="w-full"
-                  placeholder="Please correlate clinically for appropriate interpretation result"
-                  formControlName="remarks"
-                />
+              <div
+                class="col-12 flex justify-content-start align-items-center flex-wrap"
+              >
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">Hyaline (optional)</p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    formControlName="hyaline"
+                    placeholder="Enter Hyaline"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">
+                    Fine Granular (optional)
+                  </p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    formControlName="fine_granular"
+                    placeholder="Enter Fine Granular"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">
+                    Coarse Granular (optional)
+                  </p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    formControlName="coarse_granular"
+                    placeholder="Enter Coarse Granular"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">RBC (optional)</p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    formControlName="cast_rbc"
+                    placeholder="Enter RBC"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">WBC (optional)</p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    formControlName="cast_wbc"
+                    placeholder="Enter WBC "
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">WAXY (optional)</p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    formControlName="cast_waxy"
+                    placeholder="Enter Waxy"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">Broad (optional)</p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    formControlName="cast_broad"
+                    placeholder="Enter Broad"
+                  />
+                </div>
+                <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                  <p class="px-2 text-500 uppercase">Remarks (optional)</p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
+                    placeholder="Please correlate clinically for appropriate interpretation result"
+                    formControlName="remarks"
+                  />
+                </div>
               </div>
             </div>
             <div
@@ -564,7 +665,7 @@
               <p-button
                 label="Submit"
                 (onClick)="submit()"
-                [disabled]="StepFive.invalid"
+                [disabled]="StepFive.invalid || urinalysisForm.disabled"
               />
             </div>
           </ng-template>
@@ -573,3 +674,4 @@
     </form>
   </div>
 </div>
+}

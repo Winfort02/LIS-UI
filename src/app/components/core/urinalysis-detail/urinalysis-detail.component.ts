@@ -47,12 +47,6 @@ export class UrinalysisDetailComponent implements OnInit, OnDestroy {
     if (this.urinalysisSubscription) this.urinalysisSubscription.unsubscribe();
   }
 
-  onBack() {
-    this.router.navigate([
-      `${ApplicationUrl.APPLICATION}/${ApplicationUrl.URINALYSIS}`,
-    ]);
-  }
-
   print() {
     this.urinalysisService.generateUrinalysis(this.paramsId).subscribe({
       next: (response) => {

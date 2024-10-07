@@ -1,9 +1,9 @@
-import { IPatient } from './patient.interface';
+import { ITest } from './test.interface';
 
 export interface IUrinalysis {
   id?: number;
-  patient?: IPatient;
-  patient_id: number;
+  test?: ITest;
+  test_id: number;
   physician: string;
   lab_no: string;
   color: string;

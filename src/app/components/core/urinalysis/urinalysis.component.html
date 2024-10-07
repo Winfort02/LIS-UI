@@ -12,17 +12,13 @@
   }
 
   <div class="col-12">
-    <app-feature-header
-      title="Urinalysis Table"
-      buttonSize="large"
-      (onClickActionButton)="add($event)"
-    />
+    <app-feature-header title="Urinalysis Table" [showButton]="false" />
   </div>
 
   <div class="col-12">
     <app-search
       (search)="onSearch($event)"
-      [placeholder]="'Search by patient last name ...'"
+      [placeholder]="'Search by transaction no ...'"
     />
   </div>
   <div class="col-12">
@@ -36,6 +32,7 @@
       [pagination]="pagination"
       (actionBtn)="onClickActionBtn($event)"
       [actionButton]="actionButton"
+      [showActionBtn]="showActionBtn"
     />
   </div>
 </div>

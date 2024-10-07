@@ -22,6 +22,11 @@ export class TestService {
         const data = meta.map((test: Test) => ({
           ...test,
           patientName: `${test.patient?.first_name} ${test.patient?.last_name}`,
+          isCompleted: test?.hematology
+            ? 'Completed'
+            : test?.urinalysis
+            ? 'Completed'
+            : 'Pending',
         }));
         return {
           currentPage: response.currentPage,
@@ -57,5 +62,39 @@ export class TestService {
     return this.genericService.getRecordById(
       `${Endpoints.TEST}/transaction/${transactionNo}`
     );
+  }
+
+  getPatientTestHistory(
+    patientId: number,
+    page: number,
+    size: number,
+    keywords: string
+  ) {
+    const QUERY = this.commonService.generateQueryParams(page, size, keywords);
+    return this.genericService
+      .getRecords(`${Endpoints.TEST}/test-history/${patientId}?${QUERY}`)
+      .pipe(
+        map(({ response, meta }) => {
+          const data = meta.map((test: Test) => ({
+            ...test,
+            patientName: `${test.patient?.first_name} ${test.patient?.last_name}`,
+            isCompleted: test?.hematology
+              ? 'Completed'
+              : test?.urinalysis
+              ? 'Completed'
+              : 'Pending',
+          }));
+          return {
+            currentPage: response.currentPage,
+            nextPage: response.nextPage,
+            prevPage: response.prevPage,
+            lastPage: response.totalPages,
+            totalPages: response.totalPages,
+            firstPage: 1,
+            metaData: data as Test[],
+            pageDetails: `${response.currentPage} / ${response.totalPages}`,
+          } as Pagination;
+        })
+      );
   }
 }

@@ -13,7 +13,7 @@
       <th class="text-md uppercase" pResizableColumn>
         {{ col.header }}
       </th>
-      } @if (showActionBtn.edit) {
+      } @if (getUsers()) { @if (showActionBtn.edit) {
       <th [width]="'5%'" class="text-center text-md capitalize">
         {{ actionButton.edit }}
       </th>
@@ -21,7 +21,7 @@
       <th [width]="'5%'" class="text-center text-md capitalize">
         {{ actionButton.delete }}
       </th>
-      }
+      } }
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-rowData let-columns="columns">

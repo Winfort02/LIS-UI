@@ -1,10 +1,10 @@
 import { IUrinalysis } from '../interfaces/urinalysis.interface';
-import { Patient } from './patient.model';
+import { Test } from './test.model';
 
 export class Urinalysis implements IUrinalysis {
   id?: number | undefined;
-  patient?: Patient;
-  patient_id!: number;
+  test?: Test;
+  test_id!: number;
   physician!: string;
   lab_no!: string;
   color!: string;

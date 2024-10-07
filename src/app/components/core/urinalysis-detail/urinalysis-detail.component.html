@@ -3,7 +3,7 @@
   class="col-12 flex flex-column justify-content-start align-items-center w-full"
 >
   <div class="col-12">
-    <app-feature-detail-header title="Urinalysis Detail" (onBack)="onBack()">
+    <app-feature-detail-header title="Urinalysis Detail">
       @if (paramsId) {
       <button
         type="button"
@@ -17,36 +17,14 @@
   </div>
   <div class="col-12 h-1rem surface-200 w-full"></div>
   <div class="col-12 flex justify-content-start align-items-center flex-wrap">
-    <div class="col-12 sm:col-12 md:col-6 lg:col-4 xl:col-4">
-      <p class="px-2">Patient Name</p>
-      <input
-        type="text"
-        pInputText
-        class="w-full"
-        disabled
-        value="{{ urinalysis.patient?.last_name }}, {{
-          urinalysis.patient?.first_name
-        }}"
-      />
-    </div>
-    <div class="col-12 sm:col-12 md:col-6 lg:col-3 xl:col-3">
-      <p class="px-2">Sex</p>
-      <input
-        type="text"
-        pInputText
-        class="w-full"
-        disabled
-        value="{{ urinalysis.patient?.sex }}"
-      />
-    </div>
     <div class="col-12 sm:col-12 md:col-12 lg:col-5 xl:col-5">
-      <p class="px-2">Address</p>
+      <p class="px-2">Transaction Number</p>
       <input
         type="text"
         pInputText
         class="w-full"
         disabled
-        value="{{ urinalysis.patient?.address }}"
+        value="{{ urinalysis.test?.transaction_number }}"
       />
     </div>
     <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4">
