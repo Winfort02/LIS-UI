@@ -13,7 +13,7 @@
       <th class="text-md uppercase" pResizableColumn>
         {{ col.header }}
       </th>
-      } @if (getUsers()) { @if (showActionBtn.edit) {
+      } @if (getUsers().length) { @if (showActionBtn.edit) {
       <th [width]="'5%'" class="text-center text-md capitalize">
         {{ actionButton.edit }}
       </th>
@@ -28,7 +28,7 @@
     @defer (when !loading && items().length) {
     <tr>
       @for(col of columns; track $index) {
-      <td>{{ rowData[col.field] || "-" }}</td>
+      <td>{{ rowData[col.field] }}</td>
       } @if(showActionBtn.edit) {
       <td>
         <p-button

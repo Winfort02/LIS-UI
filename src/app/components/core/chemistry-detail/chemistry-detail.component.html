@@ -1,0 +1,259 @@
+<div
+  class="col-12 flex flex-column justify-content-start align-items-center w-full"
+>
+  <div class="col-12">
+    <app-feature-detail-header title="Chemistry Test Detail">
+      @if (paramsId) {
+      <button
+        type="button"
+        pButton
+        class="{{ editBtnSeverity }} custom-button"
+        [label]="editBtnLabel"
+        (click)="print()"
+      ></button>
+      }
+    </app-feature-detail-header>
+  </div>
+  <div class="col-12 h-1rem surface-200 w-full"></div>
+  <div class="col-12 flex justify-content-start align-items-center flex-wrap">
+    <div class="col-12 sm:col-12 md:col-12 lg:col-5 xl:col-5">
+      <p class="px-2">Transaction Number</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ chemistry.test?.transaction_number }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4">
+      <p class="px-2">Physician</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ chemistry.physician }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-12 lg:col-3 xl:col-3">
+      <p class="px-2">Laboratory Number</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ chemistry.lab_no }}"
+      />
+    </div>
+  </div>
+  <div class="col-12 h-1rem surface-200 w-full"></div>
+  <div class="col-12 flex justify-content-start align-items-center flex-wrap">
+    <div class="col-12">
+      <p class="text-xl font-semibold">BLOOD SUGAR</p>
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Fasting Blood Sugar</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ chemistry.fasting_blood_sugar }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Random Blood Sugar</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ chemistry.random_blood_sugar }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Post Prandial</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ chemistry.post_prandial }}"
+      />
+    </div>
+  </div>
+  <div class="col-12 h-1rem surface-200 w-full"></div>
+  <div class="col-12 flex justify-content-start align-items-center flex-wrap">
+    <div class="col-12">
+      <p class="text-xl font-semibold">LIPID PROFILE</p>
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Total Cholesterol</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ chemistry.total_cholesterol }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Triglycerides</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ chemistry.triglycerides }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">HDL</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ chemistry.hdl }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">LDL</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ chemistry.ldl }}"
+      />
+    </div>
+  </div>
+  <div class="col-12 h-1rem surface-200 w-full"></div>
+  <div class="col-12 flex justify-content-start align-items-center flex-wrap">
+    <div class="col-12">
+      <p class="text-xl font-semibold">KIDNEY FUNCTION TEST</p>
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Uric Acid</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ chemistry.uric_acid }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Creatinine</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ chemistry.creatinine }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Bun</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ chemistry.bun }}"
+      />
+    </div>
+  </div>
+  <div class="col-12 h-1rem surface-200 w-full"></div>
+  <div class="col-12 flex justify-content-start align-items-center flex-wrap">
+    <div class="col-12">
+      <p class="text-xl font-semibold">ENZYMES</p>
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">SGPT</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ chemistry.sgpt }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">SGOT</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ chemistry.sgot }}"
+      />
+    </div>
+  </div>
+  <div class="col-12 h-1rem surface-200 w-full"></div>
+  <div class="col-12 flex justify-content-start align-items-center flex-wrap">
+    <div class="col-12">
+      <p class="text-xl font-semibold">ELECTROLYTES</p>
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Sodium</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ chemistry.sodium }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Potassium</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ chemistry.potasium }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Ionized Calcium</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ chemistry.ionized_calcium }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Magnesium</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ chemistry.magnesium }}"
+      />
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">Calcium</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        disabled
+        value="{{ chemistry.calcium }}"
+      />
+    </div>
+  </div>
+  <div class="col-12 h-1rem surface-200 w-full"></div>
+  <div class="col-12 flex justify-content-start align-items-center flex-wrap">
+    <div class="col-12">
+      <p class="text-xl font-semibold">REMARKS</p>
+    </div>
+    <div class="col-12 sm:col-12 md:col-3 lg:col-2 xl:col-2">
+      <p class="px-2">{{ chemistry.remarks }}</p>
+    </div>
+  </div>
+</div>

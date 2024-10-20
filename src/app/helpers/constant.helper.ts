@@ -1,4 +1,9 @@
-import { ChemicalTestDropdown, TestType } from '../enums/common.enum';
+import {
+  ChemicalTestDropdown,
+  STOCK_SELECTION_MODE,
+  TestType,
+  Unit,
+} from '../enums/common.enum';
 import { IDropdownOption } from '../interfaces/dropdown-option.interface';
 
 export const FIELD_VALIDATIONS = {
@@ -176,5 +181,39 @@ export const TEST_TYPE_DROPDOWN: IDropdownOption[] = [
   {
     label: TestType.chemistry,
     value: TestType.chemistry,
+  },
+];
+
+export const APPARATUS_UNIT_DROPDOWN = [
+  {
+    label: Unit.PACKS,
+    value: Unit.PACKS,
+  },
+  {
+    label: Unit.BOTTLES,
+    value: Unit.BOTTLES,
+  },
+  {
+    label: Unit.BOX,
+    value: Unit.BOX,
+  },
+  {
+    label: Unit.TRAYS,
+    value: Unit.TRAYS,
+  },
+  {
+    label: Unit.PCS,
+    value: Unit.PCS,
+  },
+];
+
+export const STOCK_TYPE = [
+  {
+    label: 'STOCK OUT',
+    value: STOCK_SELECTION_MODE.OUT,
+  },
+  {
+    label: 'STOCK IN',
+    value: STOCK_SELECTION_MODE.IN,
   },
 ];

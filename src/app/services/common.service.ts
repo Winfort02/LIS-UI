@@ -3,24 +3,33 @@ import { computed, Injectable, Signal, signal } from '@angular/core';
 import { LocalKeys } from '../enums/common.enum';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CommonService {
-  previousUrl: string = '';
+  private previousUrl = new BehaviorSubject<string | null>(
+    localStorage.getItem('previous-route')
+  );
   currentUrl: string = '';
   private _accessToken = signal<string | null>(
     localStorage.getItem(LocalKeys.accessToken)
   );
+
   constructor(private datePipe: DatePipe, private router: Router) {
     this.currentUrl = this.router.url;
     router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.previousUrl = this.currentUrl;
+        localStorage.setItem('previous-route', this.currentUrl);
+        this.previousUrl.next(this.currentUrl);
         this.currentUrl = event.url;
       }
     });
+  }
+
+  get navigationUrl() {
+    return this.previousUrl.value;
   }
 
   set accessToken(token: string | null) {

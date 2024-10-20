@@ -69,7 +69,7 @@ export class TestFormComponent implements OnInit {
 
   loadPatients() {
     this.patientSubscription = this.patientService.getAllPatients().subscribe({
-      next: (response: CommonSuccessResponse<Patient>) => {
+      next: (response: CommonSuccessResponse<Patient[]>) => {
         this.patients = response.data as Patient[];
       },
       error: (error) => {

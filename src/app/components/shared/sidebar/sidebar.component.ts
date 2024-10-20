@@ -88,29 +88,69 @@ export class SidebarComponent implements OnInit {
         routerLink: '',
       },
       {
-        label: 'Users',
-        icon: Icon.FOLDER,
-        routerLink: ApplicationUrl.USERS,
+        label: 'Master Files',
+        items: [
+          {
+            label: 'Users',
+            icon: Icon.FOLDER,
+            routerLink: ApplicationUrl.USERS,
+          },
+          {
+            label: 'Patients',
+            icon: Icon.FOLDER,
+            routerLink: ApplicationUrl.PATIENTS,
+          },
+          {
+            label: 'Apparatus',
+            icon: Icon.FOLDER,
+            routerLink: ApplicationUrl.APPARATUS,
+          },
+          {
+            label: 'Tests',
+            icon: Icon.FOLDER,
+            routerLink: ApplicationUrl.TEST,
+          },
+        ],
       },
       {
-        label: 'Patients',
-        icon: Icon.FOLDER,
-        routerLink: ApplicationUrl.PATIENTS,
+        label: 'Laboratory',
+        items: [
+          {
+            label: 'Hematology',
+            icon: Icon.FOLDER,
+            routerLink: ApplicationUrl.HEMATOLOGY,
+          },
+          {
+            label: 'Urinalysis',
+            icon: Icon.FOLDER,
+            routerLink: ApplicationUrl.URINALYSIS,
+          },
+          {
+            label: 'Chemistry',
+            icon: Icon.FOLDER,
+            routerLink: ApplicationUrl.CHEMSTRY,
+          },
+        ],
       },
       {
-        label: 'Test',
-        icon: Icon.FOLDER,
-        routerLink: ApplicationUrl.TEST,
-      },
-      {
-        label: 'Hematology',
-        icon: Icon.FOLDER,
-        routerLink: ApplicationUrl.HEMATOLOGY,
-      },
-      {
-        label: 'Urinalysis',
-        icon: Icon.FOLDER,
-        routerLink: ApplicationUrl.URINALYSIS,
+        label: 'Inventory',
+        items: [
+          {
+            label: 'Stocks',
+            icon: Icon.FOLDER,
+            routerLink: ApplicationUrl.STOCK,
+          },
+          {
+            label: 'Incoming Items',
+            icon: Icon.FOLDER,
+            routerLink: `${ApplicationUrl.STOCK}/${ApplicationUrl.STOCK_IN_LIST}`,
+          },
+          {
+            label: 'Outgoing Items',
+            icon: Icon.FOLDER,
+            routerLink: `${ApplicationUrl.STOCK}/${ApplicationUrl.STOCK_OUT_LIST}`,
+          },
+        ],
       },
       {
         label: 'Sign Out',

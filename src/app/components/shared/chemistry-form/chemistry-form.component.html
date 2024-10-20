@@ -1,0 +1,737 @@
+@defer (when isComponentShow) {
+<div class="col-12 w-full">
+  @if (messages.length) {
+  <div class="col-12">
+    <p-messages
+      [(value)]="messages"
+      [enableService]="false"
+      [closable]="true"
+    />
+  </div>
+  }
+  <app-feature-detail-header title="chemistry Form">
+    @if (chemistry) { @if(chemistryForm.disabled) {
+    <button
+      type="button"
+      pButton
+      class="p-button-info custom-button"
+      label="Edit"
+      (click)="chemistryForm.enable()"
+    ></button>
+    } @if (chemistryForm.enabled) {
+    <button
+      type="button"
+      pButton
+      class="p-button-danger custom-button"
+      label="Cancel"
+      (click)="chemistryForm.disable()"
+    ></button>
+    } @if (chemistryForm.disabled) {
+    <button
+      type="submit"
+      pButton
+      class="p-button-success custom-button"
+      label="Print"
+      (click)="print()"
+    ></button>
+    } }
+  </app-feature-detail-header>
+</div>
+<div class="col-12 h-1rem surface-200 w-full"></div>
+<app-feature-form-header [test]="test"></app-feature-form-header>
+<div class="col-12 h-1rem surface-200 w-full my-3"></div>
+<div
+  class="col-12 flex flex-column justify-content-center align-items-center gap-2"
+>
+  <div class="col-12 sm:col-12 md:col-12 lg:col-10 xl:col-9">
+    <form [formGroup]="chemistryForm">
+      <input hidden formControlName="id" />
+      <p-stepper [linear]="false">
+        <p-stepperPanel header="Basic Information" formGroupName="basicForm">
+          <ng-template
+            pTemplate="content"
+            let-nextCallback="nextCallback"
+            let-index="index"
+          >
+            <div
+              class="col-12 flex justify-content-center align-items-center flex-column"
+            >
+              <div
+                class="col-12 flex flex-column justify-content-start align-content-center"
+              >
+                <div
+                  class="col-12 flex justify-content-start align-items-center flex-wrap"
+                >
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">Physician Name</p>
+                    <input
+                      type="text"
+                      pInputText
+                      class="w-full"
+                      formControlName="physician"
+                      placeholder="Enter Physician Name"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">Laboratory Number</p>
+                    <input
+                      type="text"
+                      pInputText
+                      class="w-full"
+                      formControlName="lab_no"
+                      placeholder="Enter Laboratory Number"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-3 lg:col-3 xl:col-3">
+                    <p class="px-2 text-500 uppercase">Last Meal</p>
+                    <p-calendar
+                      formControlName="last_meal_take"
+                      styleClass="w-full"
+                      [showTime]="true"
+                      [hourFormat]="'12'"
+                      dateFormat="dd-mm-yy"
+                      placeholder="Enter last meal"
+                      [maxDate]="maxDate"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-3 lg:col-3 xl:col-3">
+                    <p class="px-2 text-500 uppercase">Time Taken</p>
+                    <p-calendar
+                      formControlName="time_taken"
+                      styleClass="w-full"
+                      [showTime]="true"
+                      [hourFormat]="'12'"
+                      dateFormat="dd-mm-yy"
+                      placeholder="Enter last meal"
+                      [maxDate]="maxDate"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">Test Requested</p>
+                    <input
+                      type="text"
+                      pInputText
+                      class="w-full"
+                      formControlName="test_requested"
+                      placeholder="Enter Test Requested"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 flex justify-content-end px-3 pt-4">
+                <p-button
+                  label="Next"
+                  icon="pi pi-arrow-right"
+                  iconPos="right"
+                  [disabled]="BasicForm.invalid"
+                  (onClick)="nextCallback.emit()"
+                />
+              </div>
+            </div>
+          </ng-template>
+        </p-stepperPanel>
+        <p-stepperPanel
+          header="Blood Sugar Test"
+          formGroupName="bloodSugarForm"
+        >
+          <ng-template
+            pTemplate="content"
+            let-nextCallback="nextCallback"
+            let-prevCallback="prevCallback"
+            let-index="index"
+          >
+            <div
+              class="col-12 flex justify-content-center align-items-center flex-column"
+            >
+              <div
+                class="col-12 flex flex-column justify-content-start align-content-center"
+              >
+                <div
+                  class="col-12 flex justify-content-start align-items-center flex-wrap"
+                >
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">
+                      Fasting Blood Sugar Conversion Result
+                    </p>
+                    <input
+                      type="text"
+                      pInputText
+                      class="w-full"
+                      readonly
+                      [value]="fastingBloodSugarConvertion"
+                      [disabled]="true"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">
+                      Fasting Blood Sugar Actual Result
+                    </p>
+                    <input
+                      type="number"
+                      pInputText
+                      class="w-full"
+                      formControlName="fasting_blood_sugar"
+                      placeholder="Enter fasting blood sugar actual result"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">
+                      Random Blood Sugar Conversion Result
+                    </p>
+                    <input
+                      type="text"
+                      pInputText
+                      class="w-full"
+                      readonly
+                      [value]="randomBloodSugarConvertion"
+                      [disabled]="true"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">
+                      Random Blood Sugar Actual Result
+                    </p>
+                    <input
+                      type="number"
+                      pInputText
+                      class="w-full"
+                      formControlName="random_blood_sugar"
+                      placeholder="Enter random blood sugar actual result"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">
+                      2HR Post Prandial Conversion Result
+                    </p>
+                    <input
+                      type="text"
+                      pInputText
+                      class="w-full"
+                      readonly
+                      [value]="postPrandialConvertion"
+                      [disabled]="true"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">
+                      2HR Post Prandial Actual Result
+                    </p>
+                    <input
+                      type="number"
+                      pInputText
+                      class="w-full"
+                      formControlName="post_prandial"
+                      placeholder="Enter post prandial actual result"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="col-12 flex justify-content-between align-content-center px-3 pt-4"
+                >
+                  <p-button
+                    label="Back"
+                    icon="pi pi-arrow-left"
+                    (onClick)="prevCallback.emit()"
+                  />
+                  <p-button
+                    label="Next"
+                    icon="pi pi-arrow-right"
+                    iconPos="right"
+                    [disabled]="BloodSugarForm.invalid"
+                    (onClick)="nextCallback.emit()"
+                  />
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-stepperPanel>
+        <p-stepperPanel header="Lipid Test" formGroupName="lipidForm">
+          <ng-template
+            pTemplate="content"
+            let-nextCallback="nextCallback"
+            let-prevCallback="prevCallback"
+            let-index="index"
+          >
+            <div
+              class="col-12 flex justify-content-center align-items-center flex-column"
+            >
+              <div
+                class="col-12 flex flex-column justify-content-start align-content-center"
+              >
+                <div
+                  class="col-12 flex justify-content-start align-items-center flex-wrap"
+                >
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">
+                      Total Cholesterol Conversion Result
+                    </p>
+                    <input
+                      type="text"
+                      pInputText
+                      class="w-full"
+                      readonly
+                      [value]="totalCholesterolConverstion"
+                      [disabled]="true"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">
+                      Total Cholesterol Actual Result
+                    </p>
+                    <input
+                      type="number"
+                      pInputText
+                      class="w-full"
+                      formControlName="total_cholesterol"
+                      placeholder="Enter total holestero actual result"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">
+                      Triglycerides Conversion Result
+                    </p>
+                    <input
+                      type="text"
+                      pInputText
+                      class="w-full"
+                      readonly
+                      [value]="triglyceridesConverstion"
+                      [disabled]="true"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">
+                      Triglycerides Actual Result
+                    </p>
+                    <input
+                      type="number"
+                      pInputText
+                      class="w-full"
+                      formControlName="triglycerides"
+                      placeholder="Enter triglycerides actual result"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">HDL Conversion Result</p>
+                    <input
+                      type="text"
+                      pInputText
+                      class="w-full"
+                      readonly
+                      [value]="hdlConverstion"
+                      [disabled]="true"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">HDL Actual Result</p>
+                    <input
+                      type="number"
+                      pInputText
+                      class="w-full"
+                      formControlName="hdl"
+                      placeholder="Enter HDL actual result"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">LDL Conversion Result</p>
+                    <input
+                      type="text"
+                      pInputText
+                      class="w-full"
+                      readonly
+                      [value]="ldlConverstion"
+                      [disabled]="true"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">LDL Actual Result</p>
+                    <input
+                      type="number"
+                      pInputText
+                      class="w-full"
+                      formControlName="ldl"
+                      placeholder="Enter LDL actual result"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="col-12 flex justify-content-between align-content-center px-3 pt-4"
+                >
+                  <p-button
+                    label="Back"
+                    icon="pi pi-arrow-left"
+                    (onClick)="prevCallback.emit()"
+                  />
+                  <p-button
+                    label="Next"
+                    icon="pi pi-arrow-right"
+                    iconPos="right"
+                    [disabled]="LipidForm.invalid"
+                    (onClick)="nextCallback.emit()"
+                  />
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-stepperPanel>
+        <p-stepperPanel
+          header="Kidney Function Test"
+          formGroupName="kidneyFunctionForm"
+        >
+          <ng-template
+            pTemplate="content"
+            let-nextCallback="nextCallback"
+            let-prevCallback="nextCallback"
+            let-index="index"
+          >
+            <div
+              class="col-12 flex justify-content-center align-items-center flex-column"
+            >
+              <div
+                class="col-12 flex flex-column justify-content-start align-content-center"
+              >
+                <div
+                  class="col-12 flex justify-content-start align-items-center flex-wrap"
+                >
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">
+                      Uric Acid Conversion Result
+                    </p>
+                    <input
+                      type="text"
+                      pInputText
+                      class="w-full"
+                      readonly
+                      [value]="uricAcidConversion"
+                      [disabled]="true"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">
+                      Uric Acid Actual Result
+                    </p>
+                    <input
+                      type="number"
+                      pInputText
+                      class="w-full"
+                      formControlName="uric_acid"
+                      placeholder="Enter uric acid actual result"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">
+                      Creatinine Conversion Result
+                    </p>
+                    <input
+                      type="text"
+                      pInputText
+                      class="w-full"
+                      readonly
+                      [value]="creatinineConversion"
+                      [disabled]="true"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">
+                      Creatinine Actual Result
+                    </p>
+                    <input
+                      type="number"
+                      pInputText
+                      class="w-full"
+                      formControlName="creatinine"
+                      placeholder="Enter creatinine actual result"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">BUN Conversion Result</p>
+                    <input
+                      type="text"
+                      pInputText
+                      class="w-full"
+                      readonly
+                      [value]="bunConversion"
+                      [disabled]="true"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">BUN Actual Result</p>
+                    <input
+                      type="number"
+                      pInputText
+                      class="w-full"
+                      formControlName="bun"
+                      placeholder="Enter bun actual result"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="col-12 flex justify-content-between align-content-center px-3 pt-4"
+                >
+                  <p-button
+                    label="Back"
+                    icon="pi pi-arrow-left"
+                    (onClick)="prevCallback.emit()"
+                  />
+                  <p-button
+                    label="Next"
+                    icon="pi pi-arrow-right"
+                    iconPos="right"
+                    [disabled]="KidneyFunctionForm.invalid"
+                    (onClick)="nextCallback.emit()"
+                  />
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-stepperPanel>
+        <p-stepperPanel header="Enzymes Test" formGroupName="enzymeForm">
+          <ng-template
+            pTemplate="content"
+            let-nextCallback="nextCallback"
+            let-index="index"
+          >
+            <div
+              class="col-12 flex justify-content-center align-items-center flex-column"
+            >
+              <div
+                class="col-12 flex flex-column justify-content-start align-content-center"
+              >
+                <div
+                  class="col-12 flex justify-content-start align-items-center flex-wrap"
+                >
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">
+                      SGPT Conversion Result
+                    </p>
+                    <input
+                      type="text"
+                      pInputText
+                      class="w-full"
+                      readonly
+                      [value]="EnzymeForm.value.sgpt"
+                      [disabled]="true"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">SGPT Actual Result</p>
+                    <input
+                      type="number"
+                      pInputText
+                      class="w-full"
+                      formControlName="sgpt"
+                      placeholder="Enter SGPT actual result"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">
+                      SGOT Conversion Result
+                    </p>
+                    <input
+                      type="text"
+                      pInputText
+                      class="w-full"
+                      readonly
+                      [value]="EnzymeForm.value.sgot"
+                      [disabled]="true"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">SGOT Actual Result</p>
+                    <input
+                      type="number"
+                      pInputText
+                      class="w-full"
+                      formControlName="sgot"
+                      placeholder="Enter SGOT actual result"
+                    />
+                  </div>
+                </div>
+                <div class="col-12 flex justify-content-end px-3 pt-4">
+                  <p-button
+                    label="Next"
+                    icon="pi pi-arrow-right"
+                    iconPos="right"
+                    [disabled]="EnzymeForm.invalid"
+                    (onClick)="nextCallback.emit()"
+                  />
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-stepperPanel>
+        <p-stepperPanel
+          header="Electrolytes Test"
+          formGroupName="electrolyteForm"
+        >
+          <ng-template
+            pTemplate="content"
+            let-prevCallback="prevCallback"
+            let-index="index"
+          >
+            <div
+              class="col-12 flex justify-content-center align-items-center flex-column"
+            >
+              <div
+                class="col-12 flex flex-column justify-content-start align-content-center"
+              >
+                <div
+                  class="col-12 flex justify-content-start align-items-center flex-wrap"
+                >
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">
+                      Sodium Conversion Result
+                    </p>
+                    <input
+                      type="text"
+                      pInputText
+                      class="w-full"
+                      readonly
+                      [value]="ElectrolyteForm.value.sodium"
+                      [disabled]="true"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">Sodium Actual Result</p>
+                    <input
+                      type="number"
+                      pInputText
+                      class="w-full"
+                      formControlName="sodium"
+                      placeholder="Enter Sodium actual result"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">
+                      Potassium Conversion Result
+                    </p>
+                    <input
+                      type="text"
+                      pInputText
+                      class="w-full"
+                      readonly
+                      [value]="ElectrolyteForm.value.potasium"
+                      [disabled]="true"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">
+                      Potassium Actual Result
+                    </p>
+                    <input
+                      type="number"
+                      pInputText
+                      class="w-full"
+                      formControlName="potasium"
+                      placeholder="Enter Potassium actual result"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">
+                      Ionized Calcium Conversion Result
+                    </p>
+                    <input
+                      type="text"
+                      pInputText
+                      class="w-full"
+                      readonly
+                      [value]="ElectrolyteForm.value.ionized_calcium"
+                      [disabled]="true"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">
+                      Ionized Calcium Actual Result
+                    </p>
+                    <input
+                      type="number"
+                      pInputText
+                      class="w-full"
+                      formControlName="ionized_calcium"
+                      placeholder="Enter Ionized Calcium actual result"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">
+                      Calcium Conversion Result
+                    </p>
+                    <input
+                      type="text"
+                      pInputText
+                      class="w-full"
+                      readonly
+                      [value]="ElectrolyteForm.value.calcium"
+                      [disabled]="true"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">Calcium Actual Result</p>
+                    <input
+                      type="number"
+                      pInputText
+                      class="w-full"
+                      formControlName="calcium"
+                      placeholder="Enter Calcium actual result"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">
+                      Magnesium Conversion Result
+                    </p>
+                    <input
+                      type="text"
+                      pInputText
+                      class="w-full"
+                      readonly
+                      [value]="ElectrolyteForm.value.magnesium"
+                      [disabled]="true"
+                    />
+                  </div>
+                  <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <p class="px-2 text-500 uppercase">
+                      Magnesium Actual Result
+                    </p>
+                    <input
+                      type="number"
+                      pInputText
+                      class="w-full"
+                      formControlName="magnesium"
+                      placeholder="Enter Magnesium actual result"
+                    />
+                  </div>
+                  <div class="col-12">
+                    <p class="px-2 text-500 uppercase">Remarks</p>
+                    <input
+                      type="text"
+                      pInputText
+                      class="w-full"
+                      formControlName="remarks"
+                      placeholder="Enter Remarks"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="col-12 flex justify-content-between align-content-center px-3 pt-4"
+                >
+                  <p-button
+                    label="Back"
+                    icon="pi pi-arrow-left"
+                    (onClick)="prevCallback.emit()"
+                  />
+                  <p-button
+                    label="Submit"
+                    icon="pi pi-arrow-right"
+                    iconPos="right"
+                    [disabled]="ElectrolyteForm.invalid"
+                    (onClick)="onFormSubmit()"
+                  />
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-stepperPanel>
+      </p-stepper>
+    </form>
+  </div>
+</div>
+}

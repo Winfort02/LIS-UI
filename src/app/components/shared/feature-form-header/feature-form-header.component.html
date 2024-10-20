@@ -1,0 +1,52 @@
+<div class="col-12 flex justify-content-start align-items-center flex-wrap">
+  <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4">
+    <p class="px-2">PATIENT NAME</p>
+    <input
+      type="text"
+      pInputText
+      class="w-full"
+      disabled
+      value="{{ test.patient?.first_name }}, {{ test.patient?.last_name }}"
+    />
+  </div>
+  <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4">
+    <p class="px-2">ADDRESS</p>
+    <input
+      type="text"
+      pInputText
+      class="w-full"
+      disabled
+      value="{{ test.patient?.address }}"
+    />
+  </div>
+  <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4">
+    <p class="px-2">SEX</p>
+    <input
+      type="text"
+      pInputText
+      class="w-full"
+      disabled
+      value="{{ test.patient?.sex }}"
+    />
+  </div>
+  <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4">
+    <p class="px-2">TRANSACTION NO</p>
+    <input
+      type="text"
+      pInputText
+      class="w-full"
+      disabled
+      value="{{ test.transaction_number }}"
+    />
+  </div>
+  <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4">
+    <p class="px-2">TEST TYPE</p>
+    <input
+      type="text"
+      pInputText
+      class="w-full"
+      disabled
+      value="{{ test.type }}"
+    />
+  </div>
+</div>

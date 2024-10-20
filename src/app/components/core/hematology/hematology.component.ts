@@ -7,9 +7,6 @@ import {
   untracked,
 } from '@angular/core';
 import { HematologyService } from '../../../services/hematology.service';
-
-import { MessagesModule } from 'primeng/messages';
-import { Message, MessageService } from 'primeng/api';
 import { FeatureHeaderComponent } from '../../shared/feature-header/feature-header.component';
 import { SearchComponent } from '../../shared/search/search.component';
 import { FeatureTableComponent } from '../../shared/feature-table/feature-table.component';
@@ -25,17 +22,11 @@ import {
 } from '../../../enums/common.enum';
 import { Router } from '@angular/router';
 import { CommonHelper } from '../../../helpers/common.helper';
-import { HematologyFormComponent } from '../../shared/hematology-form/hematology-form.component';
 
 @Component({
   selector: 'app-test-order',
   standalone: true,
-  imports: [
-    FeatureHeaderComponent,
-    SearchComponent,
-    FeatureTableComponent,
-    HematologyFormComponent,
-  ],
+  imports: [FeatureHeaderComponent, SearchComponent, FeatureTableComponent],
   templateUrl: './hematology.component.html',
   styleUrl: './hematology.component.scss',
 })

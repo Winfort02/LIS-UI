@@ -12,24 +12,22 @@ import {
   Validators,
 } from '@angular/forms';
 import { Hematology } from '../../../models/hematology.model';
-import { Patient } from '../../../models/patient.model';
 import { IDropdownOption } from '../../../interfaces/dropdown-option.interface';
 import {
   CommonSuccessResponse,
   CustomResponse,
 } from '../../../models/response.model';
 import { HematologyService } from '../../../services/hematology.service';
-import { Gender } from '../../../helpers/constant.helper';
 import { TestService } from '../../../services/test.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Test } from '../../../models/test.model';
 import { FeatureDetailHeaderComponent } from '../feature-detail-header/feature-detail-header.component';
 import { Subscription } from 'rxjs';
-import { ApplicationUrl } from '../../../enums/common.enum';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PdfViewerComponent } from '../pdf-viewer/pdf-viewer.component';
 import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
+import { FeatureFormHeaderComponent } from '../feature-form-header/feature-form-header.component';
 
 @Component({
   selector: 'app-hematology-form',
@@ -44,6 +42,7 @@ import { Message } from 'primeng/api';
     FormsModule,
     FeatureDetailHeaderComponent,
     MessagesModule,
+    FeatureFormHeaderComponent,
   ],
   templateUrl: './hematology-form.component.html',
   styleUrl: './hematology-form.component.scss',
@@ -53,9 +52,7 @@ export class HematologyFormComponent implements OnInit, OnDestroy {
   messages: Message[] = [];
   isComponentShow: boolean = false;
   hematologyForm!: FormGroup;
-  patient: Patient = new Patient();
   options: IDropdownOption[] = [];
-  patients = new Patient();
   hematology: Hematology = new Hematology();
   response: CustomResponse<Hematology> = new CustomResponse(
     new Hematology(),
@@ -116,7 +113,6 @@ export class HematologyFormComponent implements OnInit, OnDestroy {
         .subscribe({
           next: (response: CommonSuccessResponse<Test>) => {
             if (response.success) this.test = response.data as Test;
-            this.patient = this.test.patient as Patient;
             this.hematology = this.test.hematology as Hematology;
           },
           error: (err) => {
@@ -220,13 +216,6 @@ export class HematologyFormComponent implements OnInit, OnDestroy {
 
   get StepFour() {
     return this.hematologyForm.get('stepFour') as FormGroup;
-  }
-
-  getMax(m: number, f: number) {
-    if (!Object.entries(this.patient).length) {
-      return 0;
-    }
-    return this.patient.sex === Gender.MALE ? m : f;
   }
 
   onCreateHematology(data: Hematology) {

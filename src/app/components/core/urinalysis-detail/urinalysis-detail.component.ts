@@ -33,7 +33,6 @@ export class UrinalysisDetailComponent implements OnInit, OnDestroy {
   private dialogRef!: DynamicDialogRef;
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private urinalysisService: UrinalysisService,
     private dialogService: DialogService
   ) {}

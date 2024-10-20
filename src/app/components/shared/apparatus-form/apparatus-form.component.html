@@ -1,0 +1,54 @@
+<div class="col-12 flex flex-column justify-content-center align-items-center">
+  <form [formGroup]="apparatusForm" class="w-full">
+    <input hidden formControlName="id" />
+    <div class="col-12">
+      <p class="px-2 text-500 uppercase">Apparatus Name</p>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        placeholder="Enter Apparatus Name"
+        formControlName="apparatus_name"
+      />
+    </div>
+    <div class="col-12">
+      <p class="px-2 text-500 uppercase">Unit</p>
+      <p-dropdown
+        [options]="unitOptions"
+        optionLabel="label"
+        optionValue="value"
+        placeholder="Select Patient"
+        styleClass="w-full"
+        formControlName="unit"
+      />
+    </div>
+    <div class="col-12 flex flex-wrap gap-3 justify-content-start mt-2">
+      <div class="flex align-items-center">
+        <p-radioButton
+          [value]="false"
+          formControlName="status"
+          inputId="gender1"
+        />
+        <label for="gender11" class="ml-2"> Expired </label>
+      </div>
+
+      <div class="flex align-items-center">
+        <p-radioButton
+          [value]="true"
+          formControlName="status"
+          inputId="gender2"
+        />
+        <label for="gender2" class="ml-2"> Active </label>
+      </div>
+    </div>
+    <div class="col-12 mt-3">
+      <p-button
+        severity="info"
+        label="Save"
+        styleClass="w-full text-center"
+        [disabled]="apparatusForm.invalid"
+        (onClick)="onSave()"
+      />
+    </div>
+  </form>
+</div>

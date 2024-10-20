@@ -1,0 +1,148 @@
+<div class="col-12 surface-hover border-round py-2 px-2 mx-auto">
+  <div class="col-12">
+    <div
+      class="col-12 flex flex-column sm:flex-column md:flex-column lg:flex-row xl:flex-row justify-content-between align-items-center"
+    >
+      <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4">
+        <label class="text-base px-2 font-semibold">
+          STOCK ITEMS -
+          <span class="uppercase">{{ mode }}</span></label
+        >
+      </div>
+      <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4">
+        <p-dropdown
+          styleClass="outline-none w-full"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select type"
+          [options]="options"
+          [(ngModel)]="type"
+          (onChange)="onSelectType($event)"
+        ></p-dropdown>
+      </div>
+      <div
+        class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4 flex justify-content-end align-items-center gap-2"
+      >
+        <button
+          pButton
+          class="p-button-raised p-button-md p-button-success"
+          (click)="productQuery()"
+          label="Add"
+          [disabled]="!type"
+        ></button>
+        <button
+          pButton
+          class="p-button-raised p-button-md p-button-danger"
+          (click)="onClearList()"
+          label="Clear"
+          [disabled]="!stockItems.length"
+        ></button>
+        <button
+          pButton
+          class="p-button-raised p-button-md"
+          (click)="onSave()"
+          label="Save"
+          [disabled]="!type || !stockItems.length"
+        ></button>
+      </div>
+    </div>
+
+    @if(type === "STOCK_OUT") {
+    <div class="col-12 h-1rem surface-200 w-full"></div>
+    <div
+      class="col-12 flex flex-row justify-content-between align-items-center gap-2"
+    >
+      <div class="col-3">
+        <p-dropdown
+          styleClass="outline-none w-full"
+          optionLabel="transaction_number"
+          placeholder="Select type"
+          [options]="testOptions"
+          [filter]="true"
+          filterBy="transaction_number"
+          (onChange)="onSelectTest($event)"
+        ></p-dropdown>
+      </div>
+      <div class="col-3">
+        <input
+          type="text"
+          pInputText
+          class="w-full"
+          [disabled]="true"
+          [value]="
+            (test.patient?.last_name || '') +
+            ' ' +
+            (test.patient?.first_name || '')
+          "
+        />
+      </div>
+      <div class="col-3">
+        <input
+          type="text"
+          pInputText
+          class="w-full"
+          [disabled]="true"
+          [value]="test.type || null"
+        />
+      </div>
+      <div class="col-3">
+        <input
+          type="text"
+          pInputText
+          class="w-full"
+          [disabled]="true"
+          [value]="test.createdAt || null"
+        />
+      </div>
+    </div>
+    }
+
+    <div class="col-12 h-1rem surface-200 w-full mb-2"></div>
+
+    <p-table
+      [value]="stockItems"
+      responsiveLayout="scroll"
+      styleClass="p-datatable-md p-datatable-gridlines"
+      [responsive]="true"
+      [tableStyle]="{ 'min-width': '50rem' }"
+    >
+      <ng-template pTemplate="header">
+        <tr class="text-md">
+          <th style="min-width: 100px; max-width: 150px">Apparatus Name</th>
+          <th style="min-width: 100px; max-width: 50px">Quantity</th>
+          <th style="min-width: 70px; max-width: 150px">Unit</th>
+          <th style="min-width: 50px; max-width: 150px; text-align: right"></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-stockItem>
+        <tr class="text-md font-semibold">
+          <td class="px-5">{{ stockItem.apparatus.apparatus_name }}</td>
+          <td style="line-height: 30px" class="text-center">
+            <button
+              pButton
+              class="p-button-text p-button-sm"
+              icon="pi pi-minus"
+              (click)="onRemoveQty(stockItem)"
+            ></button>
+            <span class="px-3"> {{ stockItem.quantity }} </span>
+            <button
+              pButton
+              class="p-button-text p-button-sm"
+              icon="pi pi-plus"
+              (click)="onAddQty(stockItem)"
+            ></button>
+          </td>
+          <td>{{ stockItem.apparatus.unit }}</td>
+          <td style="text-align: right">
+            <button
+              pButton
+              class="p-button-text p-button-md p-button-danger"
+              label="Remove"
+              (click)="removeItemFromList(stockItem)"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

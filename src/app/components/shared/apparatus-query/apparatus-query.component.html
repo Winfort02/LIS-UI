@@ -1,0 +1,85 @@
+<div class="container max-w-full">
+  <div class="grid">
+    <div
+      class="col-12 flex justify-content-center aling-items-center flex-column gap-3"
+    >
+      <div
+        class="col-12 flex justify-content-center aling-items-center flex-column gap-5"
+      >
+        @if (messages.length) {
+        <div class="col-12">
+          <p-messages
+            [(value)]="messages"
+            [enableService]="false"
+            [closable]="true"
+          />
+        </div>
+        }
+        <div class="col-12">
+          <span class="p-float-label">
+            <p-dropdown
+              (onChange)="selectedProduct($event)"
+              [filter]="true"
+              filterBy="apparatus_name"
+              styleClass="outline-none w-full"
+              optionLabel="apparatus_name"
+              [options]="apparatus"
+            ></p-dropdown>
+            <label for="float-input" class="text-lg">Select Apparatus</label>
+          </span>
+        </div>
+        <div class="col-12">
+          <span class="p-float-label">
+            <input
+              type="number"
+              class="outline-none w-full"
+              required
+              pInputText
+              [(ngModel)]="selectedApparatus.quantity"
+              [disabled]="true"
+            />
+            <label for="float-input" class="text-lg">Available Stock</label>
+          </span>
+        </div>
+
+        <div class="col-12">
+          <span class="p-float-label">
+            <input
+              type="number"
+              class="outline-none w-full"
+              required
+              pInputText
+              [(ngModel)]="quantity"
+              [disabled]="!selectedApparatus"
+            />
+            <label for="float-input" class="text-lg">Quantity</label>
+          </span>
+        </div>
+
+        <div class="col-12">
+          <span class="p-float-label">
+            <input
+              type="text"
+              class="outline-none w-full"
+              required
+              pInputText
+              [(ngModel)]="selectedApparatus.unit"
+              [disabled]="true"
+            />
+            <label for="float-input" class="text-lg">Unit</label>
+          </span>
+        </div>
+
+        <div class="col-12">
+          <button
+            pButton
+            type="button"
+            label="Add"
+            (click)="selectProduct()"
+            class="p-button-raised p-button-primary p-button-sm w-full outline-none"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -49,6 +49,14 @@ export enum Endpoints {
   URINALYSIS = 'urinalysis',
   REPORTS = 'report',
   TEST = 'tests',
+  CHEMSTRY = 'chemistry',
+  APPARATUS = 'apparatus',
+  STOCKS = 'stock',
+}
+
+export enum StockMode {
+  IN = 'stock-in',
+  OUT = 'stock-out',
 }
 
 export enum ApplicationUrl {
@@ -65,6 +73,16 @@ export enum ApplicationUrl {
   URINALYSIS = 'urinalysis',
   URINALYSIS_DETAIL = 'application/urinalysis',
   TEST = 'test',
+  CHEMSTRY = 'chemistry',
+  CHEMSTRY_DETAIL = 'application/urinalysis',
+  CHEMSTRY_LIST = 'application/chemistry',
+  APPARATUS = 'apparatus',
+  APPARATUS_LIST = 'application/apparatus',
+  STOCK_IN = 'stock-in',
+  STOCKS_ITEM = 'stock-item',
+  STOCK = 'stocks',
+  STOCK_OUT_LIST = 'stock-out-list',
+  STOCK_IN_LIST = 'stock-in-list',
 }
 
 export enum ButtonColor {
@@ -95,4 +113,17 @@ export enum TestType {
   hematology = 'Hematology',
   urinalysis = 'Urinalysis',
   chemistry = 'Chemistry',
+}
+
+export enum Unit {
+  PACKS = 'packs',
+  BOTTLES = 'bottles',
+  BOX = 'box',
+  PCS = 'pcs',
+  TRAYS = 'trays',
+}
+
+export enum STOCK_SELECTION_MODE {
+  OUT = 'STOCK_OUT',
+  IN = 'STOCK_IN',
 }

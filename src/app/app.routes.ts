@@ -112,6 +112,62 @@ export const routes: Routes = [
             './components/core/urinalysis-detail/urinalysis-detail.component'
           ).then((c) => c.UrinalysisDetailComponent),
       },
+      {
+        path: ApplicationUrl.CHEMSTRY,
+        loadComponent: () =>
+          import('./components/core/chemistry/chemistry.component').then(
+            (c) => c.ChemistryComponent
+          ),
+      },
+      {
+        path: `test/transaction/:transaction_no/${ApplicationUrl.CHEMSTRY}`,
+        loadComponent: () =>
+          import(
+            './components/shared/chemistry-form/chemistry-form.component'
+          ).then((c) => c.ChemistryFormComponent),
+      },
+      {
+        path: `${ApplicationUrl.CHEMSTRY}/detail/:id`,
+        loadComponent: () =>
+          import(
+            './components/core/chemistry-detail/chemistry-detail.component'
+          ).then((c) => c.ChemistryDetailComponent),
+      },
+      {
+        path: ApplicationUrl.APPARATUS,
+        loadComponent: () =>
+          import('./components/core/apparatus/apparatus.component').then(
+            (c) => c.ApparatusComponent
+          ),
+      },
+      {
+        path: ApplicationUrl.STOCK,
+        loadComponent: () =>
+          import('./components/core/stock/stock.component').then(
+            (c) => c.StockComponent
+          ),
+      },
+      {
+        path: `${ApplicationUrl.STOCKS_ITEM}/:mode`,
+        loadComponent: () =>
+          import(
+            './components/shared/stock-item-form/stock-item-form.component'
+          ).then((c) => c.StockItemFormComponent),
+      },
+      {
+        path: `${ApplicationUrl.STOCK}/${ApplicationUrl.STOCK_OUT_LIST}`,
+        loadComponent: () =>
+          import(
+            './components/core/stock-out-list/stock-out-list.component'
+          ).then((c) => c.StockOutListComponent),
+      },
+      {
+        path: `${ApplicationUrl.STOCK}/${ApplicationUrl.STOCK_IN_LIST}`,
+        loadComponent: () =>
+          import(
+            './components/core/stock-int-list/stock-int-list.component'
+          ).then((c) => c.StockIntListComponent),
+      },
     ],
   },
   {

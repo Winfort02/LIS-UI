@@ -38,58 +38,7 @@
   </app-feature-detail-header>
 </div>
 <div class="col-12 h-1rem surface-200 w-full"></div>
-<div class="col-12 flex justify-content-start align-items-center flex-wrap">
-  <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4">
-    <p class="px-2">PATIENT NAME</p>
-    <input
-      type="text"
-      pInputText
-      class="w-full"
-      disabled
-      value="{{ patient.first_name }}, {{ patient.last_name }}"
-    />
-  </div>
-  <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4">
-    <p class="px-2">ADDRESS</p>
-    <input
-      type="text"
-      pInputText
-      class="w-full"
-      disabled
-      value="{{ patient.address }}"
-    />
-  </div>
-  <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4">
-    <p class="px-2">SEX</p>
-    <input
-      type="text"
-      pInputText
-      class="w-full"
-      disabled
-      value="{{ patient.sex }}"
-    />
-  </div>
-  <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4">
-    <p class="px-2">TRANSACTION NO</p>
-    <input
-      type="text"
-      pInputText
-      class="w-full"
-      disabled
-      value="{{ test.transaction_number }}"
-    />
-  </div>
-  <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4">
-    <p class="px-2">TEST TYPE</p>
-    <input
-      type="text"
-      pInputText
-      class="w-full"
-      disabled
-      value="{{ test.type }}"
-    />
-  </div>
-</div>
+<app-feature-form-header [test]="test"></app-feature-form-header>
 <div class="col-12 h-1rem surface-200 w-full my-3"></div>
 <div
   class="col-12 flex flex-column justify-content-center align-items-center gap-2"

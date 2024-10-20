@@ -57,7 +57,7 @@ export class HematologyService {
 
   generateHemotology(id: number) {
     return this.genericService.generatePDF(
-      `${Endpoints.REPORTS}/hematogoly/${id}`
+      `${Endpoints.REPORTS}/${Endpoints.HEMATOLOGY}/${id}`
     );
   }
 }

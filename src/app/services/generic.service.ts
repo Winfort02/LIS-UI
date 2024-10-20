@@ -134,7 +134,7 @@ export class GenericService<T extends CommonPropertyMapping> {
           data,
           statusCode: item.statusCode,
           success: item.success,
-        } as CommonSuccessResponse<T>;
+        } as CommonSuccessResponse<T[]>;
       }),
       delay(1000),
       finalize(() => this.spinner.hide())

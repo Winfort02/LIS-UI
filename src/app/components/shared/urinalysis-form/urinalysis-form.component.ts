@@ -35,6 +35,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PdfViewerComponent } from '../pdf-viewer/pdf-viewer.component';
 import { ApplicationUrl } from '../../../enums/common.enum';
 import { CommonService } from '../../../services/common.service';
+import { FeatureFormHeaderComponent } from '../feature-form-header/feature-form-header.component';
 
 @Component({
   selector: 'app-urinalysis-form',
@@ -49,6 +50,7 @@ import { CommonService } from '../../../services/common.service';
     FormsModule,
     MessagesModule,
     FeatureDetailHeaderComponent,
+    FeatureFormHeaderComponent,
   ],
   templateUrl: './urinalysis-form.component.html',
   styleUrl: './urinalysis-form.component.scss',
@@ -61,7 +63,6 @@ export class UrinalysisFormComponent implements OnInit, OnDestroy {
   options: IDropdownOption[] = [];
   urinalysis = new Urinalysis();
   testSubscription!: Subscription;
-  patient = new Patient();
   test = new Test();
 
   commonOptions: IDropdownOption[] = CHEMICAL_TEST_DROPDOWN_COMMON;
@@ -113,7 +114,6 @@ export class UrinalysisFormComponent implements OnInit, OnDestroy {
         .subscribe({
           next: (response: CommonSuccessResponse<Test>) => {
             if (response.success) this.test = response.data as Test;
-            this.patient = this.test.patient as Patient;
             this.urinalysis = this.test.urinalysis as Urinalysis;
           },
           error: (err) => {
@@ -179,8 +179,8 @@ export class UrinalysisFormComponent implements OnInit, OnDestroy {
         hyaline: [null],
         fine_granular: [null],
         coarse_granular: [null],
-        cast_rbc: [0.0],
-        cast_wbc: [0.0],
+        cast_rbc: [null],
+        cast_wbc: [null],
         cast_waxy: [null],
         cast_broad: [null],
         remarks: [null, Validators.required],

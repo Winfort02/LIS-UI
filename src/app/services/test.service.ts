@@ -97,4 +97,8 @@ export class TestService {
         })
       );
   }
+
+  getTestList() {
+    return this.genericService.getAll(`${Endpoints.TEST}/test/list`);
+  }
 }
