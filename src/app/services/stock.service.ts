@@ -73,6 +73,7 @@ export class StockService {
             transaction_no: stock.test?.transaction_number || null,
             apparatus_name: stock.apparatus?.apparatus_name || null,
             test_type: stock.test?.type || null,
+            unit: stock.apparatus?.unit || null,
           }));
           return {
             currentPage: response.currentPage,
@@ -99,6 +100,7 @@ export class StockService {
             ...stock,
             received_by: stock.stock?.user?.name || null,
             apparatus_name: stock.apparatus?.apparatus_name || null,
+            unit: stock.apparatus?.unit || null,
           }));
           return {
             currentPage: response.currentPage,

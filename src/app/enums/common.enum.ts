@@ -28,6 +28,13 @@ export enum Icon {
   LOGOUT = 'pi pi-power-off',
   CANCEL = 'pi pi-times',
   EDIT = 'pi pi-pencil',
+  USER = 'pi pi-users',
+  PATIENT = 'pi pi-user-plus',
+  TOOL = 'pi pi-hammer',
+  TEST = 'pi pi-filter-slash',
+  RESULT = 'pi pi-file-check',
+  STOCK = 'pi pi-box',
+  STOCK_ITEM = 'pi pi-book',
 }
 
 export enum Severity {

@@ -36,6 +36,13 @@ export const routes: Routes = [
     canActivate: [applicationGuardGuard],
     children: [
       {
+        path: '',
+        loadComponent: () =>
+          import('./components/core/dashboard/dashboard.component').then(
+            (c) => c.DashboardComponent
+          ),
+      },
+      {
         path: ApplicationUrl.USERS,
         loadComponent: () =>
           import('./components/core/user/user.component').then(

@@ -37,7 +37,7 @@ export class StockIntListComponent implements OnInit {
     delete: ButtonLabel.DELETE,
   };
   showActionBtn = {
-    edit: true,
+    edit: false,
     delete: false,
   };
   stockSubsction!: Subscription;
@@ -58,6 +58,7 @@ export class StockIntListComponent implements OnInit {
       { field: 'received_by', header: 'Received By' },
       { field: 'apparatus_name', header: 'Apparatus Name' },
       { field: 'quantity', header: 'Quantity' },
+      { field: 'unit', header: 'Unit' },
       { field: 'createdAt', header: 'Date' },
     ]);
   }
