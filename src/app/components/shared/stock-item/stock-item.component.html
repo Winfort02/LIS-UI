@@ -1,0 +1,32 @@
+<div class="col-12">
+  <p-table
+    [value]="items"
+    responsiveLayout="scroll"
+    styleClass="p-datatable-md p-datatable-gridlines"
+    [responsive]="true"
+    [tableStyle]="{ 'min-width': '50rem' }"
+  >
+    <ng-template pTemplate="header">
+      <tr class="text-md">
+        <th style="min-width: 100px; max-width: 150px">APPARATUS NAME</th>
+        <th style="min-width: 70px; max-width: 150px">UNIT</th>
+        <th style="min-width: 100px; max-width: 50px">QUANTITY</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+      <tr class="text-md font-semibold">
+        <td>{{ item.apparatus.apparatus_name }}</td>
+        <td>{{ item.apparatus.unit | uppercase }}</td>
+        <td>{{ item.quantity }}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <tr>
+        <td colspan="2">
+          {{ "Total " + stock.type | uppercase }}
+        </td>
+        <td>{{ totalQuantity }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

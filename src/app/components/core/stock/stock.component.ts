@@ -7,10 +7,18 @@ import { Message } from 'primeng/api';
 import { Stock } from '../../../models/stock.model';
 import { ITableColumn } from '../../../interfaces/table-column.interface';
 import { Pagination } from '../../../models/pagination.model';
-import { ButtonLabel, StockMode } from '../../../enums/common.enum';
+import {
+  ActionButtonType,
+  ButtonLabel,
+  StockMode,
+} from '../../../enums/common.enum';
 import { Subscription } from 'rxjs';
 import { StockService } from '../../../services/stock.service';
 import { Router } from '@angular/router';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { StockItemComponent } from '../../shared/stock-item/stock-item.component';
+import { CommonHelper } from '../../../helpers/common.helper';
+import { CustomResponse } from '../../../models/response.model';
 
 @Component({
   selector: 'app-stock-in',
@@ -23,7 +31,7 @@ import { Router } from '@angular/router';
   ],
   templateUrl: './stock.component.html',
   styleUrl: './stock.component.scss',
-  providers: [StockService],
+  providers: [StockService, DialogService],
 })
 export class StockComponent implements OnInit {
   messages: Message[] = [];
@@ -34,7 +42,7 @@ export class StockComponent implements OnInit {
   size = 25;
   keywords = signal<string>('');
   actionButton = {
-    edit: ButtonLabel.EDIT,
+    edit: ButtonLabel.VIEW,
     delete: ButtonLabel.DELETE,
   };
   showActionBtn = {
@@ -43,8 +51,14 @@ export class StockComponent implements OnInit {
   };
 
   stockSubsction!: Subscription;
+  dialogRef!: DynamicDialogRef;
+  commonHelper = new CommonHelper<Stock>();
 
-  constructor(private stockService: StockService, private router: Router) {
+  constructor(
+    private stockService: StockService,
+    private router: Router,
+    private dialogService: DialogService
+  ) {
     effect(() => {
       if (this.stockSubsction) this.stockSubsction.unsubscribe();
       this.getStockInList(this.selectedPage());
@@ -92,5 +106,13 @@ export class StockComponent implements OnInit {
 
   onPageChange(event: number) {}
 
-  onClickActionBtn(event: any) {}
+  onClickActionBtn(event: any) {
+    if (event.type === ActionButtonType.edit) {
+      this.dialogRef = this.dialogService.open(StockItemComponent, {
+        ...this.commonHelper.commonDialogOption(event.data),
+        header: `Stock ${event?.data?.type || ' '} Items`.toLocaleUpperCase(),
+        width: '65%',
+      });
+    }
+  }
 }
