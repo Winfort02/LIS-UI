@@ -35,6 +35,7 @@ export enum Icon {
   RESULT = 'pi pi-file-check',
   STOCK = 'pi pi-box',
   STOCK_ITEM = 'pi pi-book',
+  EXPIRED = 'pi pi-ban',
 }
 
 export enum Severity {
@@ -59,6 +60,9 @@ export enum Endpoints {
   CHEMSTRY = 'chemistry',
   APPARATUS = 'apparatus',
   STOCKS = 'stock',
+  CHANGE_PASSWORD = 'auth/change-password',
+  EXPIRED = 'stock-expired',
+  DASHBOARD = 'dashboard',
 }
 
 export enum StockMode {
@@ -90,6 +94,7 @@ export enum ApplicationUrl {
   STOCK = 'stocks',
   STOCK_OUT_LIST = 'stock-out-list',
   STOCK_IN_LIST = 'stock-in-list',
+  EXPIRED = 'expire-item',
 }
 
 export enum ButtonColor {
@@ -114,6 +119,14 @@ export enum ChemicalTestDropdown {
   ONE_POINT_ZERO_TWO = 1.02,
   ONE_POINT_ZERO_TWOFIVE = 1.025,
   ONE_POINT_ZERO_THREE = 1.03,
+  HAZY = 'HAZY',
+  SLIGHTLY_CLOUDY = 'SLIGHTLY CLOUDY',
+  CLOUDY = 'CLOUDY',
+  TURBID = 'TURBID',
+  FEW = 'FEW',
+  RARE = 'RARE',
+  MODERATE = 'MODERATE',
+  MANY = 'MANY',
 }
 
 export enum TestType {

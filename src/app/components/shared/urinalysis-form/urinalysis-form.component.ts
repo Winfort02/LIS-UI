@@ -24,6 +24,8 @@ import {
   CHEMICAL_TEST_DROPDOWN_PH,
   CHEMICAL_TEST_DROPDOWN_SPEC_GRAV,
   CHEMICAL_TEST_DROPDOWN_WITH_TRACE,
+  COMMON_CHEMICAL_TEST,
+  COMMON_CHEMICAL_TEST_OPTION,
 } from '../../../helpers/constant.helper';
 import { TestService } from '../../../services/test.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -71,6 +73,8 @@ export class UrinalysisFormComponent implements OnInit, OnDestroy {
   specGravOptions: IDropdownOption[] = CHEMICAL_TEST_DROPDOWN_SPEC_GRAV;
   commonWithTraceOptions: IDropdownOption[] = CHEMICAL_TEST_DROPDOWN_WITH_TRACE;
   commonMaxThree: IDropdownOption[] = CHEMICAL_TEST_DROPDOWN_MAX_3PLUS;
+  commonStatus: IDropdownOption[] = COMMON_CHEMICAL_TEST_OPTION;
+  commonChemicalTestOption: IDropdownOption[] = COMMON_CHEMICAL_TEST;
   dialogRef!: DynamicDialogRef;
 
   constructor(
@@ -179,8 +183,8 @@ export class UrinalysisFormComponent implements OnInit, OnDestroy {
         hyaline: [null],
         fine_granular: [null],
         coarse_granular: [null],
-        cast_rbc: [null],
-        cast_wbc: [null],
+        cast_rbc: [''],
+        cast_wbc: [''],
         cast_waxy: [null],
         cast_broad: [null],
         remarks: [null, Validators.required],

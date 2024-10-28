@@ -1,0 +1,40 @@
+<div
+  class="col-12 flex flex-column justify-content-start align-items-center w-full"
+>
+  @if (messages.length) {
+  <div class="col-12">
+    <p-messages
+      [(value)]="messages"
+      [enableService]="false"
+      [closable]="true"
+    />
+  </div>
+  }
+  <div class="col-12">
+    <app-feature-header
+      title="EXPIRED STOCKS"
+      [showButton]="true"
+      (onClickActionButton)="add($event)"
+    />
+  </div>
+  <div class="col-12">
+    <app-search
+      (search)="onSearch($event)"
+      [placeholder]="'Search by apparatus name ...'"
+    />
+  </div>
+  <div class="col-12">
+    <app-feature-table
+      [items]="stocks"
+      [cols]="cols"
+      tableSize="large"
+      (paginatePage)="onPaginatePage($event)"
+      (pageChanged)="onPageChange($event)"
+      [enablePagination]="true"
+      [pagination]="pagination"
+      (actionBtn)="onClickActionBtn($event)"
+      [actionButton]="actionButton"
+      [showActionBtn]="showActionBtn"
+    />
+  </div>
+</div>

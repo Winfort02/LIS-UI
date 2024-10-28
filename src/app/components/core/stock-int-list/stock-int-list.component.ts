@@ -70,7 +70,6 @@ export class StockIntListComponent implements OnInit {
         next: (response: Pagination) => {
           this.pagination.set(response);
           this.stocks.set(response.metaData);
-          console.log(this.stocks());
         },
         error: (err) => {
           throw new Error(err.error);

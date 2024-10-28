@@ -54,4 +54,11 @@ export class UserServiceService {
   deleteUser(id: number) {
     return this.genericService.deleteRecord(`${Endpoints.USERS}`, id);
   }
+
+  changePassword(data: User) {
+    return this.genericService.changePassword(
+      `${Endpoints.CHANGE_PASSWORD}`,
+      data
+    );
+  }
 }

@@ -175,6 +175,13 @@ export const routes: Routes = [
             './components/core/stock-int-list/stock-int-list.component'
           ).then((c) => c.StockIntListComponent),
       },
+      {
+        path: `${ApplicationUrl.EXPIRED}`,
+        loadComponent: () =>
+          import(
+            './components/core/expired-items/expired-items.component'
+          ).then((c) => c.ExpiredItemsComponent),
+      },
     ],
   },
   {

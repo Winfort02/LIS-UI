@@ -29,7 +29,6 @@ export class ApparatusService {
       .getRecords(`${Endpoints.APPARATUS}?${QUERY}`)
       .pipe(
         map(({ response, meta }) => {
-          console.log(meta);
           const data = meta.map((apparatus: Apparatus) => ({
             ...apparatus,
             availability: apparatus.quantity ? 'Available' : 'Out of stock',

@@ -78,7 +78,9 @@ export class StockOutListComponent implements OnInit {
       });
   }
 
-  onSearch(event: string) {}
+  onSearch(event: string) {
+    this.keywords.set(event);
+  }
   onPaginatePage(event: string) {}
   onPageChange(event: number) {}
   onClickActionBtn(event: any) {}

@@ -15,6 +15,8 @@ import { User } from '../../../models/user.model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonService } from '../../../services/common.service';
 import { ApplicationUrl, Icon, LocalKeys } from '../../../enums/common.enum';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ChangePasswordComponent } from '../../core/change-password/change-password.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -42,6 +44,7 @@ import { ApplicationUrl, Icon, LocalKeys } from '../../../enums/common.enum';
       transition('* <=> *', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')),
     ]),
   ],
+  providers: [DialogService],
 })
 export class SidebarComponent implements OnInit {
   @Input() active!: boolean;
@@ -51,11 +54,13 @@ export class SidebarComponent implements OnInit {
   scrollable = true;
   commonHelper = new CommonHelper<User>();
 
+  dialogRef!: DynamicDialogRef;
   constructor(
     private router: Router,
     private confirmationService: ConfirmationService,
     private spinner: NgxSpinnerService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private dialogService: DialogService
   ) {}
 
   toggleSideMenu(event: Event, name: string) {
@@ -150,6 +155,21 @@ export class SidebarComponent implements OnInit {
             icon: Icon.STOCK_ITEM,
             routerLink: `${ApplicationUrl.STOCK}/${ApplicationUrl.STOCK_OUT_LIST}`,
           },
+          {
+            label: 'Expired',
+            icon: Icon.EXPIRED,
+            routerLink: `${ApplicationUrl.EXPIRED}`,
+          },
+        ],
+      },
+      {
+        label: 'Settings',
+        items: [
+          {
+            label: 'Change Password',
+            icon: Icon.TOOL,
+            command: () => this.changePassword(),
+          },
         ],
       },
       {
@@ -177,6 +197,23 @@ export class SidebarComponent implements OnInit {
           this.spinner.hide();
         }, 500);
       },
+    });
+  }
+
+  changePassword() {
+    this.dialogRef = this.dialogService.open(ChangePasswordComponent, {
+      ...this.commonHelper.commonDialogOption(),
+      header: 'Change Password',
+    });
+
+    this.dialogRef.onClose.subscribe((response) => {
+      if (response && response.success) {
+        localStorage.clear();
+        this.commonService.accessToken = localStorage.getItem(
+          LocalKeys.accessToken
+        );
+        this.router.navigate(['security']);
+      }
     });
   }
 

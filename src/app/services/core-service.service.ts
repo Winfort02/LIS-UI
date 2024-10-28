@@ -58,6 +58,14 @@ export class CoreServiceService {
     );
   }
 
+  httpChangePassword(endpoint: string, data: any) {
+    return this.http.put(
+      `${API_URL}/${endpoint}`,
+      data,
+      this.generateHttpOptions(this.commonService.accessToken())
+    );
+  }
+
   httpGetReport(endpoint: string) {
     return this.http.get(
       `${API_URL}/${endpoint}`,

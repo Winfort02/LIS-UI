@@ -18,7 +18,6 @@ export class FeatureDetailHeaderComponent {
   constructor(private commonService: CommonService, private router: Router) {}
 
   back() {
-    console.log(this.commonService.navigationUrl);
     this.router.navigate([`${this.commonService.navigationUrl}`]);
   }
 

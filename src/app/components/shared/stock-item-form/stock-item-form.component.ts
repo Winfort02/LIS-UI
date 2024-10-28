@@ -61,7 +61,6 @@ export class StockItemFormComponent implements OnInit {
 
   onSelectTest(event: any) {
     this.test = event.value as Test;
-    console.log(this.test);
   }
 
   onSelectType(event: any) {

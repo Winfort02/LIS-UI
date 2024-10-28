@@ -46,7 +46,7 @@
   <div class="col-12 sm:col-12 md:col-12 lg:col-10 xl:col-9">
     <form [formGroup]="chemistryForm">
       <input hidden formControlName="id" />
-      <p-stepper [linear]="false">
+      <p-stepper [linear]="true">
         <p-stepperPanel header="Basic Information" formGroupName="basicForm">
           <ng-template
             pTemplate="content"
@@ -635,7 +635,7 @@
                       pInputText
                       class="w-full"
                       readonly
-                      [value]="ElectrolyteForm.value.ionized_calcium"
+                      [value]="ionizeCalciumConversion"
                       [disabled]="true"
                     />
                   </div>
@@ -683,7 +683,7 @@
                       pInputText
                       class="w-full"
                       readonly
-                      [value]="ElectrolyteForm.value.magnesium"
+                      [value]="magnesiumConversion"
                       [disabled]="true"
                     />
                   </div>

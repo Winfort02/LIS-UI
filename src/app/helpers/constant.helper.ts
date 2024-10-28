@@ -169,6 +169,30 @@ export const CHEMICAL_TEST_DROPDOWN_SPEC_GRAV: IDropdownOption[] = [
     value: ChemicalTestDropdown.ONE_POINT_ZERO_THREE,
   },
 ];
+
+export const COMMON_CHEMICAL_TEST_OPTION: IDropdownOption[] = [
+  {
+    label: 'Select',
+    value: '',
+  },
+  {
+    label: ChemicalTestDropdown.HAZY,
+    value: ChemicalTestDropdown.HAZY,
+  },
+  {
+    label: ChemicalTestDropdown.SLIGHTLY_CLOUDY,
+    value: ChemicalTestDropdown.SLIGHTLY_CLOUDY,
+  },
+  {
+    label: ChemicalTestDropdown.CLOUDY,
+    value: ChemicalTestDropdown.CLOUDY,
+  },
+  {
+    label: ChemicalTestDropdown.TURBID,
+    value: ChemicalTestDropdown.TURBID,
+  },
+];
+
 export const TEST_TYPE_DROPDOWN: IDropdownOption[] = [
   {
     label: TestType.hematology,
@@ -215,5 +239,28 @@ export const STOCK_TYPE = [
   {
     label: 'STOCK IN',
     value: STOCK_SELECTION_MODE.IN,
+  },
+];
+
+export const COMMON_CHEMICAL_TEST: IDropdownOption[] = [
+  {
+    label: 'Select',
+    value: '',
+  },
+  {
+    label: ChemicalTestDropdown.RARE,
+    value: ChemicalTestDropdown.RARE,
+  },
+  {
+    label: ChemicalTestDropdown.FEW,
+    value: ChemicalTestDropdown.FEW,
+  },
+  {
+    label: ChemicalTestDropdown.MODERATE,
+    value: ChemicalTestDropdown.MODERATE,
+  },
+  {
+    label: ChemicalTestDropdown.MANY,
+    value: ChemicalTestDropdown.MANY,
   },
 ];

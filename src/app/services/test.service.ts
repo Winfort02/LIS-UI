@@ -26,6 +26,8 @@ export class TestService {
             ? 'Completed'
             : test?.urinalysis
             ? 'Completed'
+            : test?.chemistry
+            ? 'Completed'
             : 'Pending',
         }));
         return {
@@ -78,11 +80,10 @@ export class TestService {
           const data = meta.map((test: Test) => ({
             ...test,
             patientName: `${test.patient?.first_name} ${test.patient?.last_name}`,
-            isCompleted: test?.hematology
-              ? 'Completed'
-              : test?.urinalysis
-              ? 'Completed'
-              : 'Pending',
+            isCompleted:
+              test?.hematology || test?.urinalysis || test?.chemistry
+                ? 'Completed'
+                : 'Pending',
           }));
           return {
             currentPage: response.currentPage,

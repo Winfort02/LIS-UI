@@ -147,4 +147,11 @@ export class GenericService<T extends CommonPropertyMapping> {
       .httpGetReport(url)
       .pipe(finalize(() => this.spinner.hide()));
   }
+
+  changePassword(url: string, data: T) {
+    this.spinner.show();
+    return this.coreService
+      .httpChangePassword(url, data)
+      .pipe(finalize(() => this.spinner.hide()));
+  }
 }

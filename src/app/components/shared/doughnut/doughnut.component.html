@@ -1,0 +1,23 @@
+<div class="col-12 border-round shadow-2">
+  <div class="title">Stock Control</div>
+  <div class="stock-control">
+    <div class="chart-container">
+      <p-chart
+        type="doughnut"
+        [data]="data"
+        [options]="options"
+        height="350px"
+      />
+    </div>
+    <div class="detail">
+      <ul>
+        @for(label of labels; track $index) {
+        <li>
+          {{ label }}
+          <span class="percentage">{{ chartData[$index] }} %</span>
+        </li>
+        }
+      </ul>
+    </div>
+  </div>
+</div>

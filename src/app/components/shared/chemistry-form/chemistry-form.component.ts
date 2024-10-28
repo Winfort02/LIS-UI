@@ -170,8 +170,8 @@ export class ChemistryFormComponent implements OnInit, OnDestroy {
       basicForm: {
         physician: this.chemistry.physician,
         lab_no: this.chemistry.lab_no,
-        last_meal_take: this.chemistry.last_meal_take,
-        time_taken: this.chemistry.time_taken,
+        last_meal_take: new Date(this.chemistry.last_meal_take),
+        time_taken: new Date(this.chemistry.time_taken),
         test_requested: this.chemistry.test_requested,
       },
       bloodSugarForm: {
@@ -209,6 +209,12 @@ export class ChemistryFormComponent implements OnInit, OnDestroy {
   convertValue(input: number | null, value: number): number | null {
     if (!input) return null;
     const result = (input * value).toFixed(2);
+    return parseFloat(result);
+  }
+
+  convertByDivision(input: number | null, value: number): number | null {
+    if (!input) return null;
+    const result = (input / value).toFixed(2);
     return parseFloat(result);
   }
 
@@ -263,12 +269,12 @@ export class ChemistryFormComponent implements OnInit, OnDestroy {
 
   get hdlConverstion(): number | null {
     const value = this.LipidForm.value?.hdl || 0;
-    return this.convertValue(value, 0.026);
+    return this.convertByDivision(value, 0.026);
   }
 
   get ldlConverstion(): number | null {
     const value = this.LipidForm.value?.ldl || 0;
-    return this.convertValue(value, 0.026);
+    return this.convertByDivision(value, 0.026);
   }
 
   get uricAcidConversion(): number | null {
@@ -284,6 +290,21 @@ export class ChemistryFormComponent implements OnInit, OnDestroy {
   get bunConversion(): number | null {
     const value = this.KidneyFunctionForm.value?.bun || 0;
     return this.convertValue(value, 0.357);
+  }
+
+  get ionizeCalciumConversion(): number | null {
+    const value = this.ElectrolyteForm.value?.ionized_calcium || 0;
+    return this.convertValue(value, 0.25);
+  }
+
+  get calciumConversion(): number | null {
+    const value = this.ElectrolyteForm.value?.calcium || 0;
+    return this.convertValue(value, 0.25);
+  }
+
+  get magnesiumConversion(): number | null {
+    const value = this.ElectrolyteForm.value?.magnesium || 0;
+    return this.convertValue(value, 2.43);
   }
 
   prepareChemistryFormData(): Chemistry {

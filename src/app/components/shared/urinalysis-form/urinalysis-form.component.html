@@ -118,12 +118,13 @@
                 </div>
                 <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
                   <p class="px-2 text-500 uppercase">Transpararency</p>
-                  <input
-                    type="text"
-                    pInputText
-                    class="w-full"
+                  <p-dropdown
+                    [options]="commonStatus"
+                    optionLabel="label"
+                    optionValue="value"
                     formControlName="transparancy"
-                    placeholder="Enter Transpararency"
+                    placeholder="Select"
+                    styleClass="w-full"
                   />
                 </div>
                 <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
@@ -270,91 +271,93 @@
                 class="col-12 flex justify-content-start align-items-center flex-wrap"
               >
                 <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
-                  <p class="px-2 text-500 uppercase">WBC Count</p>
-                  <p-inputNumber
+                  <p class="px-2 text-500 uppercase">WBC/PUS CELL</p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
                     formControlName="wbc_count"
-                    mode="decimal"
-                    [minFractionDigits]="1"
-                    [maxFractionDigits]="2"
-                    [max]="10.0"
-                    [min]="0.0"
-                    placeholder="Enter WBC Count"
+                    placeholder="Enter WBC/PUS CELL"
                   />
                 </div>
                 <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
-                  <p class="px-2 text-500 uppercase">RBC Count</p>
-                  <p-inputNumber
+                  <p class="px-2 text-500 uppercase">RBC</p>
+                  <input
+                    type="text"
+                    pInputText
+                    class="w-full"
                     formControlName="rbc_count"
-                    mode="decimal"
-                    [minFractionDigits]="1"
-                    [maxFractionDigits]="2"
-                    [max]="10.0"
-                    [min]="0.0"
-                    placeholder="Enter RBC Count"
+                    placeholder="Enter RBC"
                   />
                 </div>
                 <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
                   <p class="px-2 text-500 uppercase">Squamous (optional)</p>
-                  <input
-                    type="text"
-                    pInputText
-                    class="w-full"
+                  <p-dropdown
+                    [options]="commonChemicalTestOption"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="Select"
                     formControlName="squamous"
-                    placeholder="Enter Squamous"
+                    styleClass="w-full"
                   />
                 </div>
                 <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
                   <p class="px-2 text-500 uppercase">
-                    Rental Tubular (optional)
+                    Renal Tubular (optional)
                   </p>
-                  <input
-                    type="text"
-                    pInputText
-                    class="w-full"
+                  <p-dropdown
+                    [options]="commonChemicalTestOption"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="Select"
                     formControlName="rental_tubular"
-                    placeholder="Enter Rental Tubular"
+                    styleClass="w-full"
                   />
                 </div>
                 <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
                   <p class="px-2 text-500 uppercase">Transitional (optional)</p>
-                  <input
-                    type="text"
-                    pInputText
-                    class="w-full"
+                  <p-dropdown
+                    [options]="commonChemicalTestOption"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="Select"
                     formControlName="transitional"
-                    placeholder="Enter Transitional"
+                    styleClass="w-full"
                   />
                 </div>
                 <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
                   <p class="px-2 text-500 uppercase">Bacteria (optional)</p>
-                  <input
-                    type="text"
-                    pInputText
-                    class="w-full"
+                  <p-dropdown
+                    [options]="commonChemicalTestOption"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="Select"
                     formControlName="bacteria"
-                    placeholder="Enter Bacteria"
+                    styleClass="w-full"
                   />
                 </div>
                 <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
                   <p class="px-2 text-500 uppercase">Yeast (optional)</p>
-                  <input
-                    type="text"
-                    pInputText
-                    class="w-full"
+                  <p-dropdown
+                    [options]="commonChemicalTestOption"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="Select"
                     formControlName="yeast"
-                    placeholder="Enter Yeast"
+                    styleClass="w-full"
                   />
                 </div>
                 <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
                   <p class="px-2 text-500 uppercase">
                     Mucus Threads (optional)
                   </p>
-                  <input
-                    type="text"
-                    pInputText
-                    class="w-full"
+                  <p-dropdown
+                    [options]="commonChemicalTestOption"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="Select"
                     formControlName="mucus_thread"
-                    placeholder="Enter Mucus Threads"
+                    styleClass="w-full"
                   />
                 </div>
               </div>
