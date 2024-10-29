@@ -1,5 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
+import { DashboardService } from '../../../services/dashboard.service';
+import { callback } from 'chart.js/dist/helpers/helpers.core';
+
+interface IDataset {
+  label: string;
+  backgroundColor: string;
+  borderColor: string;
+  data: number[];
+}
 
 @Component({
   selector: 'app-barchart',
@@ -7,13 +16,34 @@ import { ChartModule } from 'primeng/chart';
   imports: [ChartModule],
   templateUrl: './barchart.component.html',
   styleUrl: './barchart.component.scss',
+  providers: [DashboardService],
 })
 export class BarchartComponent implements OnInit {
+  @Input() set max(value: number) {
+    this.maxValue = value;
+  }
+  get max() {
+    return this.maxValue;
+  }
+  maxValue = 0;
   data: any;
   options: any;
   documentStyle = getComputedStyle(document.documentElement);
   textColor = this.documentStyle.getPropertyValue('--text-color');
-  labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  labels = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'April',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sept',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
   dataset = [
     {
       label: 'Urinalysis',
@@ -35,16 +65,65 @@ export class BarchartComponent implements OnInit {
     },
   ];
 
+  constructor(private dashboardService: DashboardService) {}
+
+  getBackgroundColor(label: string) {
+    switch (label) {
+      case 'Urinalysis':
+        return '--blue-500';
+      case 'Chemistry':
+        return '--blue-700';
+      default:
+        return '--teal-600';
+    }
+  }
+
+  getBorderColor(label: string) {
+    switch (label) {
+      case 'Urinalysis':
+        return '--blue-400';
+      case 'Chemistry':
+        return '--blue-600';
+      default:
+        return '--teal-500';
+    }
+  }
+
+  onLoadChartData() {
+    this.dashboardService.generateLaboratoryChartData().subscribe({
+      next: (response: any) => {
+        const data = response?.data || [];
+        const dataset = data.map((item: any) => ({
+          label: item.label,
+          backgroundColor: this.documentStyle.getPropertyValue(
+            this.getBackgroundColor(item.label)
+          ),
+          borderColor: this.documentStyle.getPropertyValue(
+            this.getBorderColor(item.label)
+          ),
+          data: item.data,
+        }));
+        this.data = {
+          labels: this.labels,
+          datasets: dataset,
+        };
+      },
+      error: (err) => {
+        throw new Error(err);
+      },
+    });
+  }
+
   ngOnInit(): void {
+    this.onLoadChartData();
+    this.onLoadOptions();
+  }
+
+  onLoadOptions() {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColorSecondary = documentStyle.getPropertyValue(
       '--text-color-secondary'
     );
-
-    this.data = {
-      labels: this.labels,
-      datasets: this.dataset,
-    };
     this.options = {
       maintainAspectRatio: false,
       aspectRatio: 0.8,
@@ -56,6 +135,8 @@ export class BarchartComponent implements OnInit {
       },
       scales: {
         x: {
+          suggestedMin: 0,
+          beginAtZero: true,
           ticks: {
             color: textColorSecondary,
             font: {
@@ -68,8 +149,14 @@ export class BarchartComponent implements OnInit {
           },
         },
         y: {
+          max: this.max + 1,
+          suggestedMin: 0,
+          beginAtZero: true,
           ticks: {
             color: textColorSecondary,
+            callback: (value: number) => {
+              return Number.isInteger(value) ? value : '';
+            },
           },
           grid: {
             display: true,

@@ -11,4 +11,14 @@ export class DashboardService {
   countStats() {
     return this.coreService.httpGet(`${Endpoints.DASHBOARD}`);
   }
+
+  generateLaboratoryChartData() {
+    return this.coreService.httpGet(
+      `${Endpoints.DASHBOARD}/laboratory-chart-data`
+    );
+  }
+
+  generateStockChartData() {
+    return this.coreService.httpGet(`${Endpoints.DASHBOARD}/stock-chart-data`);
+  }
 }

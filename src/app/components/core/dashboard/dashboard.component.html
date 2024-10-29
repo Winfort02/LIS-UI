@@ -1,3 +1,4 @@
+@if (isLoaded) {
 <div
   class="col-12 w-full flex flex-column justify-content-start align-items-center"
 >
@@ -38,7 +39,7 @@
   </div>
   <div class="col-12 flex justify-content-start align-items-stretch flex-wrap">
     <div class="col-12 sm:col-12 md:col-12 lg:8 xl:col-8">
-      <app-barchart></app-barchart>
+      <app-barchart [max]="stats.test"></app-barchart>
     </div>
     <div class="col-12 sm:col-12 md:col-12 lg:4 xl:col-4">
       <app-doughnut></app-doughnut>
@@ -48,3 +49,4 @@
     <div class="col-12 h-15rem surface-200 border-round"></div>
   </div>
 </div>
+}

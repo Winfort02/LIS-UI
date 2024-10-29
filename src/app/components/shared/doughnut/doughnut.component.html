@@ -14,7 +14,11 @@
         @for(label of labels; track $index) {
         <li>
           {{ label }}
-          <span class="percentage">{{ chartData[$index] }} %</span>
+          <span
+            class="percentage"
+            [style]="{ color: hoverBackgroundColor[$index] }"
+            >{{ chartData[$index] }} %</span
+          >
         </li>
         }
       </ul>

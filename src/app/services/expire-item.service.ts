@@ -19,7 +19,7 @@ export class ExpireItemService {
 
   getAllExpiredItems(page: number, size: number, keywords: string) {
     const QUERY = this.commonService.generateQueryParams(page, size, keywords);
-    return this.genericService.getRecords(`${Endpoints.EXPIRED}`).pipe(
+    return this.genericService.getRecords(`${Endpoints.EXPIRED}?${QUERY}`).pipe(
       map(({ response, meta }) => {
         const metadata = meta as ExpiredItems[];
         const data = metadata.map((stock: ExpiredItems) => ({
