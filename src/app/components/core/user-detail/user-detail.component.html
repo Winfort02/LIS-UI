@@ -111,5 +111,16 @@
         [disabled]="userForm.invalid"
       />
     </div>
+    @if (isAdmin && isEditMode) {
+    <div class="col-12">
+      <p-button
+        severity="info"
+        label="Reset Password"
+        styleClass="w-full text-center"
+        (click)="onResetPassword()"
+        [disabled]="!isAdmin"
+      />
+    </div>
+    }
   </form>
 </div>

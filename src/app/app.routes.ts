@@ -4,6 +4,7 @@ import { LoginLayoutComponent } from './components/security/login-layout/login-l
 import { loginGuardGuard } from './guards/login-guard.guard';
 import { applicationGuardGuard } from './guards/application-guard.guard';
 import { ApplicationUrl } from './enums/common.enum';
+import { AdminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
   {
@@ -37,6 +38,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
+        canActivate: [AdminGuard],
         loadComponent: () =>
           import('./components/core/dashboard/dashboard.component').then(
             (c) => c.DashboardComponent
@@ -44,6 +46,7 @@ export const routes: Routes = [
       },
       {
         path: ApplicationUrl.USERS,
+        canActivate: [AdminGuard],
         loadComponent: () =>
           import('./components/core/user/user.component').then(
             (c) => c.UserComponent
@@ -181,6 +184,13 @@ export const routes: Routes = [
           import(
             './components/core/expired-items/expired-items.component'
           ).then((c) => c.ExpiredItemsComponent),
+      },
+      {
+        path: `${ApplicationUrl.ADJUSTMENT}`,
+        loadComponent: () =>
+          import('./components/core/adjustment/adjustment.component').then(
+            (c) => c.AdjustmentComponent
+          ),
       },
     ],
   },

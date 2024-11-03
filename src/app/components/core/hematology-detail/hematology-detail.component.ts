@@ -10,6 +10,7 @@ import { CommonSuccessResponse } from '../../../models/response.model';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PdfViewerComponent } from '../../shared/pdf-viewer/pdf-viewer.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { TokenService } from '../../../services/token.service';
 
 @Component({
   selector: 'app-hematology-detail',
@@ -17,7 +18,7 @@ import { InputTextModule } from 'primeng/inputtext';
   imports: [FeatureDetailHeaderComponent, ButtonModule, InputTextModule],
   templateUrl: './hematology-detail.component.html',
   styleUrl: './hematology-detail.component.scss',
-  providers: [HematologyService, DialogService],
+  providers: [HematologyService, DialogService, TokenService],
 })
 export class HematologyDetailComponent implements OnInit, OnDestroy {
   paramsId: number = 0;
@@ -27,11 +28,13 @@ export class HematologyDetailComponent implements OnInit, OnDestroy {
   hematology = new Hematology();
   hematologySubsc!: Subscription;
   isLoaded = false;
+  isAdmin = this.tokenService.isAdmin();
   private dialogRef!: DynamicDialogRef;
   constructor(
     private route: ActivatedRoute,
     private hematologyService: HematologyService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private tokenService: TokenService
   ) {}
 
   ngOnInit(): void {

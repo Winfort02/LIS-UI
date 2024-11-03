@@ -36,8 +36,8 @@ import { FeatureDetailHeaderComponent } from '../feature-detail-header/feature-d
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PdfViewerComponent } from '../pdf-viewer/pdf-viewer.component';
 import { ApplicationUrl } from '../../../enums/common.enum';
-import { CommonService } from '../../../services/common.service';
 import { FeatureFormHeaderComponent } from '../feature-form-header/feature-form-header.component';
+import { TokenService } from '../../../services/token.service';
 
 @Component({
   selector: 'app-urinalysis-form',
@@ -56,7 +56,7 @@ import { FeatureFormHeaderComponent } from '../feature-form-header/feature-form-
   ],
   templateUrl: './urinalysis-form.component.html',
   styleUrl: './urinalysis-form.component.scss',
-  providers: [UrinalysisService, TestService, DialogService],
+  providers: [UrinalysisService, TestService, DialogService, TokenService],
 })
 export class UrinalysisFormComponent implements OnInit, OnDestroy {
   messages: Message[] = [];
@@ -66,6 +66,7 @@ export class UrinalysisFormComponent implements OnInit, OnDestroy {
   urinalysis = new Urinalysis();
   testSubscription!: Subscription;
   test = new Test();
+  isAdmin = this.tokenService.isAdmin();
 
   commonOptions: IDropdownOption[] = CHEMICAL_TEST_DROPDOWN_COMMON;
   nitriteOptions: IDropdownOption[] = CHEMICAL_TEST_DROPDOWN_NITRE;
@@ -83,7 +84,8 @@ export class UrinalysisFormComponent implements OnInit, OnDestroy {
     private testService: TestService,
     private route: ActivatedRoute,
     private router: Router,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private tokenService: TokenService
   ) {}
 
   print() {

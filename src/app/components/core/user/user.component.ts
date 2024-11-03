@@ -63,10 +63,10 @@ export class UserComponent implements OnInit, OnDestroy {
 
   add(event: string) {
     if (event === ActionButtonType.add) {
-      this.dialogRef = this.dialogService.open(
-        UserDetailComponent,
-        this.commonHelper.commonDialogOption()
-      );
+      this.dialogRef = this.dialogService.open(UserDetailComponent, {
+        ...this.commonHelper.commonDialogOption(),
+        header: 'Create Staff Form',
+      });
 
       this.dialogRef.onClose.subscribe((response: CustomResponse<User>) => {
         if (response) {

@@ -1,0 +1,62 @@
+<div class="col-12 flex flex-column justify-content-center align-items-center">
+  <form class="w-full" [formGroup]="adjustmentForm">
+    <div
+      class="col-12 flex flex-column justify-content-start align-content-center gap-3"
+    >
+      <input type="text" hidden formControlName="id" />
+      <div class="col-12">
+        <p class="px-2 text-500 uppercase">Apparatus Name</p>
+        <p-dropdown
+          [options]="options"
+          optionLabel="apparatus_name"
+          optionValue="id"
+          placeholder="Select Apparatus"
+          styleClass="w-full"
+          [filter]="true"
+          filterBy="label"
+          formControlName="apparatus_id"
+        />
+      </div>
+      <div class="col-12">
+        <p class="px-2 text-500 uppercase">Type</p>
+        <p-dropdown
+          [options]="typeOptions"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select Adjustment Type"
+          styleClass="w-full"
+          formControlName="type"
+        />
+      </div>
+      <div class="col-12">
+        <p class="px-2 text-500 uppercase">Quantity</p>
+        <input
+          type="number"
+          pInputText
+          class="w-full"
+          placeholder="Enter Quantity"
+          formControlName="quantity"
+        />
+      </div>
+      <div class="col-12">
+        <p class="px-2 text-500 uppercase">Remarks</p>
+        <input
+          type="text"
+          pInputText
+          class="w-full"
+          placeholder="Enter Remarks"
+          formControlName="remarks"
+        />
+      </div>
+      <div class="col-12 mt-3">
+        <p-button
+          severity="info"
+          label="Save"
+          styleClass="w-full text-center"
+          [disabled]="adjustmentForm.invalid"
+          (click)="onSave()"
+        />
+      </div>
+    </div>
+  </form>
+</div>

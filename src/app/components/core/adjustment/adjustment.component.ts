@@ -1,9 +1,9 @@
 import { Component, effect, OnInit, signal, untracked } from '@angular/core';
-import { ConfirmationService, Message } from 'primeng/api';
-import { MessagesModule } from 'primeng/messages';
 import { FeatureHeaderComponent } from '../../shared/feature-header/feature-header.component';
-import { SearchComponent } from '../../shared/search/search.component';
 import { FeatureTableComponent } from '../../shared/feature-table/feature-table.component';
+import { SearchComponent } from '../../shared/search/search.component';
+import { MessagesModule } from 'primeng/messages';
+import { ConfirmationService, Message } from 'primeng/api';
 import { ITableColumn } from '../../../interfaces/table-column.interface';
 import { Pagination } from '../../../models/pagination.model';
 import {
@@ -13,28 +13,28 @@ import {
 } from '../../../enums/common.enum';
 import { Subscription } from 'rxjs';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ExpireItemService } from '../../../services/expire-item.service';
-import { ExpiredItemFormComponent } from '../../shared/expired-item-form/expired-item-form.component';
+import { AdjustmentService } from '../../../services/adjustment.service';
+import { AdjustmentFormComponent } from '../../shared/adjustment-form/adjustment-form.component';
 import { CommonHelper } from '../../../helpers/common.helper';
-import { ExpiredItems } from '../../../models/expired-items.model';
+import { Adjustment } from '../../../models/adjustment.model';
 import { CustomResponse } from '../../../models/response.model';
 
 @Component({
-  selector: 'app-expired-items',
+  selector: 'app-adjustment',
   standalone: true,
   imports: [
-    MessagesModule,
     FeatureHeaderComponent,
-    SearchComponent,
     FeatureTableComponent,
+    SearchComponent,
+    MessagesModule,
   ],
-  templateUrl: './expired-items.component.html',
-  styleUrl: './expired-items.component.scss',
-  providers: [DialogService, ExpireItemService],
+  templateUrl: './adjustment.component.html',
+  styleUrl: './adjustment.component.scss',
+  providers: [AdjustmentService, DialogService],
 })
-export class ExpiredItemsComponent implements OnInit {
+export class AdjustmentComponent implements OnInit {
   messages: Message[] = [];
-  stocks = signal<ExpiredItems[]>([]);
+  stocks = signal<any[]>([]);
   cols = signal<ITableColumn[]>([]);
   pagination = signal<Pagination>(new Pagination());
   selectedPage = signal<number>(1);
@@ -50,78 +50,64 @@ export class ExpiredItemsComponent implements OnInit {
   };
   stockSubsction!: Subscription;
   dialogRef!: DynamicDialogRef;
-  commonHelper = new CommonHelper<ExpiredItems>();
+  commonHelper = new CommonHelper<Adjustment>();
 
   constructor(
+    private adjustmentService: AdjustmentService,
     private dialogService: DialogService,
-    private expiredItemService: ExpireItemService,
     private confirmationService: ConfirmationService
   ) {
     effect(() => {
       this.stockSubsction && this.stockSubsction.unsubscribe();
-      this.getAllExpiredItems(this.selectedPage());
+      this.getAllAdjustments(this.selectedPage());
       untracked(() => this.pagination());
     });
   }
-
   ngOnInit(): void {
     this.onLoadColums();
   }
 
   add(event: string) {
     if (event === ActionButtonType.add) {
-      this.dialogRef = this.dialogService.open(ExpiredItemFormComponent, {
+      this.dialogRef = this.dialogService.open(AdjustmentFormComponent, {
         ...this.commonHelper.commonDialogOption(),
-        header: 'EXPIRED ITEM',
+        header: 'Stock Adjustment Form',
         contentStyle: { overflow: 'visible' },
       });
 
-      this.dialogRef.onClose.subscribe((res: CustomResponse<ExpiredItems>) => {
+      this.dialogRef.onClose.subscribe((res: CustomResponse<Adjustment>) => {
         if (res && res?.message) {
           this.messages = res?.message || [];
+          this.getAllAdjustments(this.pagination().currentPage);
         }
       });
     }
   }
 
-  getAllExpiredItems(page: number) {
-    this.expiredItemService
-      .getAllExpiredItems(page, this.size, this.keywords())
-      .subscribe({
-        next: (response: Pagination) => {
-          this.pagination.set(response);
-          this.stocks.set(response.metaData);
-        },
-        error: (err) => {
-          throw new Error(err);
-        },
-      });
+  onSearch(event: string) {
+    this.keywords.set(event);
   }
-
   onLoadColums() {
     this.cols.set([
       { field: 'apparatus_name', header: 'Apparatus Name' },
       { field: 'quantity', header: 'Quantity' },
       { field: 'unit', header: 'Unit' },
+      { field: 'type', header: 'Type' },
       { field: 'remarks', header: 'Remarks' },
       { field: 'encoded_by', header: 'Encoded By' },
       { field: 'createdAt', header: 'Date' },
     ]);
   }
 
-  onSearch(event: string) {
-    this.keywords.set(event);
-  }
-
   onPaginatePage(event: string) {
     if (event === EPagination.first)
-      this.getAllExpiredItems(this.pagination().firstPage);
+      this.getAllAdjustments(this.pagination().firstPage);
     if (event === EPagination.next)
-      this.getAllExpiredItems(this.pagination().nextPage);
+      this.getAllAdjustments(this.pagination().nextPage);
     if (event === EPagination.prev)
-      this.getAllExpiredItems(this.pagination().prevPage);
+      this.getAllAdjustments(this.pagination().prevPage);
     if (event === EPagination.last)
-      this.getAllExpiredItems(this.pagination().lastPage);
+      this.getAllAdjustments(this.pagination().lastPage);
   }
 
   onPageChange(event: number) {
@@ -131,19 +117,17 @@ export class ExpiredItemsComponent implements OnInit {
   onClickActionBtn(event: any) {
     switch (event.type) {
       case ActionButtonType.edit:
-        this.dialogRef = this.dialogService.open(ExpiredItemFormComponent, {
+        this.dialogRef = this.dialogService.open(AdjustmentFormComponent, {
           ...this.commonHelper.commonDialogOption(event.data),
-          header: 'UPDATE FORM',
+          header: 'Stock Adjustment Form',
           contentStyle: { overflow: 'visible' },
         });
-        this.dialogRef.onClose.subscribe(
-          (res: CustomResponse<ExpiredItems>) => {
-            if (res && res?.message) {
-              this.messages = res.message;
-              this.getAllExpiredItems(this.pagination().currentPage);
-            }
+        this.dialogRef.onClose.subscribe((res: CustomResponse<Adjustment>) => {
+          if (res && res?.message) {
+            this.messages = res.message;
+            this.getAllAdjustments(this.pagination().currentPage);
           }
-        );
+        });
         break;
       case ActionButtonType.delete:
         this.confirmationService.confirm({
@@ -152,7 +136,7 @@ export class ExpiredItemsComponent implements OnInit {
           message: 'Are you sure you want to delete this item?',
           acceptLabel: 'Yes',
           accept: () => {
-            this.expiredItemService.deleteExpiredItem(event.data.id).subscribe({
+            this.adjustmentService.deleteAdjustment(event.data.id).subscribe({
               next: () => {
                 this.messages = [
                   { severity: 'info', summary: 'Deleted successfully' },
@@ -160,17 +144,31 @@ export class ExpiredItemsComponent implements OnInit {
               },
               error: (err) => {
                 this.messages = [
-                  { severity: 'danger', summary: 'Unable to delete item' },
+                  { severity: 'error', summary: 'Unable to delete item' },
                 ];
                 throw new Error(err);
               },
               complete: () => {
-                this.getAllExpiredItems(this.pagination().currentPage);
+                this.getAllAdjustments(this.pagination().currentPage);
               },
             });
           },
         });
         break;
     }
+  }
+
+  getAllAdjustments(page: number) {
+    this.adjustmentService
+      .getAllAdjustments(page, this.size, this.keywords())
+      .subscribe({
+        next: (response: Pagination) => {
+          this.pagination.set(response);
+          this.stocks.set(response.metaData);
+        },
+        error: (err) => {
+          throw new Error(err);
+        },
+      });
   }
 }

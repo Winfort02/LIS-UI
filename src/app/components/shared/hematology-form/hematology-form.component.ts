@@ -28,6 +28,7 @@ import { PdfViewerComponent } from '../pdf-viewer/pdf-viewer.component';
 import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
 import { FeatureFormHeaderComponent } from '../feature-form-header/feature-form-header.component';
+import { TokenService } from '../../../services/token.service';
 
 @Component({
   selector: 'app-hematology-form',
@@ -46,7 +47,7 @@ import { FeatureFormHeaderComponent } from '../feature-form-header/feature-form-
   ],
   templateUrl: './hematology-form.component.html',
   styleUrl: './hematology-form.component.scss',
-  providers: [HematologyService, TestService, DialogService],
+  providers: [HematologyService, TestService, DialogService, TokenService],
 })
 export class HematologyFormComponent implements OnInit, OnDestroy {
   messages: Message[] = [];
@@ -64,13 +65,15 @@ export class HematologyFormComponent implements OnInit, OnDestroy {
   currentDate = new Date();
   dialogRef!: DynamicDialogRef;
 
+  isAdmin = this.tokenService.isAdmin();
   constructor(
     private builder: FormBuilder,
     private hematologyService: HematologyService,
     private testService: TestService,
     private route: ActivatedRoute,
     private router: Router,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private tokenService: TokenService
   ) {}
 
   ngOnInit(): void {

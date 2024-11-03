@@ -1,4 +1,4 @@
-@if (isLoaded) {
+@defer (when isLoaded) {
 <div
   class="col-12 w-full flex flex-column justify-content-start align-items-center"
 >
@@ -39,14 +39,53 @@
   </div>
   <div class="col-12 flex justify-content-start align-items-stretch flex-wrap">
     <div class="col-12 sm:col-12 md:col-12 lg:8 xl:col-8">
-      <app-barchart [max]="stats.test"></app-barchart>
+      <app-barchart
+        [response]="laboratory"
+        (selectedYear)="onSelectYear($event)"
+      ></app-barchart>
     </div>
     <div class="col-12 sm:col-12 md:col-12 lg:4 xl:col-4">
-      <app-doughnut></app-doughnut>
+      <app-doughnut [_chartData]="stockControl"></app-doughnut>
     </div>
   </div>
-  <div class="col-12 flex justify-content-center align-items-center gap-2">
-    <div class="col-12 h-15rem surface-200 border-round"></div>
+
+  <div class="col-12 flex justify-content-start align-items-stretch flex-wrap">
+    <div class="col-12 sm:col-12 md:col-12 lg:8 xl:col-8">
+      <div class="co-12 shadow-2 border-round p-5">
+        <p class="font-semibold text-1xl uppercase mb-5">
+          10 Recent Transaction
+        </p>
+        <app-feature-table
+          [items]="test"
+          [cols]="cols"
+          tableSize="large"
+          [showActionBtn]="showActionBtn"
+        />
+      </div>
+    </div>
+    <div class="col-12 sm:col-12 md:col-12 lg:4 xl:col-4">
+      <div class="col-12 shadow-2 border-round p-4 h-full">
+        <p class="font-semibold text-1xl uppercase mb-5">
+          Low Quantity Apparatus
+        </p>
+        <div class="flex flex-column justify-content-center align-items-center">
+          <div class="col-12 flex justify-content-center align-items-center">
+            <div class="col-4 font-bold uppercase">Apparatus Name</div>
+            <div class="col-4 font-bold uppercase text-center">Quantiy</div>
+            <div class="col-4 font-bold uppercase text-center">Unit</div>
+          </div>
+          @for(item of apparatus(); track $index) {
+          <div class="col-12 flex justify-content-center align-items-center">
+            <div class="col-4 uppercase">{{ item.apparatus_name }}</div>
+            <div class="col-4 text-center text-red-500 font-bold">
+              {{ item.quantity }}
+            </div>
+            <div class="col-4 uppercase text-center">{{ item.unit }}</div>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 }

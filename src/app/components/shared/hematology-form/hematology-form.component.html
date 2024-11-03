@@ -26,7 +26,7 @@
       label="Cancel"
       (click)="hematologyForm.disable()"
     ></button>
-    } @if (hematologyForm.disabled) {
+    } @if (hematologyForm.disabled && isAdmin) {
     <button
       type="submit"
       pButton

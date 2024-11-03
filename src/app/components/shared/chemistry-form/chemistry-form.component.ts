@@ -26,6 +26,7 @@ import { ChemistryService } from '../../../services/chemistry.service';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PdfViewerComponent } from '../pdf-viewer/pdf-viewer.component';
+import { TokenService } from '../../../services/token.service';
 
 @Component({
   selector: 'app-chemistry-form',
@@ -43,7 +44,7 @@ import { PdfViewerComponent } from '../pdf-viewer/pdf-viewer.component';
   ],
   templateUrl: './chemistry-form.component.html',
   styleUrl: './chemistry-form.component.scss',
-  providers: [TestService, DialogService, ChemistryService],
+  providers: [TestService, DialogService, ChemistryService, TokenService],
 })
 export class ChemistryFormComponent implements OnInit, OnDestroy {
   isComponentShow = false;
@@ -54,6 +55,7 @@ export class ChemistryFormComponent implements OnInit, OnDestroy {
   chemistrySubscription!: Subscription;
   test = new Test();
   maxDate = new Date();
+  isAdmin = this.tokenService.isAdmin();
 
   dialogRef!: DynamicDialogRef;
   constructor(
@@ -62,7 +64,8 @@ export class ChemistryFormComponent implements OnInit, OnDestroy {
     private testService: TestService,
     private router: Router,
     private chemistryService: ChemistryService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private tokenService: TokenService
   ) {}
 
   ngOnInit(): void {

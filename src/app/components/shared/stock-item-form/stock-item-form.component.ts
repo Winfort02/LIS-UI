@@ -94,10 +94,12 @@ export class StockItemFormComponent implements OnInit {
   }
 
   onRemoveQty(item: StockIn) {
+    if (item.quantity <= 0) return;
     this.stockItemService.removeQty(item);
   }
 
   onAddQty(item: StockIn) {
+    if ((item.apparatus?.quantity as number) <= item.quantity) return;
     this.stockItemService.addItem(item);
   }
 

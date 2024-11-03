@@ -61,4 +61,11 @@ export class UserServiceService {
       data
     );
   }
+
+  ResetPassword(data: User) {
+    return this.genericService.changePassword(
+      `${Endpoints.RESET_PASSWORD}`,
+      data
+    );
+  }
 }

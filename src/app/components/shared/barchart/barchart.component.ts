@@ -1,30 +1,36 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  signal,
+} from '@angular/core';
 import { ChartModule } from 'primeng/chart';
-import { DashboardService } from '../../../services/dashboard.service';
-import { callback } from 'chart.js/dist/helpers/helpers.core';
-
-interface IDataset {
-  label: string;
-  backgroundColor: string;
-  borderColor: string;
-  data: number[];
-}
+import { CalendarModule } from 'primeng/calendar';
+import { FormsModule } from '@angular/forms';
+import { CommonSuccessResponse } from '../../../models/response.model';
 
 @Component({
   selector: 'app-barchart',
   standalone: true,
-  imports: [ChartModule],
+  imports: [ChartModule, CalendarModule, FormsModule],
   templateUrl: './barchart.component.html',
   styleUrl: './barchart.component.scss',
-  providers: [DashboardService],
+  providers: [],
 })
 export class BarchartComponent implements OnInit {
-  @Input() set max(value: number) {
-    this.maxValue = value;
-  }
-  get max() {
-    return this.maxValue;
-  }
+  @Output() selectedYear = new EventEmitter<Date>();
+  @Input() response = signal<CommonSuccessResponse<any[]>>({
+    data: [],
+    statusCode: 500,
+    success: false,
+  });
+  _response = computed(() => this.response());
+  currentYear = new Date();
+  maxDate = new Date();
   maxValue = 0;
   data: any;
   options: any;
@@ -44,28 +50,13 @@ export class BarchartComponent implements OnInit {
     'Nov',
     'Dec',
   ];
-  dataset = [
-    {
-      label: 'Urinalysis',
-      backgroundColor: this.documentStyle.getPropertyValue('--blue-500'),
-      borderColor: this.documentStyle.getPropertyValue('--blue-400'),
-      data: [65, 59, 80, 81, 56, 55, 40],
-    },
-    {
-      label: 'Chemistry',
-      backgroundColor: this.documentStyle.getPropertyValue('--blue-700'),
-      borderColor: this.documentStyle.getPropertyValue('--blue-600'),
-      data: [28, 48, 40, 19, 86, 27, 90],
-    },
-    {
-      label: 'Hematology',
-      backgroundColor: this.documentStyle.getPropertyValue('--teal-600'),
-      borderColor: this.documentStyle.getPropertyValue('--teal-500'),
-      data: [38, 28, 54, 39, 36, 87, 60],
-    },
-  ];
+  dataset: any = [];
 
-  constructor(private dashboardService: DashboardService) {}
+  constructor() {
+    effect(() => {
+      this.onLoadChartData();
+    });
+  }
 
   getBackgroundColor(label: string) {
     switch (label) {
@@ -89,34 +80,44 @@ export class BarchartComponent implements OnInit {
     }
   }
 
+  onSelectYear() {
+    this.selectedYear.emit(this.currentYear);
+  }
+
   onLoadChartData() {
-    this.dashboardService.generateLaboratoryChartData().subscribe({
-      next: (response: any) => {
-        const data = response?.data || [];
-        const dataset = data.map((item: any) => ({
-          label: item.label,
-          backgroundColor: this.documentStyle.getPropertyValue(
-            this.getBackgroundColor(item.label)
-          ),
-          borderColor: this.documentStyle.getPropertyValue(
-            this.getBorderColor(item.label)
-          ),
-          data: item.data,
-        }));
-        this.data = {
-          labels: this.labels,
-          datasets: dataset,
-        };
-      },
-      error: (err) => {
-        throw new Error(err);
-      },
-    });
+    this.dataset = this._response().data.map((item: any) => ({
+      label: item.label,
+      backgroundColor: this.documentStyle.getPropertyValue(
+        this.getBackgroundColor(item.label)
+      ),
+      borderColor: this.documentStyle.getPropertyValue(
+        this.getBorderColor(item.label)
+      ),
+      data: item.data,
+    }));
+    this.data = {
+      labels: this.labels,
+      datasets: this.dataset,
+    };
+    this.onLoadOptions();
   }
 
   ngOnInit(): void {
     this.onLoadChartData();
-    this.onLoadOptions();
+  }
+
+  getMax(): number[] {
+    return this.dataset.map((item: any, index: any) => {
+      let _max = 0;
+      if (index == 0) {
+        _max = Math.max(...item.data);
+      } else if (index == 1 && _max < Math.max(...item.data)) {
+        _max = Math.max(...item.data);
+      } else if (index == 2 && _max < Math.max(...item.data)) {
+        _max = Math.max(...item.data);
+      }
+      return _max;
+    });
   }
 
   onLoadOptions() {
@@ -149,7 +150,7 @@ export class BarchartComponent implements OnInit {
           },
         },
         y: {
-          max: this.max + 1,
+          max: Math.max(...this.getMax()) ?? Math.max(...this.getMax()) + 1,
           suggestedMin: 0,
           beginAtZero: true,
           ticks: {

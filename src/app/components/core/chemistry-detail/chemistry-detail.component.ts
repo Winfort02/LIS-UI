@@ -10,6 +10,7 @@ import { ChemistryService } from '../../../services/chemistry.service';
 import { InputTextModule } from 'primeng/inputtext';
 import { CommonSuccessResponse } from '../../../models/response.model';
 import { PdfViewerComponent } from '../../shared/pdf-viewer/pdf-viewer.component';
+import { TokenService } from '../../../services/token.service';
 
 @Component({
   selector: 'app-chemistry-detail',
@@ -17,7 +18,7 @@ import { PdfViewerComponent } from '../../shared/pdf-viewer/pdf-viewer.component
   imports: [FeatureDetailHeaderComponent, ButtonModule, InputTextModule],
   templateUrl: './chemistry-detail.component.html',
   styleUrl: './chemistry-detail.component.scss',
-  providers: [ChemistryService, DialogService],
+  providers: [ChemistryService, DialogService, TokenService],
 })
 export class ChemistryDetailComponent implements OnInit, OnDestroy {
   paramsId: number = 0;
@@ -26,12 +27,14 @@ export class ChemistryDetailComponent implements OnInit, OnDestroy {
   isLoaded = false;
   chemistrySubscription!: Subscription;
   chemistry = new Chemistry();
+  isAdmin = this.tokenService.isAdmin();
   private dialogRef!: DynamicDialogRef;
 
   constructor(
     private route: ActivatedRoute,
     private chemistryService: ChemistryService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private tokenService: TokenService
   ) {}
 
   ngOnInit(): void {

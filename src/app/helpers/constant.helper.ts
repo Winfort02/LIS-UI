@@ -1,4 +1,5 @@
 import {
+  AdjustmentType,
   ChemicalTestDropdown,
   STOCK_SELECTION_MODE,
   TestType,
@@ -264,3 +265,16 @@ export const COMMON_CHEMICAL_TEST: IDropdownOption[] = [
     value: ChemicalTestDropdown.MANY,
   },
 ];
+
+export const ADJUSTMENT_DROPDOWN: IDropdownOption[] = [
+  {
+    label: 'Stock out',
+    value: AdjustmentType.STOCK_OUT,
+  },
+  {
+    label: 'Stock in',
+    value: AdjustmentType.STOCK_IN,
+  },
+];
+
+export const DEFAULT_PASSWORD = 'Default123';

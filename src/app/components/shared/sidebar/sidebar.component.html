@@ -12,7 +12,7 @@
         class="text-sm uppercase text-center text-500 font-bold"
         style="letter-spacing: 1.5px"
       >
-        User
+        {{ user?.role == "ADMIN" ? "ADMIN" : "STAFF" }}
       </span>
       <!-- <span class="surface-400 w-full h-1rem"></span> -->
     </a>

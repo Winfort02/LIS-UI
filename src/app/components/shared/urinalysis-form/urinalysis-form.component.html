@@ -26,7 +26,7 @@
       label="Cancel"
       (click)="urinalysisForm.disable()"
     ></button>
-    } @if (urinalysisForm.disabled) {
+    } @if (urinalysisForm.disabled && isAdmin) {
     <button
       type="submit"
       pButton

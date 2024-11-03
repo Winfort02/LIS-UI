@@ -12,13 +12,25 @@ export class DashboardService {
     return this.coreService.httpGet(`${Endpoints.DASHBOARD}`);
   }
 
-  generateLaboratoryChartData() {
+  generateLaboratoryChartData(date: Date) {
     return this.coreService.httpGet(
-      `${Endpoints.DASHBOARD}/laboratory-chart-data`
+      `${Endpoints.DASHBOARD}/laboratory-chart-data?currentDate=${date}`
     );
   }
 
   generateStockChartData() {
     return this.coreService.httpGet(`${Endpoints.DASHBOARD}/stock-chart-data`);
+  }
+
+  getLatestTransaction() {
+    return this.coreService.httpGet(
+      `${Endpoints.DASHBOARD}/latest-transaction`
+    );
+  }
+
+  getLowQuantityApparatus() {
+    return this.coreService.httpGet(
+      `${Endpoints.DASHBOARD}/low-quanitity-apparatus`
+    );
   }
 }

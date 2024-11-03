@@ -120,7 +120,9 @@ export class ApparatusComponent implements OnInit, OnDestroy {
       });
   }
 
-  onSearch(event: string) {}
+  onSearch(event: string) {
+    this.keywords.set(event);
+  }
 
   onPaginatePage(event: string) {}
 

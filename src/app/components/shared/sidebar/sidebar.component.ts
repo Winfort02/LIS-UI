@@ -17,6 +17,7 @@ import { CommonService } from '../../../services/common.service';
 import { ApplicationUrl, Icon, LocalKeys } from '../../../enums/common.enum';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ChangePasswordComponent } from '../../core/change-password/change-password.component';
+import { TokenService } from '../../../services/token.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -44,7 +45,7 @@ import { ChangePasswordComponent } from '../../core/change-password/change-passw
       transition('* <=> *', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')),
     ]),
   ],
-  providers: [DialogService],
+  providers: [DialogService, TokenService],
 })
 export class SidebarComponent implements OnInit {
   @Input() active!: boolean;
@@ -53,6 +54,7 @@ export class SidebarComponent implements OnInit {
   sideItems: MenuItem[] = [];
   scrollable = true;
   commonHelper = new CommonHelper<User>();
+  user: User | null = this.tokenService.decodeAccessToken();
 
   dialogRef!: DynamicDialogRef;
   constructor(
@@ -60,7 +62,8 @@ export class SidebarComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private spinner: NgxSpinnerService,
     private commonService: CommonService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private tokenService: TokenService
   ) {}
 
   toggleSideMenu(event: Event, name: string) {
@@ -91,31 +94,33 @@ export class SidebarComponent implements OnInit {
         label: 'Dashboard',
         icon: Icon.DASHBOARD,
         routerLink: ApplicationUrl.APPLICATION,
+        visible: this.tokenService.isAdmin(),
       },
       {
-        label: 'Master Files',
-        items: [
-          {
-            label: 'Users',
-            icon: Icon.USER,
-            routerLink: ApplicationUrl.USERS,
-          },
-          {
-            label: 'Patients',
-            icon: Icon.PATIENT,
-            routerLink: ApplicationUrl.PATIENTS,
-          },
-          {
-            label: 'Apparatus',
-            icon: Icon.TOOL,
-            routerLink: ApplicationUrl.APPARATUS,
-          },
-          {
-            label: 'Tests',
-            icon: Icon.TEST,
-            routerLink: ApplicationUrl.TEST,
-          },
-        ],
+        label: 'Users',
+        icon: Icon.USER,
+        routerLink: ApplicationUrl.USERS,
+        visible: this.tokenService.isAdmin(),
+      },
+      {
+        label: 'Patients',
+        icon: Icon.PATIENT,
+        routerLink: ApplicationUrl.PATIENTS,
+      },
+      {
+        label: 'Apparatus',
+        icon: Icon.TOOL,
+        routerLink: ApplicationUrl.APPARATUS,
+      },
+      {
+        label: 'Tests',
+        icon: Icon.TEST,
+        routerLink: ApplicationUrl.TEST,
+      },
+      {
+        label: 'Stocks',
+        icon: Icon.STOCK,
+        routerLink: ApplicationUrl.STOCK,
       },
       {
         label: 'Laboratory',
@@ -141,11 +146,6 @@ export class SidebarComponent implements OnInit {
         label: 'Inventory',
         items: [
           {
-            label: 'Stocks',
-            icon: Icon.STOCK,
-            routerLink: ApplicationUrl.STOCK,
-          },
-          {
             label: 'Incoming',
             icon: Icon.STOCK_ITEM,
             routerLink: `${ApplicationUrl.STOCK}/${ApplicationUrl.STOCK_IN_LIST}`,
@@ -159,6 +159,11 @@ export class SidebarComponent implements OnInit {
             label: 'Expired',
             icon: Icon.EXPIRED,
             routerLink: `${ApplicationUrl.EXPIRED}`,
+          },
+          {
+            label: 'Adjustment',
+            icon: Icon.TOOL,
+            routerLink: `${ApplicationUrl.ADJUSTMENT}`,
           },
         ],
       },

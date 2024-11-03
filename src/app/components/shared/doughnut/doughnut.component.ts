@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
-import { DashboardService } from '../../../services/dashboard.service';
 
 @Component({
   selector: 'app-doughnut',
@@ -8,13 +7,19 @@ import { DashboardService } from '../../../services/dashboard.service';
   imports: [ChartModule],
   templateUrl: './doughnut.component.html',
   styleUrl: './doughnut.component.scss',
-  providers: [DashboardService],
+  providers: [],
 })
 export class DoughnutComponent implements OnInit {
+  @Input() set _chartData(value: number[]) {
+    this.chartData = value;
+  }
+  get _chartData() {
+    return this.chartData;
+  }
+  chartData = [0, 0, 0];
   data: any;
   options: any;
   documentStyle = getComputedStyle(document.documentElement);
-  chartData = [0, 0, 0];
   backgroundColor = [
     this.documentStyle.getPropertyValue('--teal-500'),
     this.documentStyle.getPropertyValue('--blue-700'),
@@ -28,7 +33,6 @@ export class DoughnutComponent implements OnInit {
     this.documentStyle.getPropertyValue('--blue-400'),
   ];
   labels = ['Incoming', 'Outgoing', 'Expired', 'Adjustment'];
-  constructor(private dashboardService: DashboardService) {}
 
   ngOnInit(): void {
     this.onLoadData();
@@ -36,24 +40,16 @@ export class DoughnutComponent implements OnInit {
   }
 
   onLoadData() {
-    this.dashboardService.generateStockChartData().subscribe({
-      next: (response: any) => {
-        this.chartData = response.data;
-        this.data = {
-          labels: this.labels,
-          datasets: [
-            {
-              data: this.chartData,
-              backgroundColor: this.backgroundColor,
-              hoverBackgroundColor: this.hoverBackgroundColor,
-            },
-          ],
-        };
-      },
-      error: (err) => {
-        throw new Error(err);
-      },
-    });
+    this.data = {
+      labels: this.labels,
+      datasets: [
+        {
+          data: this._chartData,
+          backgroundColor: this.backgroundColor,
+          hoverBackgroundColor: this.hoverBackgroundColor,
+        },
+      ],
+    };
   }
 
   onLoadOptions() {

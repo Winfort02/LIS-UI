@@ -2,7 +2,6 @@ import { DatePipe } from '@angular/common';
 import { computed, Injectable, Signal, signal } from '@angular/core';
 import { LocalKeys } from '../enums/common.enum';
 import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({

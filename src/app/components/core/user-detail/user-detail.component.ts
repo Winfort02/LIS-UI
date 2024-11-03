@@ -12,7 +12,11 @@ import { User } from '../../../models/user.model';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CustomResponse } from '../../../models/response.model';
 import { MessagesModule } from 'primeng/messages';
-import { FIELD_VALIDATIONS } from '../../../helpers/constant.helper';
+import {
+  DEFAULT_PASSWORD,
+  FIELD_VALIDATIONS,
+} from '../../../helpers/constant.helper';
+import { TokenService } from '../../../services/token.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -20,18 +24,20 @@ import { FIELD_VALIDATIONS } from '../../../helpers/constant.helper';
   imports: [ReactiveFormsModule, InputTextModule, ButtonModule, MessagesModule],
   templateUrl: './user-detail.component.html',
   styleUrl: './user-detail.component.scss',
-  providers: [UserServiceService],
+  providers: [UserServiceService, TokenService],
 })
 export class UserDetailComponent implements OnInit {
   userForm!: FormGroup;
   response: CustomResponse<User> = new CustomResponse(new User(), []);
   isEditMode: boolean = false;
+  isAdmin = this.tokenService.isAdmin();
 
   constructor(
     private builder: FormBuilder,
     private userService: UserServiceService,
     private dialogRef: DynamicDialogRef,
-    private dialogConfig: DynamicDialogConfig
+    private dialogConfig: DynamicDialogConfig,
+    private tokenService: TokenService
   ) {}
 
   loadUserForm() {
@@ -133,6 +139,26 @@ export class UserDetailComponent implements OnInit {
       } else {
         this.onUpdateUser(user);
       }
+    }
+  }
+
+  onResetPassword() {
+    if (this.isAdmin && this.isEditMode) {
+      const user = this.dialogConfig?.data || new User();
+      user.password = DEFAULT_PASSWORD;
+      this.userService.ResetPassword(user).subscribe({
+        next: (response: any) => {
+          this.response = new CustomResponse<User>(response, [
+            { severity: 'info', summary: 'Password was reseted successfully' },
+          ]);
+        },
+        error: (errors) => {
+          this.response = new CustomResponse<User>(errors, [
+            { severity: 'error', summary: errors.error.message },
+          ]);
+        },
+        complete: () => this.dialogRef.close(this.response),
+      });
     }
   }
 }

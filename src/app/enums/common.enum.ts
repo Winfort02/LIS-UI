@@ -63,6 +63,8 @@ export enum Endpoints {
   CHANGE_PASSWORD = 'auth/change-password',
   EXPIRED = 'stock-expired',
   DASHBOARD = 'dashboard',
+  RESET_PASSWORD = 'auth/reset-password',
+  ADJUSTMENT = 'adjustment',
 }
 
 export enum StockMode {
@@ -95,6 +97,7 @@ export enum ApplicationUrl {
   STOCK_OUT_LIST = 'stock-out-list',
   STOCK_IN_LIST = 'stock-in-list',
   EXPIRED = 'expire-item',
+  ADJUSTMENT = 'adjustment',
 }
 
 export enum ButtonColor {
@@ -146,4 +149,14 @@ export enum Unit {
 export enum STOCK_SELECTION_MODE {
   OUT = 'STOCK_OUT',
   IN = 'STOCK_IN',
+}
+
+export enum UserType {
+  ADMIN = 'ADMIN',
+  USER = 'USER',
+}
+
+export enum AdjustmentType {
+  STOCK_OUT = 'DECREASE',
+  STOCK_IN = 'INCREASE',
 }

@@ -61,7 +61,8 @@ export class ApparatusQueryComponent implements OnInit {
       return false;
     }
     if (
-      this.selectedApparatus.quantity <= 0 &&
+      (this.selectedApparatus.quantity <= 0 ||
+        this.selectedApparatus.quantity < this.quantity) &&
       this.dialogConfig.data === STOCK_SELECTION_MODE.OUT
     ) {
       this.messages = [
