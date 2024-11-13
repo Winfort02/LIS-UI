@@ -72,6 +72,13 @@ export class CoreServiceService {
       this.generatePDFOption(this.commonService.accessToken())
     );
   }
+  httpPostReport(endpoint: string, data: any) {
+    return this.http.post(
+      `${API_URL}/${endpoint}`,
+      data,
+      this.generatePDFOption(this.commonService.accessToken())
+    );
+  }
 
   httpGet(endpoint: string) {
     return this.http

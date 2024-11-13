@@ -7,6 +7,7 @@ import { CommonSuccessResponse } from '../models/response.model';
 import { Login } from '../models/login.model';
 import { StrategyMapping } from '../strategy/strategy-mapping.model';
 import { CommonPropertyMapping } from '../interfaces/CommonMapping';
+import { TestReport } from '../models/test-report.model';
 
 @Injectable({
   providedIn: 'root',
@@ -145,6 +146,13 @@ export class GenericService<T extends CommonPropertyMapping> {
     this.spinner.show();
     return this.coreService
       .httpGetReport(url)
+      .pipe(finalize(() => this.spinner.hide()));
+  }
+
+  generateTestReportPDF(url: string, data: TestReport) {
+    this.spinner.show();
+    return this.coreService
+      .httpPostReport(url, data)
       .pipe(finalize(() => this.spinner.hide()));
   }
 

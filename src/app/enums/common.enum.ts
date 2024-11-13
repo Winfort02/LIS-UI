@@ -36,6 +36,7 @@ export enum Icon {
   STOCK = 'pi pi-box',
   STOCK_ITEM = 'pi pi-book',
   EXPIRED = 'pi pi-ban',
+  REPORT = 'pi pi-print',
 }
 
 export enum Severity {
@@ -65,6 +66,7 @@ export enum Endpoints {
   DASHBOARD = 'dashboard',
   RESET_PASSWORD = 'auth/reset-password',
   ADJUSTMENT = 'adjustment',
+  TEST_REPORT = 'test-report',
 }
 
 export enum StockMode {
@@ -98,6 +100,7 @@ export enum ApplicationUrl {
   STOCK_IN_LIST = 'stock-in-list',
   EXPIRED = 'expire-item',
   ADJUSTMENT = 'adjustment',
+  LABORATORY_RESULT = 'laboratory-result',
 }
 
 export enum ButtonColor {

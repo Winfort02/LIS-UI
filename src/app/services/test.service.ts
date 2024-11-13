@@ -5,6 +5,7 @@ import { Test } from '../models/test.model';
 import { Endpoints } from '../enums/common.enum';
 import { map } from 'rxjs/operators';
 import { Pagination } from '../models/pagination.model';
+import { TestReport } from '../models/test-report.model';
 
 @Injectable({
   providedIn: 'root',
@@ -101,5 +102,12 @@ export class TestService {
 
   getTestList() {
     return this.genericService.getAll(`${Endpoints.TEST}/test/list`);
+  }
+
+  generateTestReport(data: TestReport) {
+    return this.genericService.generateTestReportPDF(
+      `${Endpoints.REPORTS}/${Endpoints.TEST_REPORT}`,
+      data
+    );
   }
 }

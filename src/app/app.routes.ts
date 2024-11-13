@@ -192,6 +192,13 @@ export const routes: Routes = [
             (c) => c.AdjustmentComponent
           ),
       },
+      {
+        path: `${ApplicationUrl.LABORATORY_RESULT}`,
+        loadComponent: () =>
+          import(
+            './components/core/laboratory-report/laboratory-report.component'
+          ).then((c) => c.LaboratoryReportComponent),
+      },
     ],
   },
   {

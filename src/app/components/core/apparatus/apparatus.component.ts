@@ -12,7 +12,11 @@ import { FeatureTableComponent } from '../../shared/feature-table/feature-table.
 import { Apparatus } from '../../../models/apparatus.model';
 import { ITableColumn } from '../../../interfaces/table-column.interface';
 import { Pagination } from '../../../models/pagination.model';
-import { ActionButtonType, ButtonLabel } from '../../../enums/common.enum';
+import {
+  ActionButtonType,
+  ButtonLabel,
+  EPagination,
+} from '../../../enums/common.enum';
 import { ApparatusService } from '../../../services/apparatus.service';
 import { Subscription } from 'rxjs';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -124,9 +128,20 @@ export class ApparatusComponent implements OnInit, OnDestroy {
     this.keywords.set(event);
   }
 
-  onPaginatePage(event: string) {}
+  onPaginatePage(event: string) {
+    if (event === EPagination.first)
+      this.getAllApparatus(this.pagination().firstPage);
+    if (event === EPagination.next)
+      this.getAllApparatus(this.pagination().nextPage);
+    if (event === EPagination.prev)
+      this.getAllApparatus(this.pagination().prevPage);
+    if (event === EPagination.last)
+      this.getAllApparatus(this.pagination().lastPage);
+  }
 
-  onPageChange(event: number) {}
+  onPageChange(event: number) {
+    this.selectedPage.set(event);
+  }
 
   onClickActionBtn(event: any) {
     if (event.type === ActionButtonType.edit) {

@@ -1,0 +1,71 @@
+<div
+  class="col-12 flex flex-column justify-content-start align-items-center w-full"
+>
+  <div class="col-12">
+    <app-feature-detail-header title="Laboratory Report">
+      <button
+        type="button"
+        pButton
+        class="{{ editBtnSeverity }} custom-button"
+        label="Print"
+        (click)="print()"
+        [disabled]="laboratoryReportForm.invalid"
+      ></button>
+    </app-feature-detail-header>
+  </div>
+  <div class="col-12 h-1rem surface-200 w-full"></div>
+
+  <div class="col-12 w-full">
+    <form
+      class="col-12 flex jutify-content-center align-items-center flex-wrap"
+      [formGroup]="laboratoryReportForm"
+    >
+      <div class="col-3 px-2">
+        <p class="px-2 text-500 uppercase">Patient Name</p>
+        <p-dropdown
+          [options]="options"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select Patient"
+          styleClass="w-full"
+          (onChange)="onSelectPatient($event)"
+          [filter]="true"
+          filterBy="label"
+          formControlName="patient_id"
+        />
+      </div>
+      <div class="col-3 px-2">
+        <p class="px-2 text-500 uppercase">Select Test Type</p>
+        <p-dropdown
+          [options]="testTypeOptions"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select Test Type"
+          styleClass="w-full"
+          formControlName="type"
+        />
+      </div>
+      <div class="col-3 px-2">
+        <p class="px-2 text-500 uppercase">Select Date (FROM)</p>
+        <p-calendar
+          styleClass="w-full"
+          dateFormat="dd-mm-yy"
+          placeholder="Please select date from"
+          [maxDate]="maxDate"
+          formControlName="dateFrom"
+        />
+      </div>
+      <div class="col-3 px-2">
+        <p class="px-2 text-500 uppercase">Select Date (TO)</p>
+        <p-calendar
+          styleClass="w-full"
+          dateFormat="dd-mm-yy"
+          placeholder="Please select date to"
+          [maxDate]="maxDate"
+          formControlName="dateTo"
+        />
+      </div>
+    </form>
+  </div>
+  <div class="col-12 h-1rem surface-200 w-full mt-2"></div>
+</div>
