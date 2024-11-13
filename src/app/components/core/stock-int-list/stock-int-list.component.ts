@@ -3,7 +3,7 @@ import { StockIn } from '../../../models/stock.model';
 import { ITableColumn } from '../../../interfaces/table-column.interface';
 import { Message } from 'primeng/api';
 import { Pagination } from '../../../models/pagination.model';
-import { ButtonLabel } from '../../../enums/common.enum';
+import { ButtonLabel, EPagination } from '../../../enums/common.enum';
 import { Subscription } from 'rxjs';
 import { StockService } from '../../../services/stock.service';
 import { SearchComponent } from '../../shared/search/search.component';
@@ -77,8 +77,21 @@ export class StockIntListComponent implements OnInit {
       });
   }
 
-  onSearch(event: string) {}
-  onPaginatePage(event: string) {}
-  onPageChange(event: number) {}
+  onSearch(event: string) {
+    this.keywords.set(event);
+  }
+  onPaginatePage(event: string) {
+    if (event === EPagination.first)
+      this.getStockOutList(this.pagination().firstPage);
+    if (event === EPagination.next)
+      this.getStockOutList(this.pagination().nextPage);
+    if (event === EPagination.prev)
+      this.getStockOutList(this.pagination().prevPage);
+    if (event === EPagination.last)
+      this.getStockOutList(this.pagination().lastPage);
+  }
+  onPageChange(event: number) {
+    this.selectedPage.set(event);
+  }
   onClickActionBtn(event: any) {}
 }

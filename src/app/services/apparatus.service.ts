@@ -32,7 +32,7 @@ export class ApparatusService {
           const data = meta.map((apparatus: Apparatus) => ({
             ...apparatus,
             availability: apparatus.quantity ? 'Available' : 'Out of stock',
-            isExpired: apparatus.status ? 'Active' : 'Expired',
+            isExpired: apparatus.status ? 'Active' : 'Inactive',
           }));
           return {
             currentPage: response.currentPage,

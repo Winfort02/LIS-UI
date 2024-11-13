@@ -7,7 +7,7 @@ import { Message } from 'primeng/api';
 import { StockOut } from '../../../models/stock.model';
 import { ITableColumn } from '../../../interfaces/table-column.interface';
 import { Pagination } from '../../../models/pagination.model';
-import { ButtonLabel } from '../../../enums/common.enum';
+import { ButtonLabel, EPagination } from '../../../enums/common.enum';
 import { StockService } from '../../../services/stock.service';
 import { Subscription } from 'rxjs';
 
@@ -81,7 +81,18 @@ export class StockOutListComponent implements OnInit {
   onSearch(event: string) {
     this.keywords.set(event);
   }
-  onPaginatePage(event: string) {}
-  onPageChange(event: number) {}
+  onPaginatePage(event: string) {
+    if (event === EPagination.first)
+      this.getStockOutList(this.pagination().firstPage);
+    if (event === EPagination.next)
+      this.getStockOutList(this.pagination().nextPage);
+    if (event === EPagination.prev)
+      this.getStockOutList(this.pagination().prevPage);
+    if (event === EPagination.last)
+      this.getStockOutList(this.pagination().lastPage);
+  }
+  onPageChange(event: number) {
+    this.selectedPage.set(event);
+  }
   onClickActionBtn(event: any) {}
 }
