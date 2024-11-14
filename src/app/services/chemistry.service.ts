@@ -32,7 +32,9 @@ export class ChemistryService {
           const data = meta.map((chemistry: Chemistry) => ({
             ...chemistry,
             transaction_number: chemistry.test?.transaction_number,
+            patientName: `${chemistry.test?.patient?.first_name} ${chemistry.test?.patient?.middle_name} ${chemistry.test?.patient?.last_name}`,
           }));
+          console.log(data);
           return {
             currentPage: response.currentPage,
             nextPage: response.nextPage,

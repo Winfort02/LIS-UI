@@ -36,6 +36,7 @@ export class UrinalysisService {
           const data = meta.map((urinalysis: Urinalysis) => ({
             ...urinalysis,
             transaction_number: urinalysis.test?.transaction_number,
+            patientName: `${urinalysis.test?.patient?.first_name} ${urinalysis.test?.patient?.middle_name} ${urinalysis.test?.patient?.last_name}`,
           }));
           return {
             currentPage: response.currentPage,

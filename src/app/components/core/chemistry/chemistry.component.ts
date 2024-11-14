@@ -86,7 +86,8 @@ export class ChemistryComponent implements OnInit, OnDestroy {
   onLoadColums() {
     this.cols.set([
       { field: 'transaction_number', header: 'Transaction No' },
-      { field: 'physician', header: 'Physician' },
+      { field: 'patientName', header: 'Patient Name' },
+      { field: 'physician', header: 'Physician Name' },
       { field: 'lab_no', header: 'Lab Number' },
       { field: 'remarks', header: 'Remarks' },
       { field: 'createdAt', header: 'Date' },

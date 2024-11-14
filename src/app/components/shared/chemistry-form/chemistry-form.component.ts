@@ -297,7 +297,7 @@ export class ChemistryFormComponent implements OnInit, OnDestroy {
 
   get ionizeCalciumConversion(): number | null {
     const value = this.ElectrolyteForm.value?.ionized_calcium || 0;
-    return this.convertValue(value, 0.25);
+    return this.convertValue(value, 1);
   }
 
   get calciumConversion(): number | null {

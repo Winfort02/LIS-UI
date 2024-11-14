@@ -75,6 +75,7 @@ export class UrinalysisComponent implements OnInit {
   onLoadColums() {
     this.cols.set([
       { field: 'transaction_number', header: 'Transaction No' },
+      { field: 'patientName', header: 'Patient Name' },
       { field: 'physician', header: 'Physician' },
       { field: 'lab_no', header: 'Lab Number' },
       { field: 'remarks', header: 'Remarks' },

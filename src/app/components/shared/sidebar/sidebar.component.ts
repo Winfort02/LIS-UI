@@ -178,14 +178,9 @@ export class SidebarComponent implements OnInit {
         ],
       },
       {
-        label: 'Reports',
-        items: [
-          {
-            label: 'Laboratory',
-            icon: Icon.REPORT,
-            routerLink: ApplicationUrl.LABORATORY_RESULT,
-          },
-        ],
+        label: 'Laboratory Report',
+        icon: Icon.REPORT,
+        routerLink: ApplicationUrl.LABORATORY_RESULT,
       },
       {
         label: 'Sign Out',

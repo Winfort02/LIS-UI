@@ -79,6 +79,7 @@ export class ExpiredItemsComponent implements OnInit {
       this.dialogRef.onClose.subscribe((res: CustomResponse<ExpiredItems>) => {
         if (res && res?.message) {
           this.messages = res?.message || [];
+          this.getAllExpiredItems(this.pagination().currentPage);
         }
       });
     }
